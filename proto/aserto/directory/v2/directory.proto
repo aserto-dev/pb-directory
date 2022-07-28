@@ -1,0 +1,360 @@
+syntax = "proto3";
+
+package aserto.directory.v2;
+
+// option go_package = "github.com/aserto-dev/directory/api/aserto/directory/v2;directory"; 
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/rpc/status.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "aserto/common/info/v1/info.proto";
+
+import "aserto/directory/v2/object.proto";
+import "aserto/directory/v2/relation.proto";
+
+// OpenAPI annotations.
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    schemes: HTTPS;
+    consumes: "application/json";
+    produces: "application/json";
+    security_definitions: {}
+    security: {}
+};
+
+service Directory {
+    rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
+    rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
+    rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
+    rpc ListObjectTypes(ListObjectTypesRequest) returns (stream ListObjectTypesResponse) {};
+
+    rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
+    rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
+    rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
+    rpc ListRelationTypes(ListRelationTypesRequest) returns (stream ListRelationTypesResponse) {};
+
+    rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
+    rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
+    rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
+    rpc ListPermissions(ListPermissionsRequest) returns (stream ListPermissionsResponse) {};
+
+    rpc GetRelationTypePermission(GetRelationTypePermissionRequest) returns (GetRelationTypePermissionResponse) {};
+    rpc SetRelationTypePermission(SetRelationTypePermissionRequest) returns (SetRelationTypePermissionResponse) {};
+    rpc DeleteRelationTypePermission(DeleteRelationTypePermissionRequest) returns (DeleteRelationTypePermissionResponse) {};
+    rpc ListRelationTypePermissions(ListRelationTypePermissionsRequest) returns (stream ListRelationTypePermissionsResponse) {};
+
+    rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
+    rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
+    rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {};
+    rpc ListObjects(ListObjectsRequest) returns (stream ListObjectsResponse) {};
+
+    rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {};
+    rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {};
+    rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {};
+    rpc ListRelations(ListRelationsRequest) returns (stream ListRelationsResponse) {};
+
+    rpc Loader(stream LoaderRequest) returns (stream LoaderResponse) {};
+
+    rpc ListObjectGraph(ListObjectGraphRequest) returns (ListObjectGraphResponse) {};
+
+    rpc Check(CheckRequest) returns (CheckResponse) {};
+
+    rpc Info(InfoRequest) returns (InfoResponse) {
+        option (google.api.http) = {
+            get: "/api/v2/directory/info"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "info"
+            summary: "Directory Information API"
+            description: "Directory Information API."
+            operation_id: "directory.info"
+            deprecated: false
+            security: {}
+        };
+    }
+}
+
+enum Opcode {
+    OPCODE_UNKNOWN = 0;
+    OPCODE_SET     = 1;
+    OPCODE_DELETE  = 2;
+}
+
+message InfoRequest {
+}
+
+message InfoResponse {
+    aserto.common.info.v1.BuildInfo build = 3;
+}
+
+message LoaderRequest {
+    Opcode op_code = 1;
+    oneof msg_oneof {
+        Object object = 2;
+        ObjectType object_type = 3;
+        Relation relation = 4;
+        RelationType relation_type = 5;
+        Permission permission = 6;
+        RelationTypePermission relation_type_permission = 7;
+    }
+}
+
+message LoaderResponse {
+    google.rpc.Status error = 1;
+}
+
+message GetObjectTypeRequest {
+    oneof param {
+        int32 id = 1; // object type ID
+        string name = 2; // object type name (unique)
+    }
+}
+
+message GetObjectTypeResponse {
+    repeated ObjectType results = 1;
+}
+
+message SetObjectTypeRequest {
+    ObjectType object_type = 1;
+}
+
+message SetObjectTypeResponse {
+    repeated ObjectType results = 1;
+}
+
+message DeleteObjectTypeRequest {
+    oneof param {
+        int32 id = 1; // object type ID
+        string name = 2; // object type name (unique)
+    }
+}
+
+message DeleteObjectTypeResponse {
+    google.protobuf.Empty result = 1;
+}
+
+message ListObjectTypesRequest {
+}
+
+message ListObjectTypesResponse {
+    ObjectType result = 1;
+}
+
+message GetRelationTypeRequest {
+    oneof param {
+        int32 id = 1;               // relation type ID
+        RelationTypeKey key = 3;    // object_type+name
+    }
+}
+
+message GetRelationTypeResponse {
+    repeated RelationType results = 1;
+}
+
+message SetRelationTypeRequest {
+    RelationType relation_type = 1;
+}
+
+message SetRelationTypeResponse {
+    repeated RelationType results = 1;
+}
+
+message DeleteRelationTypeRequest {
+    oneof param {
+        int32 id = 1; // relation type ID
+        string name = 2; // relation type name (unique)
+    }
+}
+
+message DeleteRelationTypeResponse {
+    google.protobuf.Empty result = 1;
+}
+
+message ListRelationTypesRequest {
+    optional int32 object_type   = 1;   
+}
+
+message ListRelationTypesResponse {
+    RelationType result = 1;
+}
+
+message GetObjectRequest {
+    oneof param {
+        string id = 1;      // ID (uuid)
+        ObjectKey key = 4;  // external key/ID (case-sensistive)
+    }
+}
+
+message GetObjectResponse {
+    repeated Object results = 1;
+}
+
+message SetObjectRequest {
+    Object object = 1;
+}
+
+message SetObjectResponse {
+    repeated Object results = 1;
+}
+
+message DeleteObjectRequest {
+    oneof param {
+        string id = 1;      // ID (uuid)
+        ObjectKey key = 4;  // external key/ID (case-sensistive)
+    }
+}
+
+message DeleteObjectResponse {
+    google.protobuf.Empty result = 1;
+}
+
+message ListObjectsRequest {
+    optional int32 type     = 1; // object tyoe filter (OPTIONAL)
+}
+
+message ListObjectsResponse {
+    Object result = 1;
+}
+
+message GetRelationRequest {
+    int32 source_type       = 1; // source object type ID (OPTIONAL)
+    string source_id        = 2; // source object ID (UUID)
+    int32 relation          = 3; // relation type ID
+    int32 target_type       = 4; // target object type ID (OPTIONAL)
+    string target_id        = 5; // target object ID (UUID)
+}
+
+message GetRelationResponse {
+    repeated Relation results = 1;
+}
+
+message SetRelationRequest {
+    Relation relation = 1;
+}
+
+message SetRelationResponse {
+    repeated Relation results = 1;
+}
+
+message DeleteRelationRequest {
+    int32 source_type       = 1; // source object type ID (OPTIONAL)
+    string source_id        = 2; // source object ID (UUID)
+    int32 relation          = 3; // relation type ID
+    int32 target_type       = 4; // target object type ID (OPTIONAL)
+    string target_id        = 5; // target object ID (UUID)
+}
+
+message DeleteRelationResponse {
+    google.protobuf.Empty result = 1;
+}
+
+message ListRelationsRequest {
+    int32 source_type       = 1; // source object type ID
+    string source_id        = 2; // source object ID (UUID)
+    int32 relation          = 3; // relation type ID
+    int32 target_type       = 4; // target object type ID
+    string target_id        = 5; // target object ID (UUID)
+}
+
+message ListRelationsResponse {
+    Relation result = 1;
+}
+
+message GetPermissionRequest {
+    oneof param {
+        string id          = 1; // permission ID (UUID)
+        string permission  = 2; // permission key (unique)
+    }
+}
+
+message GetPermissionResponse {
+    repeated Permission results = 1;
+}
+
+message SetPermissionRequest {
+    Permission permission = 1;
+}
+
+message SetPermissionResponse {
+    repeated Permission results = 1;
+}
+
+message DeletePermissionRequest {
+    oneof param {
+        string id          = 1; // permission ID (UUID)
+        string permission  = 2; // permission key (unique)
+    }
+}
+
+message DeletePermissionResponse {
+    google.protobuf.Empty result = 1;
+}
+
+message ListPermissionsRequest {
+}
+
+message ListPermissionsResponse {
+    Permission result = 1;
+}
+
+message GetRelationTypePermissionRequest {
+    int32 relation_id = 1;
+    string permission_id = 2;
+}
+
+message GetRelationTypePermissionResponse {
+    repeated RelationTypePermission results = 1;
+}
+
+message SetRelationTypePermissionRequest {
+    RelationTypePermission relation_type_permission = 1;
+}
+
+message SetRelationTypePermissionResponse {
+    repeated RelationTypePermission results = 1;
+}
+
+message DeleteRelationTypePermissionRequest {
+    int32 relation_id = 1;
+    string permission_id = 2;
+}
+
+message DeleteRelationTypePermissionResponse {
+    google.protobuf.Empty result = 1;
+}
+
+message ListRelationTypePermissionsRequest {
+}
+
+message ListRelationTypePermissionsResponse {
+    RelationTypePermission result = 1;
+}
+
+message CheckRequest {
+    string  subject_id              = 1; // target_id (UUID)
+    oneof check {
+        int32 relation_id           = 2; // relation_id (INT32)
+        string permission_id        = 3; // permission_id (UUID)
+    }
+    string  object_id               = 4; // source_id (UUID)
+    bool trace                      = 5; // collect trace information
+}
+
+message CheckResponse {
+    bool check                      = 1; // check result (BOOL)
+    repeated string trace           = 2; // trace for true values
+}
+
+message ListObjectGraphRequest {
+    string  anchor_id               = 1; // anchor ID, source or target (UUID)
+    int32   source_type             = 2; // source object type ID
+    string  source_id               = 3; // source object ID (UUID)
+    int32   relation                = 4; // relation type ID
+    int32   target_type             = 5; // target object type ID
+    string  target_id               = 6; // target object ID (UUID)
+}
+
+message ListObjectGraphResponse {
+    repeated ObjectDependency results = 1;
+}

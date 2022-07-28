@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package aserto.directory.v2;
+
+// option go_package = "github.com/aserto-dev/directory/api/aserto/directory/v2;directory"; 
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+message Object {
+    string id                               = 1;    // ID (uuid)
+    int32 type                              = 2;    // object type ID
+    string key                              = 3;    // external key/ID (case-sensistive)
+    string display_name                     = 4;    // display name object
+    google.protobuf.Struct properties       = 5;    // property bag
+    google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
+    google.protobuf.Timestamp deleted_at    = 22;   // deleted timestamp (UTC)
+    int64 hash                              = 23;   // object hash
+}
+
+message ObjectType {
+    int32 id                                = 1;    // object type ID
+    string name                             = 2;    // object type name (unique)
+    string display_name                     = 3;    // object type display name
+    bool is_subject                         = 4;    // object type is a subject (user|group)
+    int32 ordinal                           = 5;    // sort ordinal
+    uint32 status                           = 6;    // status flag bitmap
+    google.protobuf.Struct schema           = 20;   // object type schema definition (JSON)
+    google.protobuf.Timestamp created_at    = 21;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at    = 22;   // last updated timestamp (UTC)
+}
+
+message ObjectDependency {
+	int32   source_type                     = 1;    // object type id of source object
+	string  source_type_name                = 2;    // string represenantion of source_type (READONLY)
+	string  source_id                       = 3;    // object id (uuid) of source object
+	string  source_key                      = 4;    // object search key of source object
+    int32   relation                        = 5;    // relation identifier
+    string  relation_name                   = 6;    // string representation of relation (READONLY)
+    int32   target_type                     = 7;    // object type id of target object 
+    string  target_type_name                = 8;    // string represenantion of target_type (READONLY)
+    string  target_id                       = 9;    // object id (uuid) of target object
+    string  target_key                      = 10;   // object search key of target object
+    int32   depth                           = 11;   // dependency depth
+    bool    is_cycle                        = 12;   // dependency cycle
+    string  path                            = 13;   // dependency path
+}
+
+message ObjectKey {
+    int32 type                              = 1;    // object type ID
+    string key                              = 2;    // external key/ID (case-sensistive)
+}
+
+enum Flag {
+    FLAG_UNKNOWN                            = 0x0;
+    FLAG_HIDDEN                             = 0x1;
+    FLAG_READONLY                           = 0x2;
+    FLAG_SYSTEM                             = 0x4;
+}
