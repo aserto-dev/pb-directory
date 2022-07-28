@@ -15,6 +15,9 @@ go:
   sver:
     importPath: "github.com/aserto-dev/sver/cmd/sver"
     version: "v1.3.9"
+  svu:
+    importPath: "github.com/caarlos0/svu"
+    version: "latest"
   buf:
     importPath: "github.com/bufbuild/buf/cmd/buf"
     version: "v1.3.1"

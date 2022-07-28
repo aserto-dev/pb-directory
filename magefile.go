@@ -73,6 +73,8 @@ func Breaking() error {
 	mg.SerialDeps(Login)
 	bufImage := "buf.build/aserto-dev/directory"
 
+	os.Setenv("BUF_BETA_SUPPRESS_WARNINGS", "1")
+
 	tag, err := buf.GetLatestTag(bufImage)
 	if err != nil {
 		return err
@@ -103,6 +105,7 @@ func Push() error {
 	mg.SerialDeps(Login)
 
 	releaseVersion, _ := getReleaseVersion()
+	fmt.Println("tag", releaseVersion)
 
 	if err := bufBuild("bin/directory.bin"); err != nil {
 		return err
@@ -111,6 +114,7 @@ func Push() error {
 	if err := bufPush("proto", releaseVersion); err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -210,9 +214,9 @@ func bufLogin() error {
 }
 
 func getReleaseVersion() (string, error) {
-	sver := deps.GoDepOutput("sver")
+	svu := deps.GoDepOutput("svu")
 
-	out, err := sver("--release")
+	out, err := svu()
 	if err != nil {
 		fmt.Println(out)
 		return "", err
