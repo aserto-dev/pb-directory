@@ -64,8 +64,8 @@ service Directory {
     rpc ListObjectGraph(ListObjectGraphRequest) returns (ListObjectGraphResponse) {};
 
     rpc Check(CheckRequest) returns (CheckResponse) {};
-    rpc CheckR(CheckRRequest) returns (CheckRResponse) {};
-    rpc CheckP(CheckPRequest) returns (CheckPResponse) {};
+    rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {};
+    rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
 
     rpc Info(InfoRequest) returns (InfoResponse) {
         option (google.api.http) = {
@@ -401,7 +401,7 @@ message CheckResponse {
     repeated string trace                   = 2;    // trace for true values
 }
 
-message CheckRRequest {
+message CheckRelationRequest {
     string  object_id                       = 1;    // source_id (UUID)
     string  object_type                     = 2;    // source type name
     string  relation                        = 3;    // relation type name 
@@ -409,12 +409,12 @@ message CheckRRequest {
     bool    trace                           = 5;    // collect trace information
 }
 
-message CheckRResponse {
+message CheckRelationResponse {
     bool check                              = 1;    // check result (BOOL)
     repeated string trace                   = 2;    // trace for true values
 }
 
-message CheckPRequest {
+message CheckPermissionRequest {
     string  object_id                       = 1;    // source_id (UUID)
     string  object_type                     = 2;    // source type name
     string  permission                      = 3;    // permission name 
@@ -422,7 +422,7 @@ message CheckPRequest {
     bool trace                              = 5;    // collect trace information
 }
 
-message CheckPResponse {
+message CheckPermissionResponse {
     bool check                              = 1;    // check result (BOOL)
     repeated string trace                   = 2;    // trace for true values
 }
