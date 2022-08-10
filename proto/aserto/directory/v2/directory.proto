@@ -62,6 +62,7 @@ service Directory {
     rpc Loader(stream LoaderRequest) returns (stream LoaderResponse) {};
 
     rpc ListObjectGraph(ListObjectGraphRequest) returns (ListObjectGraphResponse) {};
+    rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {};
 
     rpc Check(CheckRequest) returns (CheckResponse) {};
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {};
@@ -437,5 +438,18 @@ message ListObjectGraphRequest {
 }
 
 message ListObjectGraphResponse {
-    repeated ObjectDependency results       = 1;    // 
+    repeated ObjectDependency results       = 1;    // relationship graph
+}
+
+message GetGraphRequest {
+    string  anchor_id                       = 1;    // anchor ID, source or target (UUID)
+    string  source_type                     = 2;    // source object type name
+    string  source_id                       = 3;    // source object ID (UUID)
+    string  relation                        = 4;    // relation type name
+    string  target_type                     = 5;    // target object type name
+    string  target_id                       = 6;    // target object ID (UUID)
+}
+
+message GetGraphResponse {
+    repeated ObjectDependency results       = 1;    // relationship graph
 }
