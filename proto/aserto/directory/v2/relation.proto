@@ -15,7 +15,7 @@ message Relation {
     google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
     google.protobuf.Timestamp deleted_at    = 22;   // deleted timestamp (UTC)
-    string hash                             = 23;   // object hash
+    int64 hash                              = 23;   // object hash
 }
 
 message RelationType {
