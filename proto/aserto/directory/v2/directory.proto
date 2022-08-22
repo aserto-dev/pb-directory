@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aserto.directory.v2;
 
-option go_package = "github.com/aserto-dev/go-directory/api/aserto/directory/v2;directory"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/v2;directory"; 
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
@@ -10,6 +10,7 @@ import "google/rpc/status.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 import "aserto/common/info/v1/info.proto";
+import "aserto/api/v1/pagination.proto";
 
 import "aserto/directory/v2/object.proto";
 import "aserto/directory/v2/relation.proto";
@@ -24,50 +25,49 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service Directory {
+    // object type metadata methods
     rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
     rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
     rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
-    rpc ListObjectTypes(ListObjectTypesRequest) returns (stream ListObjectTypesResponse) {};
+    rpc ListObjectTypes(ListObjectTypesRequest) returns (ListObjectTypesResponse) {};
     rpc GetObjType(GetObjTypeRequest) returns (GetObjTypeResponse) {};
-
+    // relation type metadata methods
     rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
     rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
     rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
-    rpc ListRelationTypes(ListRelationTypesRequest) returns (stream ListRelationTypesResponse) {};
+    rpc ListRelationTypes(ListRelationTypesRequest) returns (ListRelationTypesResponse) {};
     rpc GetRelType(GetRelTypeRequest) returns (GetRelTypeResponse) {};
-
+    // permission metadata methods
     rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
     rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
     rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
-    rpc ListPermissions(ListPermissionsRequest) returns (stream ListPermissionsResponse) {};
+    rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse) {};
     rpc GetPerm(GetPermRequest) returns (GetPermResponse) {};
-
+    // relation-permission methods
     rpc GetRelationTypePermission(GetRelationTypePermissionRequest) returns (GetRelationTypePermissionResponse) {};
     rpc SetRelationTypePermission(SetRelationTypePermissionRequest) returns (SetRelationTypePermissionResponse) {};
     rpc DeleteRelationTypePermission(DeleteRelationTypePermissionRequest) returns (DeleteRelationTypePermissionResponse) {};
-    rpc ListRelationTypePermissions(ListRelationTypePermissionsRequest) returns (stream ListRelationTypePermissionsResponse) {};
-
+    rpc ListRelationTypePermissions(ListRelationTypePermissionsRequest) returns (ListRelationTypePermissionsResponse) {};
+    // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {};
-    rpc ListObjects(ListObjectsRequest) returns (stream ListObjectsResponse) {};
+    rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {};
     rpc GetObj(GetObjRequest) returns (GetObjResponse) {};
-
+    // relation methods
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {};
     rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {};
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {};
-    rpc ListRelations(ListRelationsRequest) returns (stream ListRelationsResponse) {};
+    rpc ListRelations(ListRelationsRequest) returns (ListRelationsResponse) {};
     rpc GetRel(GetRelRequest) returns (GetRelResponse) {};
-
-    rpc Loader(stream LoaderRequest) returns (stream LoaderResponse) {};
-
+    // graph methods
     rpc ListObjectGraph(ListObjectGraphRequest) returns (ListObjectGraphResponse) {};
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {};
-
+    // check methods
     rpc Check(CheckRequest) returns (CheckResponse) {};
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {};
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
-
+    // misc methods
     rpc Info(InfoRequest) returns (InfoResponse) {
         option (google.api.http) = {
             get: "/api/v2/directory/info"
@@ -143,10 +143,12 @@ message DeleteObjectTypeResponse {
 }
 
 message ListObjectTypesRequest {
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListObjectTypesResponse {
-    ObjectType result                       = 1;    // 
+    repeated ObjectType results             = 1;    // array of object types
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetObjTypeRequest {
@@ -180,7 +182,7 @@ message SetRelationTypeResponse {
 message DeleteRelationTypeRequest {
     oneof param {
         int32 id                            = 1;    // relation type ID
-        string name                         = 2;    // relation type name (unique)
+        RelationTypeKey key                 = 2;    // object_type + relation type name (unique)
     }
 }
 
@@ -189,11 +191,13 @@ message DeleteRelationTypeResponse {
 }
 
 message ListRelationTypesRequest {
-    optional int32 object_type              = 1;    // 
+    optional int32 object_type              = 1;    // optional object type filter
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListRelationTypesResponse {
-    RelationType result                     = 1;    // 
+    repeated RelationType results           = 1;    // array of relation types
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetRelTypeRequest {
@@ -238,10 +242,11 @@ message DeleteObjectResponse {
 
 message ListObjectsRequest {
     optional int32 type                     = 1;    // object tyoe filter (OPTIONAL)
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListObjectsResponse {
-    Object result                           = 1;    // 
+    Object results                          = 1;    // 
 }
 
 message GetObjRequest {
@@ -291,10 +296,12 @@ message ListRelationsRequest {
     int32 relation                          = 3;    // relation type ID
     int32 target_type                       = 4;    // target object type ID
     string target_id                        = 5;    // target object ID (UUID)
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListRelationsResponse {
-    Relation result = 1;
+    repeated Relation results               = 1;    // results array of relations
+    aserto.api.v1.PaginationResponse page   = 2;    // pagination response
 }
 
 message GetRelRequest {
@@ -340,10 +347,12 @@ message DeletePermissionResponse {
 }
 
 message ListPermissionsRequest {
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListPermissionsResponse {
-    Permission result                       = 1;    // 
+    repeated Permission results             = 1;    // array of permissions
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetPermRequest {
@@ -381,10 +390,12 @@ message DeleteRelationTypePermissionResponse {
 }
 
 message ListRelationTypePermissionsRequest {
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListRelationTypePermissionsResponse {
-    RelationTypePermission result           = 1;    //
+    repeated RelationTypePermission results = 1;    // array of relation permissions
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message CheckRequest {

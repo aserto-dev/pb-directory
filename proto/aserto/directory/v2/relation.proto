@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aserto.directory.v2;
 
-option go_package = "github.com/aserto-dev/go-directory/api/aserto/directory/v2;directory"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/v2;directory"; 
 
 import "google/protobuf/timestamp.proto";
 
