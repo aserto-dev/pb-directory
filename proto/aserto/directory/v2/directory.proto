@@ -6,7 +6,6 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/v2;dire
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-import "google/rpc/status.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 import "aserto/common/info/v1/info.proto";
@@ -93,23 +92,7 @@ message InfoRequest {
 }
 
 message InfoResponse {
-    aserto.common.info.v1.BuildInfo build   = 3;    // 
-}
-
-message LoaderRequest {
-    Opcode op_code                          = 1;    // 
-    oneof msg_oneof {
-        Object object                       = 2;    // 
-        ObjectType object_type              = 3;    // 
-        Relation relation                   = 4;    // 
-        RelationType relation_type          = 5;    // 
-        Permission permission               = 6;    //
-        RelationTypePermission relation_type_permission = 7;
-    }
-}
-
-message LoaderResponse {
-    google.rpc.Status error                 = 1;    // 
+    aserto.common.info.v1.BuildInfo build   = 3;    // service info
 }
 
 message GetObjectTypeRequest {
@@ -120,15 +103,15 @@ message GetObjectTypeRequest {
 }
 
 message GetObjectTypeResponse {
-    repeated ObjectType results             = 1;    // 
+    repeated ObjectType results             = 1;    // array of object types
 }
 
 message SetObjectTypeRequest {
-    ObjectType object_type                  = 1;    // 
+    ObjectType object_type                  = 1;    // object type instance
 }
 
 message SetObjectTypeResponse {
-    repeated ObjectType results             = 1;    // 
+    repeated ObjectType results             = 1;    // array of object types
 }
 
 message DeleteObjectTypeRequest {
@@ -139,7 +122,7 @@ message DeleteObjectTypeRequest {
 }
 
 message DeleteObjectTypeResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListObjectTypesRequest {
@@ -168,15 +151,15 @@ message GetRelationTypeRequest {
 }
 
 message GetRelationTypeResponse {
-    repeated RelationType results           = 1;    // 
+    repeated RelationType results           = 1;    // array of relation types
 }
 
 message SetRelationTypeRequest {
-    RelationType relation_type              = 1;    // 
+    RelationType relation_type              = 1;    // relation type instance
 }
 
 message SetRelationTypeResponse {
-    repeated RelationType results           = 1;    // 
+    repeated RelationType results           = 1;    // array of relation types
 }
 
 message DeleteRelationTypeRequest {
@@ -187,7 +170,7 @@ message DeleteRelationTypeRequest {
 }
 
 message DeleteRelationTypeResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListRelationTypesRequest {
@@ -206,7 +189,7 @@ message GetRelTypeRequest {
 }
 
 message GetRelTypeResponse {
-    int32 id                                = 1;    // 
+    int32 id                                = 1;    // relation type ID (int32)
 }
 
 
@@ -218,15 +201,15 @@ message GetObjectRequest {
 }
 
 message GetObjectResponse {
-    repeated Object results                 = 1;    // 
+    repeated Object results                 = 1;    // array of object instances
 }
 
 message SetObjectRequest {
-    Object object                           = 1;    // 
+    Object object                           = 1;    // object instance
 }
 
 message SetObjectResponse {
-    repeated Object results                 = 1;    // 
+    repeated Object results                 = 1;    // array of object instances
 }
 
 message DeleteObjectRequest {
@@ -237,16 +220,17 @@ message DeleteObjectRequest {
 }
 
 message DeleteObjectResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListObjectsRequest {
-    optional int32 type                     = 1;    // object tyoe filter (OPTIONAL)
+    optional int32 type                     = 1;    // object type filter (OPTIONAL)
     aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListObjectsResponse {
-    Object results                          = 1;    // 
+    repeated Object results                 = 1;    // arat of object instances
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetObjRequest {
@@ -255,7 +239,7 @@ message GetObjRequest {
 }
 
 message GetObjResponse {
-    repeated Object results                 = 1;    // 
+    repeated Object results                 = 1;    // array of object instances
 }
 
 message GetRelationRequest {
@@ -267,15 +251,15 @@ message GetRelationRequest {
 }
 
 message GetRelationResponse {
-    repeated Relation results               = 1;    // 
+    repeated Relation results               = 1;    // array of relation instances
 }
 
 message SetRelationRequest {
-    Relation relation                       = 1;    // 
+    Relation relation                       = 1;    // relation instance
 }
 
 message SetRelationResponse {
-    repeated Relation results               = 1;    // 
+    repeated Relation results               = 1;    // array of relation instances
 }
 
 message DeleteRelationRequest {
@@ -287,7 +271,7 @@ message DeleteRelationRequest {
 }
 
 message DeleteRelationResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListRelationsRequest {
@@ -313,7 +297,7 @@ message GetRelRequest {
 }
 
 message GetRelResponse {
-    repeated Relation results               = 1;    // 
+    repeated Relation results               = 1;    // array of relation instances
 }
 
 message GetPermissionRequest {
@@ -324,15 +308,15 @@ message GetPermissionRequest {
 }
 
 message GetPermissionResponse {
-    repeated Permission results             = 1;    // 
+    repeated Permission results             = 1;    // array of permision instances
 }
 
 message SetPermissionRequest {
-    Permission permission                   = 1;    // 
+    Permission permission                   = 1;    // permission instance
 }
 
 message SetPermissionResponse {
-    repeated Permission results             = 1;    // 
+    repeated Permission results             = 1;    // array of permision instances
 }
 
 message DeletePermissionRequest {
@@ -343,7 +327,7 @@ message DeletePermissionRequest {
 }
 
 message DeletePermissionResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListPermissionsRequest {
@@ -369,15 +353,15 @@ message GetRelationTypePermissionRequest {
 }
 
 message GetRelationTypePermissionResponse {
-    repeated RelationTypePermission results = 1;
+    repeated RelationTypePermission results = 1;    // 
 }
 
 message SetRelationTypePermissionRequest {
-    RelationTypePermission relation_type_permission = 1;
+    RelationTypePermission relation_type_permission = 1; // 
 }
 
 message SetRelationTypePermissionResponse {
-    repeated RelationTypePermission results = 1;
+    repeated RelationTypePermission results = 1;    // 
 }
 
 message DeleteRelationTypePermissionRequest {

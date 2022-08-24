@@ -53,8 +53,9 @@ message ObjectKey {
 }
 
 enum Flag {
-    FLAG_UNKNOWN                            = 0x0;
-    FLAG_HIDDEN                             = 0x1;
-    FLAG_READONLY                           = 0x2;
-    FLAG_SYSTEM                             = 0x4;
+    FLAG_UNKNOWN                            = 0x0;  // default, no special object behavior
+    FLAG_HIDDEN                             = 0x1;  // hidden object
+    FLAG_READONLY                           = 0x2;  // read-only object
+    FLAG_SYSTEM                             = 0x4;  // system object
+    FLAG_SHADOW                             = 0x8;  // shadow object by type+key assosciated to parent object
 }
