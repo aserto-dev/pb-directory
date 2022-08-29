@@ -42,11 +42,6 @@ service Directory {
     rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
     rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse) {};
     rpc GetPerm(GetPermRequest) returns (GetPermResponse) {};
-    // relation-permission methods
-    rpc GetRelationTypePermission(GetRelationTypePermissionRequest) returns (GetRelationTypePermissionResponse) {};
-    rpc SetRelationTypePermission(SetRelationTypePermissionRequest) returns (SetRelationTypePermissionResponse) {};
-    rpc DeleteRelationTypePermission(DeleteRelationTypePermissionRequest) returns (DeleteRelationTypePermissionResponse) {};
-    rpc ListRelationTypePermissions(ListRelationTypePermissionsRequest) returns (ListRelationTypePermissionsResponse) {};
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
@@ -142,7 +137,6 @@ message GetObjTypeResponse {
     int32 id                                = 1;    // object type id
 }
 
-
 message GetRelationTypeRequest {
     oneof param {
         int32 id                            = 1;    // relation type ID
@@ -191,7 +185,6 @@ message GetRelTypeRequest {
 message GetRelTypeResponse {
     int32 id                                = 1;    // relation type ID (int32)
 }
-
 
 message GetObjectRequest {
     oneof param {
@@ -345,41 +338,6 @@ message GetPermRequest {
 
 message GetPermResponse {
     string id                               = 1;    // permission id (UUID)
-}
-
-message GetRelationTypePermissionRequest {
-    int32 relation_id                       = 1;    // 
-    string permission_id                    = 2;    // 
-}
-
-message GetRelationTypePermissionResponse {
-    repeated RelationTypePermission results = 1;    // 
-}
-
-message SetRelationTypePermissionRequest {
-    RelationTypePermission relation_type_permission = 1; // 
-}
-
-message SetRelationTypePermissionResponse {
-    repeated RelationTypePermission results = 1;    // 
-}
-
-message DeleteRelationTypePermissionRequest {
-    int32 relation_id                       = 1;    //
-    string permission_id                    = 2;    //
-}
-
-message DeleteRelationTypePermissionResponse {
-    google.protobuf.Empty result            = 1;    //
-}
-
-message ListRelationTypePermissionsRequest {
-    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
-}
-
-message ListRelationTypePermissionsResponse {
-    repeated RelationTypePermission results = 1;    // array of relation permissions
-    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message CheckRequest {

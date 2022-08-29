@@ -22,10 +22,10 @@ message RelationType {
     int32 id                                = 1;    // relation type ID
     string name                             = 2;    // relation name (unique object_type+name)
     string display_name                     = 3;    // relation display name
-    int32 object_type                       = 4;    // object type referenced by relation (on the left hand side)
+    string object_type                      = 4;    // object type referenced by relation (on the left hand side)
     int32 ordinal                           = 5;    // sort ordinal
     uint32 status                           = 6;    // status bitmap
-    repeated int32 unions                   = 7;    // relations union-ed with relation type instance
+    repeated string unions                  = 7;    // relations union-ed with relation type instance
     repeated string permissions             = 8;    // permissions associated to relation type instance
     google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
@@ -37,14 +37,6 @@ message Permission {
     string display_name                     = 3;    // permission display name
     google.protobuf.Timestamp created_at    = 4;    // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at    = 5;    // last updated timestamp (UTC)
-}
-
-message RelationTypePermission {
-    int32 relation_id                       = 1;    // relation type ID
-    string permission_id                    = 2;    // permission ID (UUID)
-    bool allowed                            = 3;    // permssion is allowed on relation type
-    google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
 }
 
 message RelationTypeKey {
