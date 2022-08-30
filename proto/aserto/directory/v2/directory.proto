@@ -29,38 +29,38 @@ service Directory {
     rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
     rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
     rpc ListObjectTypes(ListObjectTypesRequest) returns (ListObjectTypesResponse) {};
-    // rpc GetObjType(GetObjTypeRequest) returns (GetObjTypeResponse) {};
+    
     // relation type metadata methods
     rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
     rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
     rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
     rpc ListRelationTypes(ListRelationTypesRequest) returns (ListRelationTypesResponse) {};
-    // rpc GetRelType(GetRelTypeRequest) returns (GetRelTypeResponse) {};
+    
     // permission metadata methods
     rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
     rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
     rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
     rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse) {};
-    // rpc GetPerm(GetPermRequest) returns (GetPermResponse) {};
+    
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {};
     rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {};
-    // rpc GetObj(GetObjRequest) returns (GetObjResponse) {};
+    
     // relation methods
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {};
     rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {};
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {};
     rpc ListRelations(ListRelationsRequest) returns (ListRelationsResponse) {};
-    // rpc GetRel(GetRelRequest) returns (GetRelResponse) {};
+    
     // graph methods
-    // rpc ListObjectGraph(ListObjectGraphRequest) returns (ListObjectGraphResponse) {};
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {};
+    
     // check methods
-    // rpc Check(CheckRequest) returns (CheckResponse) {};
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {};
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
+
     // misc methods
     rpc Info(InfoRequest) returns (InfoResponse) {
         option (google.api.http) = {
