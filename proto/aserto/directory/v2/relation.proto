@@ -2,15 +2,15 @@ syntax = "proto3";
 
 package aserto.directory.v2;
 
-option go_package = "github.com/aserto-dev/go-directory/api/aserto/directory/v2;directory"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/v2;directory"; 
 
 import "google/protobuf/timestamp.proto";
 
 message Relation {
-    int32 source_type                       = 1;    // source object type ID
+    string source_type                      = 1;    // source object type ID
     string source_id                        = 2;    // source object ID (UUID)
-    int32 relation                          = 3;    // relation type ID
-    int32 target_type                       = 4;    // target object type ID
+    string relation                         = 3;    // relation type ID
+    string target_type                      = 4;    // target object type ID
     string target_id                        = 5;    // target object ID (UUID)
     google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
@@ -22,10 +22,11 @@ message RelationType {
     int32 id                                = 1;    // relation type ID
     string name                             = 2;    // relation name (unique object_type+name)
     string display_name                     = 3;    // relation display name
-    int32 object_type                       = 4;    // object type referenced by relation (on the left hand side)
+    string object_type                      = 4;    // object type referenced by relation (on the left hand side)
     int32 ordinal                           = 5;    // sort ordinal
     uint32 status                           = 6;    // status bitmap
-    repeated int32 unions                   = 7;    // unioned (inherited) relation/permissions
+    repeated string unions                  = 7;    // relations union-ed with relation type instance
+    repeated string permissions             = 8;    // permissions associated to relation type instance
     google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
 }
@@ -38,15 +39,7 @@ message Permission {
     google.protobuf.Timestamp updated_at    = 5;    // last updated timestamp (UTC)
 }
 
-message RelationTypePermission {
-    int32 relation_id                       = 1;    // relation type ID
-    string permission_id                    = 2;    // permission ID (UUID)
-    bool allowed                            = 3;    // permssion is allowed on relation type
-    google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
-}
-
 message RelationTypeKey {
     string name                             = 1;    // relation name (unique object_type+name)
-    int32 object_type                       = 2;    // object type referenced by relation (on the left hand side)
+    string object_type                      = 2;    // object type referenced by relation (on the left hand side)
 }

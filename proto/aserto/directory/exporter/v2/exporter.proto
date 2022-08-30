@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package aserto.directory.exporter.v2;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/exporter/v2;exporter"; 
+
+import "aserto/directory/v2/object.proto";
+import "aserto/directory/v2/relation.proto";
+
+service Exporter {
+    rpc Export(ExportRequest) returns (stream ExportResponse) {};
+}
+
+message ExportRequest {
+}
+
+message ExportResponse {
+    oneof msg_oneof {
+        aserto.directory.v2.Object object               = 2;    // 
+        aserto.directory.v2.ObjectType object_type      = 3;    // 
+        aserto.directory.v2.Relation relation           = 4;    // 
+        aserto.directory.v2.RelationType relation_type  = 5;    // 
+        aserto.directory.v2.Permission permission       = 6;    //
+    }
+}

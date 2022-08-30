@@ -2,14 +2,14 @@ syntax = "proto3";
 
 package aserto.directory.v2;
 
-option go_package = "github.com/aserto-dev/go-directory/api/aserto/directory/v2;directory"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/v2;directory"; 
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-import "google/rpc/status.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 import "aserto/common/info/v1/info.proto";
+import "aserto/api/v1/pagination.proto";
 
 import "aserto/directory/v2/object.proto";
 import "aserto/directory/v2/relation.proto";
@@ -24,50 +24,44 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service Directory {
+    // object type metadata methods
     rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
     rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
     rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
-    rpc ListObjectTypes(ListObjectTypesRequest) returns (stream ListObjectTypesResponse) {};
-    rpc GetObjType(GetObjTypeRequest) returns (GetObjTypeResponse) {};
-
+    rpc ListObjectTypes(ListObjectTypesRequest) returns (ListObjectTypesResponse) {};
+    
+    // relation type metadata methods
     rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
     rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
     rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
-    rpc ListRelationTypes(ListRelationTypesRequest) returns (stream ListRelationTypesResponse) {};
-    rpc GetRelType(GetRelTypeRequest) returns (GetRelTypeResponse) {};
-
+    rpc ListRelationTypes(ListRelationTypesRequest) returns (ListRelationTypesResponse) {};
+    
+    // permission metadata methods
     rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
     rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
     rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
-    rpc ListPermissions(ListPermissionsRequest) returns (stream ListPermissionsResponse) {};
-    rpc GetPerm(GetPermRequest) returns (GetPermResponse) {};
-
-    rpc GetRelationTypePermission(GetRelationTypePermissionRequest) returns (GetRelationTypePermissionResponse) {};
-    rpc SetRelationTypePermission(SetRelationTypePermissionRequest) returns (SetRelationTypePermissionResponse) {};
-    rpc DeleteRelationTypePermission(DeleteRelationTypePermissionRequest) returns (DeleteRelationTypePermissionResponse) {};
-    rpc ListRelationTypePermissions(ListRelationTypePermissionsRequest) returns (stream ListRelationTypePermissionsResponse) {};
-
+    rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse) {};
+    
+    // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {};
-    rpc ListObjects(ListObjectsRequest) returns (stream ListObjectsResponse) {};
-    rpc GetObj(GetObjRequest) returns (GetObjResponse) {};
-
+    rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {};
+    
+    // relation methods
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {};
     rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {};
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {};
-    rpc ListRelations(ListRelationsRequest) returns (stream ListRelationsResponse) {};
-    rpc GetRel(GetRelRequest) returns (GetRelResponse) {};
-
-    rpc Loader(stream LoaderRequest) returns (stream LoaderResponse) {};
-
-    rpc ListObjectGraph(ListObjectGraphRequest) returns (ListObjectGraphResponse) {};
+    rpc ListRelations(ListRelationsRequest) returns (ListRelationsResponse) {};
+    
+    // graph methods
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {};
-
-    rpc Check(CheckRequest) returns (CheckResponse) {};
+    
+    // check methods
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {};
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
 
+    // misc methods
     rpc Info(InfoRequest) returns (InfoResponse) {
         option (google.api.http) = {
             get: "/api/v2/directory/info"
@@ -93,23 +87,7 @@ message InfoRequest {
 }
 
 message InfoResponse {
-    aserto.common.info.v1.BuildInfo build   = 3;    // 
-}
-
-message LoaderRequest {
-    Opcode op_code                          = 1;    // 
-    oneof msg_oneof {
-        Object object                       = 2;    // 
-        ObjectType object_type              = 3;    // 
-        Relation relation                   = 4;    // 
-        RelationType relation_type          = 5;    // 
-        Permission permission               = 6;    //
-        RelationTypePermission relation_type_permission = 7;
-    }
-}
-
-message LoaderResponse {
-    google.rpc.Status error                 = 1;    // 
+    aserto.common.info.v1.BuildInfo build   = 3;    // service info
 }
 
 message GetObjectTypeRequest {
@@ -120,15 +98,15 @@ message GetObjectTypeRequest {
 }
 
 message GetObjectTypeResponse {
-    repeated ObjectType results             = 1;    // 
+    repeated ObjectType results             = 1;    // array of object types
 }
 
 message SetObjectTypeRequest {
-    ObjectType object_type                  = 1;    // 
+    ObjectType object_type                  = 1;    // object type instance
 }
 
 message SetObjectTypeResponse {
-    repeated ObjectType results             = 1;    // 
+    repeated ObjectType results             = 1;    // array of object types
 }
 
 message DeleteObjectTypeRequest {
@@ -139,14 +117,16 @@ message DeleteObjectTypeRequest {
 }
 
 message DeleteObjectTypeResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListObjectTypesRequest {
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListObjectTypesResponse {
-    ObjectType result                       = 1;    // 
+    repeated ObjectType results             = 1;    // array of object types
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetObjTypeRequest {
@@ -157,7 +137,6 @@ message GetObjTypeResponse {
     int32 id                                = 1;    // object type id
 }
 
-
 message GetRelationTypeRequest {
     oneof param {
         int32 id                            = 1;    // relation type ID
@@ -166,34 +145,36 @@ message GetRelationTypeRequest {
 }
 
 message GetRelationTypeResponse {
-    repeated RelationType results           = 1;    // 
+    repeated RelationType results           = 1;    // array of relation types
 }
 
 message SetRelationTypeRequest {
-    RelationType relation_type              = 1;    // 
+    RelationType relation_type              = 1;    // relation type instance
 }
 
 message SetRelationTypeResponse {
-    repeated RelationType results           = 1;    // 
+    repeated RelationType results           = 1;    // array of relation types
 }
 
 message DeleteRelationTypeRequest {
     oneof param {
         int32 id                            = 1;    // relation type ID
-        string name                         = 2;    // relation type name (unique)
+        RelationTypeKey key                 = 2;    // object_type + relation type name (unique)
     }
 }
 
 message DeleteRelationTypeResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListRelationTypesRequest {
-    optional int32 object_type              = 1;    // 
+    optional string object_type             = 1;    // optional object type filter
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListRelationTypesResponse {
-    RelationType result                     = 1;    // 
+    repeated RelationType results           = 1;    // array of relation types
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetRelTypeRequest {
@@ -202,9 +183,8 @@ message GetRelTypeRequest {
 }
 
 message GetRelTypeResponse {
-    int32 id                                = 1;    // 
+    int32 id                                = 1;    // relation type ID (int32)
 }
-
 
 message GetObjectRequest {
     oneof param {
@@ -214,15 +194,15 @@ message GetObjectRequest {
 }
 
 message GetObjectResponse {
-    repeated Object results                 = 1;    // 
+    repeated Object results                 = 1;    // array of object instances
 }
 
 message SetObjectRequest {
-    Object object                           = 1;    // 
+    Object object                           = 1;    // object instance
 }
 
 message SetObjectResponse {
-    repeated Object results                 = 1;    // 
+    repeated Object results                 = 1;    // array of object instances
 }
 
 message DeleteObjectRequest {
@@ -233,15 +213,17 @@ message DeleteObjectRequest {
 }
 
 message DeleteObjectResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListObjectsRequest {
-    optional int32 type                     = 1;    // object tyoe filter (OPTIONAL)
+    optional string type                    = 1;    // object type filter (OPTIONAL)
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListObjectsResponse {
-    Object result                           = 1;    // 
+    repeated Object results                 = 1;    // arat of object instances
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetObjRequest {
@@ -250,51 +232,53 @@ message GetObjRequest {
 }
 
 message GetObjResponse {
-    repeated Object results                 = 1;    // 
+    repeated Object results                 = 1;    // array of object instances
 }
 
 message GetRelationRequest {
-    int32 source_type                       = 1;    // source object type ID (OPTIONAL)
+    string source_type                      = 1;    // source object type ID (OPTIONAL)
     string source_id                        = 2;    // source object ID (UUID)
-    int32 relation                          = 3;    // relation type ID
-    int32 target_type                       = 4;    // target object type ID (OPTIONAL)
+    string relation                         = 3;    // relation type ID
+    string target_type                      = 4;    // target object type ID (OPTIONAL)
     string target_id                        = 5;    // target object ID (UUID)
 }
 
 message GetRelationResponse {
-    repeated Relation results               = 1;    // 
+    repeated Relation results               = 1;    // array of relation instances
 }
 
 message SetRelationRequest {
-    Relation relation                       = 1;    // 
+    Relation relation                       = 1;    // relation instance
 }
 
 message SetRelationResponse {
-    repeated Relation results               = 1;    // 
+    repeated Relation results               = 1;    // array of relation instances
 }
 
 message DeleteRelationRequest {
-    int32 source_type                       = 1;    // source object type ID (OPTIONAL)
+    string source_type                      = 1;    // source object type ID (OPTIONAL)
     string source_id                        = 2;    // source object ID (UUID)
-    int32 relation                          = 3;    // relation type ID
-    int32 target_type                       = 4;    // target object type ID (OPTIONAL)
+    string relation                         = 3;    // relation type ID
+    string target_type                      = 4;    // target object type ID (OPTIONAL)
     string target_id                        = 5;    // target object ID (UUID)
 }
 
 message DeleteRelationResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListRelationsRequest {
-    int32 source_type                       = 1;    // source object type ID
+    string source_type                      = 1;    // source object type ID
     string source_id                        = 2;    // source object ID (UUID)
-    int32 relation                          = 3;    // relation type ID
-    int32 target_type                       = 4;    // target object type ID
+    string relation                         = 3;    // relation type ID
+    string target_type                      = 4;    // target object type ID
     string target_id                        = 5;    // target object ID (UUID)
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListRelationsResponse {
-    Relation result = 1;
+    repeated Relation results               = 1;    // results array of relations
+    aserto.api.v1.PaginationResponse page   = 2;    // pagination response
 }
 
 message GetRelRequest {
@@ -306,7 +290,7 @@ message GetRelRequest {
 }
 
 message GetRelResponse {
-    repeated Relation results               = 1;    // 
+    repeated Relation results               = 1;    // array of relation instances
 }
 
 message GetPermissionRequest {
@@ -317,15 +301,15 @@ message GetPermissionRequest {
 }
 
 message GetPermissionResponse {
-    repeated Permission results             = 1;    // 
+    repeated Permission results             = 1;    // array of permision instances
 }
 
 message SetPermissionRequest {
-    Permission permission                   = 1;    // 
+    Permission permission                   = 1;    // permission instance
 }
 
 message SetPermissionResponse {
-    repeated Permission results             = 1;    // 
+    repeated Permission results             = 1;    // array of permision instances
 }
 
 message DeletePermissionRequest {
@@ -336,14 +320,16 @@ message DeletePermissionRequest {
 }
 
 message DeletePermissionResponse {
-    google.protobuf.Empty result            = 1;    // 
+    google.protobuf.Empty result            = 1;    // empty result
 }
 
 message ListPermissionsRequest {
+    aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
 message ListPermissionsResponse {
-    Permission result                       = 1;    // 
+    repeated Permission results             = 1;    // array of permissions
+    aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetPermRequest {
@@ -352,39 +338,6 @@ message GetPermRequest {
 
 message GetPermResponse {
     string id                               = 1;    // permission id (UUID)
-}
-
-message GetRelationTypePermissionRequest {
-    int32 relation_id                       = 1;    // 
-    string permission_id                    = 2;    // 
-}
-
-message GetRelationTypePermissionResponse {
-    repeated RelationTypePermission results = 1;
-}
-
-message SetRelationTypePermissionRequest {
-    RelationTypePermission relation_type_permission = 1;
-}
-
-message SetRelationTypePermissionResponse {
-    repeated RelationTypePermission results = 1;
-}
-
-message DeleteRelationTypePermissionRequest {
-    int32 relation_id                       = 1;    //
-    string permission_id                    = 2;    //
-}
-
-message DeleteRelationTypePermissionResponse {
-    google.protobuf.Empty result            = 1;    //
-}
-
-message ListRelationTypePermissionsRequest {
-}
-
-message ListRelationTypePermissionsResponse {
-    RelationTypePermission result           = 1;    //
 }
 
 message CheckRequest {
