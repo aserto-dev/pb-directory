@@ -9,7 +9,7 @@ import "google/protobuf/timestamp.proto";
 
 message Object {
     string id                               = 1;    // ID (uuid)
-    int32 type                              = 2;    // object type ID
+    string type                             = 2;    // object type name
     string key                              = 3;    // external key/ID (case-sensistive)
     string display_name                     = 4;    // display name object
     google.protobuf.Struct properties       = 5;    // property bag
@@ -32,14 +32,11 @@ message ObjectType {
 }
 
 message ObjectDependency {
-	int32   source_type                     = 1;    // object type id of source object
-	string  source_type_name                = 2;    // string represenantion of source_type (READONLY)
+	string  source_type                     = 1;    // object type name of source object
 	string  source_id                       = 3;    // object id (uuid) of source object
 	string  source_key                      = 4;    // object search key of source object
-    int32   relation                        = 5;    // relation identifier
-    string  relation_name                   = 6;    // string representation of relation (READONLY)
-    int32   target_type                     = 7;    // object type id of target object 
-    string  target_type_name                = 8;    // string represenantion of target_type (READONLY)
+    string  relation                        = 5;    // relation identifier
+    string  target_type                     = 7;    // object type id of target object 
     string  target_id                       = 9;    // object id (uuid) of target object
     string  target_key                      = 10;   // object search key of target object
     int32   depth                           = 11;   // dependency depth
@@ -48,7 +45,7 @@ message ObjectDependency {
 }
 
 message ObjectKey {
-    int32 type                              = 1;    // object type ID
+    string type                             = 1;    // object type name
     string key                              = 2;    // external key/ID (case-sensistive)
 }
 

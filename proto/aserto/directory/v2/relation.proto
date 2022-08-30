@@ -7,10 +7,10 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/v2;dire
 import "google/protobuf/timestamp.proto";
 
 message Relation {
-    int32 source_type                       = 1;    // source object type ID
+    string source_type                      = 1;    // source object type ID
     string source_id                        = 2;    // source object ID (UUID)
-    int32 relation                          = 3;    // relation type ID
-    int32 target_type                       = 4;    // target object type ID
+    string relation                         = 3;    // relation type ID
+    string target_type                      = 4;    // target object type ID
     string target_id                        = 5;    // target object ID (UUID)
     google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
@@ -41,5 +41,5 @@ message Permission {
 
 message RelationTypeKey {
     string name                             = 1;    // relation name (unique object_type+name)
-    int32 object_type                       = 2;    // object type referenced by relation (on the left hand side)
+    string object_type                      = 2;    // object type referenced by relation (on the left hand side)
 }

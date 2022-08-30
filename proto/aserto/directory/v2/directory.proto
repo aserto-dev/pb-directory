@@ -29,36 +29,36 @@ service Directory {
     rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
     rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
     rpc ListObjectTypes(ListObjectTypesRequest) returns (ListObjectTypesResponse) {};
-    rpc GetObjType(GetObjTypeRequest) returns (GetObjTypeResponse) {};
+    // rpc GetObjType(GetObjTypeRequest) returns (GetObjTypeResponse) {};
     // relation type metadata methods
     rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
     rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
     rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
     rpc ListRelationTypes(ListRelationTypesRequest) returns (ListRelationTypesResponse) {};
-    rpc GetRelType(GetRelTypeRequest) returns (GetRelTypeResponse) {};
+    // rpc GetRelType(GetRelTypeRequest) returns (GetRelTypeResponse) {};
     // permission metadata methods
     rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
     rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
     rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
     rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse) {};
-    rpc GetPerm(GetPermRequest) returns (GetPermResponse) {};
+    // rpc GetPerm(GetPermRequest) returns (GetPermResponse) {};
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {};
     rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {};
-    rpc GetObj(GetObjRequest) returns (GetObjResponse) {};
+    // rpc GetObj(GetObjRequest) returns (GetObjResponse) {};
     // relation methods
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {};
     rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {};
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {};
     rpc ListRelations(ListRelationsRequest) returns (ListRelationsResponse) {};
-    rpc GetRel(GetRelRequest) returns (GetRelResponse) {};
+    // rpc GetRel(GetRelRequest) returns (GetRelResponse) {};
     // graph methods
-    rpc ListObjectGraph(ListObjectGraphRequest) returns (ListObjectGraphResponse) {};
+    // rpc ListObjectGraph(ListObjectGraphRequest) returns (ListObjectGraphResponse) {};
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {};
     // check methods
-    rpc Check(CheckRequest) returns (CheckResponse) {};
+    // rpc Check(CheckRequest) returns (CheckResponse) {};
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {};
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
     // misc methods
@@ -168,7 +168,7 @@ message DeleteRelationTypeResponse {
 }
 
 message ListRelationTypesRequest {
-    optional int32 object_type              = 1;    // optional object type filter
+    optional string object_type             = 1;    // optional object type filter
     aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
@@ -217,7 +217,7 @@ message DeleteObjectResponse {
 }
 
 message ListObjectsRequest {
-    optional int32 type                     = 1;    // object type filter (OPTIONAL)
+    optional string type                    = 1;    // object type filter (OPTIONAL)
     aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
@@ -236,10 +236,10 @@ message GetObjResponse {
 }
 
 message GetRelationRequest {
-    int32 source_type                       = 1;    // source object type ID (OPTIONAL)
+    string source_type                      = 1;    // source object type ID (OPTIONAL)
     string source_id                        = 2;    // source object ID (UUID)
-    int32 relation                          = 3;    // relation type ID
-    int32 target_type                       = 4;    // target object type ID (OPTIONAL)
+    string relation                         = 3;    // relation type ID
+    string target_type                      = 4;    // target object type ID (OPTIONAL)
     string target_id                        = 5;    // target object ID (UUID)
 }
 
@@ -256,10 +256,10 @@ message SetRelationResponse {
 }
 
 message DeleteRelationRequest {
-    int32 source_type                       = 1;    // source object type ID (OPTIONAL)
+    string source_type                      = 1;    // source object type ID (OPTIONAL)
     string source_id                        = 2;    // source object ID (UUID)
-    int32 relation                          = 3;    // relation type ID
-    int32 target_type                       = 4;    // target object type ID (OPTIONAL)
+    string relation                         = 3;    // relation type ID
+    string target_type                      = 4;    // target object type ID (OPTIONAL)
     string target_id                        = 5;    // target object ID (UUID)
 }
 
@@ -268,10 +268,10 @@ message DeleteRelationResponse {
 }
 
 message ListRelationsRequest {
-    int32 source_type                       = 1;    // source object type ID
+    string source_type                      = 1;    // source object type ID
     string source_id                        = 2;    // source object ID (UUID)
-    int32 relation                          = 3;    // relation type ID
-    int32 target_type                       = 4;    // target object type ID
+    string relation                         = 3;    // relation type ID
+    string target_type                      = 4;    // target object type ID
     string target_id                        = 5;    // target object ID (UUID)
     aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
