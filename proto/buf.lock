@@ -4,7 +4,7 @@ deps:
   - remote: buf.build
     owner: aserto-dev
     repository: aserto
-    commit: 5a31297151cc4e168952c9c580719310
+    commit: f16111c9f7af4c0a960246246c8db48c
   - remote: buf.build
     owner: googleapis
     repository: googleapis

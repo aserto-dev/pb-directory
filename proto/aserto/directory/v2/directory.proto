@@ -58,6 +58,7 @@ service Directory {
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {};
     
     // check methods
+    // rpc Check(CheckRequest) returns (CheckResponse) {};
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {};
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
 
@@ -340,20 +341,6 @@ message GetPermResponse {
     string id                               = 1;    // permission id (UUID)
 }
 
-message CheckRequest {
-    string  subject_id                      = 1;    // target_id (UUID)
-    oneof check {   
-        int32 relation_id                   = 2;    // relation_id (INT32)
-        string permission_id                = 3;    // permission_id (UUID)
-    }   
-    string  object_id                       = 4;    // source_id (UUID)
-    bool trace                              = 5;    // collect trace information
-}   
-
-message CheckResponse { 
-    bool check                              = 1;    // check result (BOOL)
-    repeated string trace                   = 2;    // trace for true values
-}
 
 message CheckRelationRequest {
     string  object_id                       = 1;    // source_id (UUID)
@@ -381,18 +368,18 @@ message CheckPermissionResponse {
     repeated string trace                   = 2;    // trace for true values
 }
 
-message ListObjectGraphRequest {
-    string  anchor_id                       = 1;    // anchor ID, source or target (UUID)
-    int32   source_type                     = 2;    // source object type ID
-    string  source_id                       = 3;    // source object ID (UUID)
-    int32   relation                        = 4;    // relation type ID
-    int32   target_type                     = 5;    // target object type ID
-    string  target_id                       = 6;    // target object ID (UUID)
-}
+// message ListObjectGraphRequest {
+//     string  anchor_id                       = 1;    // anchor ID, source or target (UUID)
+//     int32   source_type                     = 2;    // source object type ID
+//     string  source_id                       = 3;    // source object ID (UUID)
+//     int32   relation                        = 4;    // relation type ID
+//     int32   target_type                     = 5;    // target object type ID
+//     string  target_id                       = 6;    // target object ID (UUID)
+// }
 
-message ListObjectGraphResponse {
-    repeated ObjectDependency results       = 1;    // relationship graph
-}
+// message ListObjectGraphResponse {
+//     repeated ObjectDependency results       = 1;    // relationship graph
+// }
 
 message GetGraphRequest {
     string  anchor_id                       = 1;    // anchor ID, source or target (UUID)
@@ -405,4 +392,38 @@ message GetGraphRequest {
 
 message GetGraphResponse {
     repeated ObjectDependency results       = 1;    // relationship graph
+}
+
+message CheckRequest {
+    ObjectParam subject                     = 1;    // subject selector
+    oneof check {
+        CheckRelation relation              = 2;    // relation check
+        CheckPermission permission          = 3;    // permission check
+    }
+    ObjectParam object                      = 4;    // object selector
+    bool trace                              = 5;    // collect trace information
+}   
+
+message CheckResponse { 
+    bool check                              = 1;    // check result (BOOL)
+    repeated string trace                   = 2;    // trace for true values
+}
+
+message ObjectParam {
+    oneof param {
+        string id                           = 1;    // get by id
+        ObjectKey key                       = 2;    // get by key
+    }
+}
+
+message CheckRelation {
+    string name                             = 1;
+    string object_type                      = 2;
+}
+
+message CheckPermission {
+    oneof param {
+        string id                           = 1;
+        string name                         = 2;
+    }
 }
