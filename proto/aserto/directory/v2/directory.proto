@@ -6,9 +6,9 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/v2;dire
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
-import "aserto/common/info/v1/info.proto";
 import "aserto/api/v1/pagination.proto";
 
 import "aserto/directory/v2/object.proto";
@@ -69,8 +69,8 @@ service Directory {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "info"
-            summary: "Directory Information API"
-            description: "Directory Information API."
+            summary: "Directory Info Endpoint"
+            description: "Directory Info Endpoint"
             operation_id: "directory.info"
             deprecated: false
             security: {}
@@ -78,17 +78,11 @@ service Directory {
     }
 }
 
-enum Opcode {
-    OPCODE_UNKNOWN = 0;
-    OPCODE_SET     = 1;
-    OPCODE_DELETE  = 2;
-}
-
 message InfoRequest {
 }
 
 message InfoResponse {
-    aserto.common.info.v1.BuildInfo build   = 3;    // service info
+    google.protobuf.Struct info             = 1;    // version & service info
 }
 
 message GetObjectTypeRequest {
@@ -128,14 +122,6 @@ message ListObjectTypesRequest {
 message ListObjectTypesResponse {
     repeated ObjectType results             = 1;    // array of object types
     aserto.api.v1.PaginationResponse page   = 9;    // pagination response
-}
-
-message GetObjTypeRequest {
-    string name                             = 1;    // object type name (unique)
-}
-
-message GetObjTypeResponse {
-    int32 id                                = 1;    // object type id
 }
 
 message GetRelationTypeRequest {
@@ -178,15 +164,6 @@ message ListRelationTypesResponse {
     aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
-message GetRelTypeRequest {
-    string name                             = 1;    // relation name (unique object_type+name)
-    string object_type                      = 2;    // object type referenced by relation (on the left hand side)
-}
-
-message GetRelTypeResponse {
-    int32 id                                = 1;    // relation type ID (int32)
-}
-
 message GetObjectRequest {
     oneof param {
         string id                           = 1;    // ID (uuid)
@@ -225,15 +202,6 @@ message ListObjectsRequest {
 message ListObjectsResponse {
     repeated Object results                 = 1;    // arat of object instances
     aserto.api.v1.PaginationResponse page   = 9;    // pagination response
-}
-
-message GetObjRequest {
-    string  type_name                       = 2;    // object type name
-    string  value                           = 3;    // external key/ID (case-sensistive)
-}
-
-message GetObjResponse {
-    repeated Object results                 = 1;    // array of object instances
 }
 
 message GetRelationRequest {
@@ -282,18 +250,6 @@ message ListRelationsResponse {
     aserto.api.v1.PaginationResponse page   = 2;    // pagination response
 }
 
-message GetRelRequest {
-    string source_type                      = 1;    // source object type name (OPTIONAL)
-    string source_id                        = 2;    // source object ID (UUID)
-    string relation                         = 3;    // relation type name
-    string target_type                      = 4;    // target object type IDname (OPTIONAL)
-    string target_id                        = 5;    // target object ID (UUID)
-}
-
-message GetRelResponse {
-    repeated Relation results               = 1;    // array of relation instances
-}
-
 message GetPermissionRequest {
     oneof param {
         string id                           = 1;    // permission ID (UUID)
@@ -333,15 +289,6 @@ message ListPermissionsResponse {
     aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
-message GetPermRequest {
-    string name                             = 1;    // permission name (unique)
-}
-
-message GetPermResponse {
-    string id                               = 1;    // permission id (UUID)
-}
-
-
 message CheckRelationRequest {
     string  object_id                       = 1;    // source_id (UUID)
     string  object_type                     = 2;    // source type name
@@ -368,19 +315,6 @@ message CheckPermissionResponse {
     repeated string trace                   = 2;    // trace for true values
 }
 
-// message ListObjectGraphRequest {
-//     string  anchor_id                       = 1;    // anchor ID, source or target (UUID)
-//     int32   source_type                     = 2;    // source object type ID
-//     string  source_id                       = 3;    // source object ID (UUID)
-//     int32   relation                        = 4;    // relation type ID
-//     int32   target_type                     = 5;    // target object type ID
-//     string  target_id                       = 6;    // target object ID (UUID)
-// }
-
-// message ListObjectGraphResponse {
-//     repeated ObjectDependency results       = 1;    // relationship graph
-// }
-
 message GetGraphRequest {
     string  anchor_id                       = 1;    // anchor ID, source or target (UUID)
     string  source_type                     = 2;    // source object type name
@@ -394,36 +328,36 @@ message GetGraphResponse {
     repeated ObjectDependency results       = 1;    // relationship graph
 }
 
-message CheckRequest {
-    ObjectParam subject                     = 1;    // subject selector
-    oneof check {
-        CheckRelation relation              = 2;    // relation check
-        CheckPermission permission          = 3;    // permission check
-    }
-    ObjectParam object                      = 4;    // object selector
-    bool trace                              = 5;    // collect trace information
-}   
+// message CheckRequest {
+//     ObjectParam subject                     = 1;    // subject selector
+//     oneof check {
+//         CheckRelation relation              = 2;    // relation check
+//         CheckPermission permission          = 3;    // permission check
+//     }
+//     ObjectParam object                      = 4;    // object selector
+//     bool trace                              = 5;    // collect trace information
+// }   
 
-message CheckResponse { 
-    bool check                              = 1;    // check result (BOOL)
-    repeated string trace                   = 2;    // trace for true values
-}
+// message CheckResponse { 
+//     bool check                              = 1;    // check result (BOOL)
+//     repeated string trace                   = 2;    // trace for true values
+// }
 
-message ObjectParam {
-    oneof param {
-        string id                           = 1;    // get by id
-        ObjectKey key                       = 2;    // get by key
-    }
-}
+// message ObjectParam {
+//     oneof param {
+//         string id                           = 1;    // get by id
+//         ObjectKey key                       = 2;    // get by key
+//     }
+// }
 
-message CheckRelation {
-    string name                             = 1;
-    string object_type                      = 2;
-}
+// message CheckRelation {
+//     string name                             = 1;
+//     string object_type                      = 2;
+// }
 
-message CheckPermission {
-    oneof param {
-        string id                           = 1;
-        string name                         = 2;
-    }
-}
+// message CheckPermission {
+//     oneof param {
+//         string id                           = 1;
+//         string name                         = 2;
+//     }
+// }
