@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package aserto.directory.writer.v2;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v2;writer"; 
+
+import "google/protobuf/empty.proto";
+
+import "aserto/directory/v2/object.proto";
+import "aserto/directory/v2/relation.proto";
+
+service Writer {
+    // object type metadata methods
+    rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
+    rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
+    
+    // relation type metadata methods
+    rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
+    rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
+    
+    // permission metadata methods
+    rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
+    rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
+    
+    // object methods
+    rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
+    rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {};
+    
+    // relation methods
+    rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {};
+    rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {};
+}
+
+message SetObjectTypeRequest {
+    aserto.directory.v2.ObjectType object_type          = 1;    // object type instance
+}
+
+message SetObjectTypeResponse {
+    repeated aserto.directory.v2.ObjectType results     = 1;    // array of object types
+}
+
+message DeleteObjectTypeRequest {
+    oneof param {
+        int32 id                                        = 1;    // object type ID
+        string name                                     = 2;    // object type name (unique)
+    }
+}
+
+message DeleteObjectTypeResponse {
+    google.protobuf.Empty result                        = 1;    // empty result
+}
+
+message SetRelationTypeRequest {
+    aserto.directory.v2.RelationType relation_type      = 1;    // relation type instance
+}
+
+message SetRelationTypeResponse {
+    repeated aserto.directory.v2.RelationType results   = 1;    // array of relation types
+}
+
+message DeleteRelationTypeRequest {
+    oneof param {
+        int32 id                                        = 1;    // relation type ID
+        aserto.directory.v2.RelationTypeKey key         = 2;    // object_type + relation type name (unique)
+    }   
+}   
+    
+message DeleteRelationTypeResponse {    
+    google.protobuf.Empty result                        = 1;    // empty result
+}   
+    
+message SetPermissionRequest {  
+    aserto.directory.v2.Permission permission           = 1;    // permission instance
+}   
+    
+message SetPermissionResponse { 
+    repeated aserto.directory.v2.Permission results     = 1;    // array of permision instances
+}   
+    
+message DeletePermissionRequest {   
+    oneof param {   
+        string id                                       = 1;    // permission ID (UUID)
+        string permission                               = 2;    // permission key (unique)
+    }   
+}   
+    
+message DeletePermissionResponse {  
+    google.protobuf.Empty result                        = 1;    // empty result
+}   
+    
+message SetObjectRequest {  
+    aserto.directory.v2.Object object                   = 1;    // object instance
+}   
+    
+message SetObjectResponse { 
+    repeated aserto.directory.v2.Object results         = 1;    // array of object instances
+}   
+    
+message DeleteObjectRequest {   
+    oneof param {   
+        string id                                       = 1;    // ID (uuid)
+        aserto.directory.v2.ObjectKey key               = 4;    // external key/ID (case-sensistive)
+    }   
+}   
+    
+message DeleteObjectResponse {  
+    google.protobuf.Empty result                        = 1;    // empty result
+}   
+    
+message SetRelationRequest {    
+    aserto.directory.v2.Relation relation               = 1;    // relation instance
+}   
+    
+message SetRelationResponse {   
+    repeated aserto.directory.v2.Relation results       = 1;    // array of relation instances
+}   
+    
+message DeleteRelationRequest { 
+    string source_type                                  = 1;    // source object type ID (OPTIONAL)
+    string source_id                                    = 2;    // source object ID (UUID)
+    string relation                                     = 3;    // relation type ID
+    string target_type                                  = 4;    // target object type ID (OPTIONAL)
+    string target_id                                    = 5;    // target object ID (UUID)
+}   
+    
+message DeleteRelationResponse {    
+    google.protobuf.Empty result                        = 1;    // empty result
+}   

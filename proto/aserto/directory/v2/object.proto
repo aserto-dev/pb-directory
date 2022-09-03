@@ -29,6 +29,7 @@ message ObjectType {
     google.protobuf.Struct schema           = 20;   // object type schema definition (JSON)
     google.protobuf.Timestamp created_at    = 21;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at    = 22;   // last updated timestamp (UTC)
+    string hash                             = 23;   // object hash
 }
 
 message ObjectDependency {
