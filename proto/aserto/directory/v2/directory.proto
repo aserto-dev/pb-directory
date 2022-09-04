@@ -208,8 +208,8 @@ message GetRelationRequest {
     string object_type                      = 1;    // source object type ID (OPTIONAL)
     string object_id                        = 2;    // source object ID (UUID)
     string relation                         = 3;    // relation type ID
-    string subject_type                      = 4;    // target object type ID (OPTIONAL)
-    string subject_id                        = 5;    // target object ID (UUID)
+    string subject_type                     = 4;    // target object type ID (OPTIONAL)
+    string subject_id                       = 5;    // target object ID (UUID)
 }
 
 message GetRelationResponse {
@@ -228,8 +228,8 @@ message DeleteRelationRequest {
     string object_type                      = 1;    // source object type ID (OPTIONAL)
     string object_id                        = 2;    // source object ID (UUID)
     string relation                         = 3;    // relation type ID
-    string subject_type                      = 4;    // target object type ID (OPTIONAL)
-    string subject_id                        = 5;    // target object ID (UUID)
+    string subject_type                     = 4;    // target object type ID (OPTIONAL)
+    string subject_id                       = 5;    // target object ID (UUID)
 }
 
 message DeleteRelationResponse {
@@ -240,8 +240,8 @@ message ListRelationsRequest {
     string object_type                      = 1;    // source object type ID
     string object_id                        = 2;    // source object ID (UUID)
     string relation                         = 3;    // relation type ID
-    string subject_type                      = 4;    // target object type ID
-    string subject_id                        = 5;    // target object ID (UUID)
+    string subject_type                     = 4;    // target object type ID
+    string subject_id                       = 5;    // target object ID (UUID)
     aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
@@ -320,44 +320,10 @@ message GetGraphRequest {
     string  object_type                     = 2;    // source object type name
     string  object_id                       = 3;    // source object ID (UUID)
     string  relation                        = 4;    // relation type name
-    string  subject_type                     = 5;    // target object type name
-    string  subject_id                       = 6;    // target object ID (UUID)
+    string  subject_type                    = 5;    // target object type name
+    string  subject_id                      = 6;    // target object ID (UUID)
 }
 
 message GetGraphResponse {
     repeated ObjectDependency results       = 1;    // relationship graph
 }
-
-// message CheckRequest {
-//     ObjectParam subject                     = 1;    // subject selector
-//     oneof check {
-//         CheckRelation relation              = 2;    // relation check
-//         CheckPermission permission          = 3;    // permission check
-//     }
-//     ObjectParam object                      = 4;    // object selector
-//     bool trace                              = 5;    // collect trace information
-// }   
-
-// message CheckResponse { 
-//     bool check                              = 1;    // check result (BOOL)
-//     repeated string trace                   = 2;    // trace for true values
-// }
-
-// message ObjectParam {
-//     oneof param {
-//         string id                           = 1;    // get by id
-//         ObjectKey key                       = 2;    // get by key
-//     }
-// }
-
-// message CheckRelation {
-//     string name                             = 1;
-//     string object_type                      = 2;
-// }
-
-// message CheckPermission {
-//     oneof param {
-//         string id                           = 1;
-//         string name                         = 2;
-//     }
-// }

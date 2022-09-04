@@ -10,8 +10,8 @@ message Relation {
     string object_type                      = 1;    // source object type ID
     string object_id                        = 2;    // source object ID (UUID)
     string relation                         = 3;    // relation type ID
-    string subject_type                      = 4;    // target object type ID
-    string subject_id                        = 5;    // target object ID (UUID)
+    string subject_type                     = 4;    // target object type ID
+    string subject_id                       = 5;    // target object ID (UUID)
     google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
     google.protobuf.Timestamp deleted_at    = 22;   // deleted timestamp (UTC)

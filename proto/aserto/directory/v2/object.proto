@@ -37,8 +37,8 @@ message ObjectDependency {
 	string  object_id                       = 3;    // object id (uuid) of source object
 	string  source_key                      = 4;    // object search key of source object
     string  relation                        = 5;    // relation identifier
-    string  subject_type                     = 7;    // object type id of target object 
-    string  subject_id                       = 9;    // object id (uuid) of target object
+    string  subject_type                    = 7;    // object type id of target object 
+    string  subject_id                      = 9;    // object id (uuid) of target object
     string  target_key                      = 10;   // object search key of target object
     int32   depth                           = 11;   // dependency depth
     bool    is_cycle                        = 12;   // dependency cycle
