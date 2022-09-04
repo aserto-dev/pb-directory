@@ -200,16 +200,16 @@ message ListObjectsRequest {
 }
 
 message ListObjectsResponse {
-    repeated Object results                 = 1;    // arat of object instances
+    repeated Object results                 = 1;    // array of object instances
     aserto.api.v1.PaginationResponse page   = 9;    // pagination response
 }
 
 message GetRelationRequest {
-    string source_type                      = 1;    // source object type ID (OPTIONAL)
-    string source_id                        = 2;    // source object ID (UUID)
+    string object_type                      = 1;    // source object type ID (OPTIONAL)
+    string object_id                        = 2;    // source object ID (UUID)
     string relation                         = 3;    // relation type ID
-    string target_type                      = 4;    // target object type ID (OPTIONAL)
-    string target_id                        = 5;    // target object ID (UUID)
+    string subject_type                      = 4;    // target object type ID (OPTIONAL)
+    string subject_id                        = 5;    // target object ID (UUID)
 }
 
 message GetRelationResponse {
@@ -225,11 +225,11 @@ message SetRelationResponse {
 }
 
 message DeleteRelationRequest {
-    string source_type                      = 1;    // source object type ID (OPTIONAL)
-    string source_id                        = 2;    // source object ID (UUID)
+    string object_type                      = 1;    // source object type ID (OPTIONAL)
+    string object_id                        = 2;    // source object ID (UUID)
     string relation                         = 3;    // relation type ID
-    string target_type                      = 4;    // target object type ID (OPTIONAL)
-    string target_id                        = 5;    // target object ID (UUID)
+    string subject_type                      = 4;    // target object type ID (OPTIONAL)
+    string subject_id                        = 5;    // target object ID (UUID)
 }
 
 message DeleteRelationResponse {
@@ -237,11 +237,11 @@ message DeleteRelationResponse {
 }
 
 message ListRelationsRequest {
-    string source_type                      = 1;    // source object type ID
-    string source_id                        = 2;    // source object ID (UUID)
+    string object_type                      = 1;    // source object type ID
+    string object_id                        = 2;    // source object ID (UUID)
     string relation                         = 3;    // relation type ID
-    string target_type                      = 4;    // target object type ID
-    string target_id                        = 5;    // target object ID (UUID)
+    string subject_type                      = 4;    // target object type ID
+    string subject_id                        = 5;    // target object ID (UUID)
     aserto.api.v1.PaginationRequest page    = 9;    // pagination request
 }
 
@@ -290,10 +290,10 @@ message ListPermissionsResponse {
 }
 
 message CheckRelationRequest {
-    string  object_id                       = 1;    // source_id (UUID)
+    string  object_id                       = 1;    // object_id (UUID)
     string  object_type                     = 2;    // source type name
     string  relation                        = 3;    // relation type name 
-    string  subject_id                      = 4;    // target_id (UUID)
+    string  subject_id                      = 4;    // subject_id (UUID)
     bool    trace                           = 5;    // collect trace information
 }
 
@@ -303,10 +303,10 @@ message CheckRelationResponse {
 }
 
 message CheckPermissionRequest {
-    string  object_id                       = 1;    // source_id (UUID)
+    string  object_id                       = 1;    // object_id (UUID)
     string  object_type                     = 2;    // source type name
     string  permission                      = 3;    // permission name 
-    string  subject_id                      = 4;    // target_id (UUID)
+    string  subject_id                      = 4;    // subject_id (UUID)
     bool trace                              = 5;    // collect trace information
 }
 
@@ -317,11 +317,11 @@ message CheckPermissionResponse {
 
 message GetGraphRequest {
     string  anchor_id                       = 1;    // anchor ID, source or target (UUID)
-    string  source_type                     = 2;    // source object type name
-    string  source_id                       = 3;    // source object ID (UUID)
+    string  object_type                     = 2;    // source object type name
+    string  object_id                       = 3;    // source object ID (UUID)
     string  relation                        = 4;    // relation type name
-    string  target_type                     = 5;    // target object type name
-    string  target_id                       = 6;    // target object ID (UUID)
+    string  subject_type                     = 5;    // target object type name
+    string  subject_id                       = 6;    // target object ID (UUID)
 }
 
 message GetGraphResponse {
