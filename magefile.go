@@ -60,7 +60,7 @@ func Clean() error {
 }
 
 func Lint() error {
-	mg.SerialDeps(Login)
+	mg.SerialDeps(Login, Build)
 
 	if err := bufLint("proto/buf.yaml", "bin/directory.bin"); err != nil {
 		return err
