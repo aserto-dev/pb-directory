@@ -26,20 +26,21 @@ message ObjectType {
     bool is_subject                         = 4;    // object type is a subject (user|group)
     int32 ordinal                           = 5;    // sort ordinal
     uint32 status                           = 6;    // status flag bitmap
-    google.protobuf.Struct schema           = 20;   // object type schema definition (JSON)
-    google.protobuf.Timestamp created_at    = 21;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at    = 22;   // last updated timestamp (UTC)
+    google.protobuf.Struct schema           = 10;   // object type schema definition (JSON)
+    google.protobuf.Timestamp created_at    = 20;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at    = 21;   // last updated timestamp (UTC)
+    google.protobuf.Timestamp deleted_at    = 22;   // deleted timestamp (UTC)
     string hash                             = 23;   // object hash
 }
 
 message ObjectDependency {
-	string  source_type                     = 1;    // object type name of source object
-	string  source_id                       = 3;    // object id (uuid) of source object
-	string  source_key                      = 4;    // object search key of source object
+	string  object_type                     = 1;    // object type name of source object
+	string  object_id                       = 3;    // object id (uuid) of source object
+	string  object_key                      = 4;    // object search key of source object
     string  relation                        = 5;    // relation identifier
-    string  target_type                     = 7;    // object type id of target object 
-    string  target_id                       = 9;    // object id (uuid) of target object
-    string  target_key                      = 10;   // object search key of target object
+    string  subject_type                    = 7;    // object type id of target object 
+    string  subject_id                      = 9;    // object id (uuid) of target object
+    string  subject_key                     = 10;   // object search key of target object
     int32   depth                           = 11;   // dependency depth
     bool    is_cycle                        = 12;   // dependency cycle
     string  path                            = 13;   // dependency path

@@ -116,11 +116,11 @@ message SetRelationResponse {
 }   
     
 message DeleteRelationRequest { 
-    string source_type                                  = 1;    // source object type ID (OPTIONAL)
-    string source_id                                    = 2;    // source object ID (UUID)
+    string object_type                                  = 1;    // source object type ID (OPTIONAL)
+    string object_id                                    = 2;    // source object ID (UUID)
     string relation                                     = 3;    // relation type ID
-    string target_type                                  = 4;    // target object type ID (OPTIONAL)
-    string target_id                                    = 5;    // target object ID (UUID)
+    string subject_type                                 = 4;    // target object type ID (OPTIONAL)
+    string subject_id                                   = 5;    // target object ID (UUID)
 }   
     
 message DeleteRelationResponse {    
