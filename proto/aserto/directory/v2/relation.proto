@@ -33,17 +33,22 @@ message RelationType {
     string hash                             = 23;   // object hash
 }
 
-message Permission {
-    string id                               = 1;    // permission ID (UUID)
-    string permission                       = 2;    // permission key (unique)
-    string display_name                     = 3;    // permission display name
-    google.protobuf.Timestamp created_at    = 4;    // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at    = 5;    // last updated timestamp (UTC)
-    google.protobuf.Timestamp deleted_at    = 22;   // deleted timestamp (UTC)
-    string hash                             = 23;   // object hash
+message RelationParam {
+    string object_type                      = 1;    // source object type ID (OPTIONAL)
+    string object_id                        = 2;    // source object ID (UUID)
+    string relation                         = 3;    // relation type ID
+    string subject_type                     = 4;    // target object type ID (OPTIONAL)
+    string subject_id                       = 5;    // target object ID (UUID)
 }
 
 message RelationTypeKey {
-    string name                             = 1;    // relation name (unique object_type+name)
-    string object_type                      = 2;    // object type referenced by relation (on the left hand side)
+    string name                             = 1;    // relation type name
+    string object_type                      = 2;    // relation type associated object type
+}
+
+message RelationTypeParam {
+    oneof opt {
+        int32 id                            = 1;    // relation type by id
+        RelationTypeKey key                 = 2;    // relation type by object_type + name
+    }
 }
