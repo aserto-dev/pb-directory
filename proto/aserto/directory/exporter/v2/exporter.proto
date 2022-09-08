@@ -13,7 +13,8 @@ service Exporter {
 }
 
 message ExportRequest {
-    uint32 options                                      = 1;    // data export options mask 
+    uint32 options                                      = 1;    // data export options mask
+    google.protobuf.Timestamp start_at                  = 20;   // start export from timestamp (UTC)
 }
 
 message ExportResponse {

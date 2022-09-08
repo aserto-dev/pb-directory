@@ -72,5 +72,3 @@ message ObjectTypeParam {
         string name                         = 2;    // object type by name (unique)
     }
 }
-
-
