@@ -4,6 +4,8 @@ package aserto.directory.exporter.v2;
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/exporter/v2;exporter"; 
 
+import "google/protobuf/timestamp.proto";
+
 import "aserto/directory/v2/object.proto";
 import "aserto/directory/v2/permission.proto";
 import "aserto/directory/v2/relation.proto";
