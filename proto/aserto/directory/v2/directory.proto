@@ -11,6 +11,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "aserto/api/v2/pagination.proto";
 
 import "aserto/directory/v2/object.proto";
+import "aserto/directory/v2/permission.proto";
 import "aserto/directory/v2/relation.proto";
 
 // OpenAPI annotations.
@@ -73,10 +74,7 @@ message InfoResponse {
 }
 
 message GetObjectTypeRequest {
-    oneof param {
-        int32 id                            = 1;    // object type ID
-        string name                         = 2;    // object type name (unique)
-    }
+    ObjectTypeParam param                   = 1;    // object type selector
 }
 
 message GetObjectTypeResponse {
@@ -93,10 +91,7 @@ message ListObjectTypesResponse {
 }
 
 message GetRelationTypeRequest {
-    oneof param {
-        int32 id                            = 1;    // relation type ID
-        RelationTypeKey key                 = 3;    // object_type+name
-    }
+    RelationTypeParam param                 = 1;    // relation type selector
 }
 
 message GetRelationTypeResponse {
@@ -114,10 +109,7 @@ message ListRelationTypesResponse {
 }
 
 message GetObjectRequest {
-    oneof param {
-        string id                           = 1;    // ID (uuid)
-        ObjectKey key                       = 4;    // external key/ID (case-sensistive)
-    }
+    ObjectParam param                       = 1;    // object selector
 }
 
 message GetObjectResponse {
@@ -135,11 +127,7 @@ message ListObjectsResponse {
 }
 
 message GetRelationRequest {
-    string object_type                      = 1;    // source object type ID (OPTIONAL)
-    string object_id                        = 2;    // source object ID (UUID)
-    string relation                         = 3;    // relation type ID
-    string subject_type                     = 4;    // target object type ID (OPTIONAL)
-    string subject_id                       = 5;    // target object ID (UUID)
+    RelationParam param                     = 1;    // relation selector
 }
 
 message GetRelationResponse {
@@ -147,11 +135,7 @@ message GetRelationResponse {
 }
 
 message ListRelationsRequest {
-    string object_type                      = 1;    // source object type ID
-    string object_id                        = 2;    // source object ID (UUID)
-    string relation                         = 3;    // relation type ID
-    string subject_type                     = 4;    // target object type ID
-    string subject_id                       = 5;    // target object ID (UUID)
+    RelationParam param                     = 1;    // relation selector
     aserto.api.v2.PaginationRequest page    = 9;    // pagination request
 }
 
@@ -161,10 +145,7 @@ message ListRelationsResponse {
 }
 
 message GetPermissionRequest {
-    oneof param {
-        string id                           = 1;    // permission ID (UUID)
-        string permission                   = 2;    // permission key (unique)
-    }
+    PermissionParam param                   = 1;    // permission selector
 }
 
 message GetPermissionResponse {
@@ -183,7 +164,7 @@ message ListPermissionsResponse {
 message CheckRequest {
     ObjectParam subject                     = 1;    // subject selector
     oneof check {
-        RelationParam relation              = 2;    // relation check
+        RelationTypeParam relation          = 2;    // relation check
         PermissionParam permission          = 3;    // permission check
     }
     ObjectParam object                      = 4;    // object selector
@@ -195,32 +176,9 @@ message CheckResponse {
     repeated string trace                   = 2;    // trace for true values
 }
 
-message ObjectParam {
-    oneof param {
-        string id                           = 1;    // get by id
-        ObjectKey key                       = 2;    // get by key
-    }
-}
-
-message RelationParam {
-    string name                             = 1;
-    string object_type                      = 2;
-}
-
-message PermissionParam {
-    oneof param {
-        string id                           = 1;
-        string name                         = 2;
-    }
-}
-
 message GetGraphRequest {
     string  anchor_id                       = 1;    // anchor ID, source or target (UUID)
-    string  object_type                     = 2;    // source object type name
-    string  object_id                       = 3;    // source object ID (UUID)
-    string  relation                        = 4;    // relation type name
-    string  subject_type                    = 5;    // target object type name
-    string  subject_id                      = 6;    // target object ID (UUID)
+    RelationParam param                     = 2;    // relation selector
 }
 
 message GetGraphResponse {

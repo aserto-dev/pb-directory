@@ -5,6 +5,7 @@ package aserto.directory.exporter.v2;
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/exporter/v2;exporter"; 
 
 import "aserto/directory/v2/object.proto";
+import "aserto/directory/v2/permission.proto";
 import "aserto/directory/v2/relation.proto";
 
 service Exporter {
@@ -16,7 +17,7 @@ message ExportRequest {
 }
 
 message ExportResponse {
-    oneof msg_oneof {
+    oneof msg {
         aserto.directory.v2.Object object               = 2;    // object instance (data)
         aserto.directory.v2.ObjectType object_type      = 3;    // object type instance (metadata)
         aserto.directory.v2.Relation relation           = 4;    // relation instance (data)

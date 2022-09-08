@@ -46,11 +46,6 @@ message ObjectDependency {
     string  path                            = 13;   // dependency path
 }
 
-message ObjectKey {
-    string type                             = 1;    // object type name
-    string key                              = 2;    // external key/ID (case-sensistive)
-}
-
 enum Flag {
     FLAG_UNKNOWN                            = 0x0;  // default, no special object behavior
     FLAG_HIDDEN                             = 0x1;  // hidden object
@@ -58,3 +53,24 @@ enum Flag {
     FLAG_SYSTEM                             = 0x4;  // system object
     FLAG_SHADOW                             = 0x8;  // shadow object by type+key assosciated to parent object
 }
+
+message ObjectKey {
+    string type                             = 1;    // object type name
+    string key                              = 2;    // external key/ID (case-sensistive)
+}
+
+message ObjectParam {
+    oneof opt {
+        string id                           = 1;    // object by id
+        ObjectKey key                       = 2;    // object by key (unique)
+    }
+}
+
+message ObjectTypeParam {
+    oneof opt {
+        int32 id                            = 1;    // object type by id
+        string name                         = 2;    // object type by name (unique)
+    }
+}
+
+

@@ -7,6 +7,7 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/
 import "google/protobuf/empty.proto";
 
 import "aserto/directory/v2/object.proto";
+import "aserto/directory/v2/permission.proto";
 import "aserto/directory/v2/relation.proto";
 
 service Writer {
@@ -40,10 +41,7 @@ message SetObjectTypeResponse {
 }
 
 message DeleteObjectTypeRequest {
-    oneof param {
-        int32 id                                        = 1;    // object type ID
-        string name                                     = 2;    // object type name (unique)
-    }
+    aserto.directory.v2.ObjectTypeParam param           = 1;    // object type selector
 }
 
 message DeleteObjectTypeResponse {
@@ -59,10 +57,7 @@ message SetRelationTypeResponse {
 }
 
 message DeleteRelationTypeRequest {
-    oneof param {
-        int32 id                                        = 1;    // relation type ID
-        aserto.directory.v2.RelationTypeKey key         = 2;    // object_type + relation type name (unique)
-    }   
+    aserto.directory.v2.RelationTypeParam param         = 1;    // relation type selector
 }   
     
 message DeleteRelationTypeResponse {    
@@ -78,10 +73,7 @@ message SetPermissionResponse {
 }   
     
 message DeletePermissionRequest {   
-    oneof param {   
-        string id                                       = 1;    // permission ID (UUID)
-        string permission                               = 2;    // permission key (unique)
-    }   
+    aserto.directory.v2.PermissionParam param           = 1;    // permission selector
 }   
     
 message DeletePermissionResponse {  
@@ -96,11 +88,8 @@ message SetObjectResponse {
     repeated aserto.directory.v2.Object results         = 1;    // array of object instances
 }   
     
-message DeleteObjectRequest {   
-    oneof param {   
-        string id                                       = 1;    // ID (uuid)
-        aserto.directory.v2.ObjectKey key               = 4;    // external key/ID (case-sensistive)
-    }   
+message DeleteObjectRequest {
+    aserto.directory.v2.ObjectParam param               = 1;    // object selector   
 }   
     
 message DeleteObjectResponse {  
@@ -115,12 +104,8 @@ message SetRelationResponse {
     repeated aserto.directory.v2.Relation results       = 1;    // array of relation instances
 }   
     
-message DeleteRelationRequest { 
-    string object_type                                  = 1;    // source object type ID (OPTIONAL)
-    string object_id                                    = 2;    // source object ID (UUID)
-    string relation                                     = 3;    // relation type ID
-    string subject_type                                 = 4;    // target object type ID (OPTIONAL)
-    string subject_id                                   = 5;    // target object ID (UUID)
+message DeleteRelationRequest {
+    aserto.directory.v2.RelationParam param             = 1;    // relation selector 
 }   
     
 message DeleteRelationResponse {    
