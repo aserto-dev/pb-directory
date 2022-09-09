@@ -89,7 +89,6 @@ jobs:
       matrix:
         cfg:
           - { project: go-directory }
-          - { project: go-directory-store }
           - { project: node-directory }
 
     name: Generate on ${{ matrix.cfg.project }}
