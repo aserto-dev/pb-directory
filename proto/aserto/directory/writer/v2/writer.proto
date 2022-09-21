@@ -6,9 +6,7 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/
 
 import "google/protobuf/empty.proto";
 
-import "aserto/directory/v2/object.proto";
-import "aserto/directory/v2/permission.proto";
-import "aserto/directory/v2/relation.proto";
+import "aserto/directory/common/v2/common.proto";
 
 service Writer {
     // object type metadata methods
@@ -33,81 +31,81 @@ service Writer {
 }
 
 message SetObjectTypeRequest {
-    aserto.directory.v2.ObjectType object_type          = 1;    // object type instance
+    aserto.directory.common.v2.ObjectType object_type           = 1;    // 
 }
 
 message SetObjectTypeResponse {
-    repeated aserto.directory.v2.ObjectType results     = 1;    // array of object types
+    repeated aserto.directory.common.v2.ObjectType results      = 1;    // array of object types
 }
 
 message DeleteObjectTypeRequest {
-    aserto.directory.v2.ObjectTypeParam param           = 1;    // object type selector
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // 
 }
 
 message DeleteObjectTypeResponse {
-    google.protobuf.Empty result                        = 1;    // empty result
+    google.protobuf.Empty result                                = 1;    // empty result
 }
 
 message SetRelationTypeRequest {
-    aserto.directory.v2.RelationType relation_type      = 1;    // relation type instance
+    aserto.directory.common.v2.RelationType relation_type       = 1;    // 
 }
 
 message SetRelationTypeResponse {
-    repeated aserto.directory.v2.RelationType results   = 1;    // array of relation types
+    repeated aserto.directory.common.v2.RelationType results    = 1;    // array of relation types
 }
 
 message DeleteRelationTypeRequest {
-    aserto.directory.v2.RelationTypeParam param         = 1;    // relation type selector
+    aserto.directory.common.v2.RelationTypeIdentifier param     = 1;    // 
 }   
     
 message DeleteRelationTypeResponse {    
-    google.protobuf.Empty result                        = 1;    // empty result
+    google.protobuf.Empty result                                = 1;    // empty result
 }   
     
-message SetPermissionRequest {  
-    aserto.directory.v2.Permission permission           = 1;    // permission instance
+message SetPermissionRequest {
+    aserto.directory.common.v2.Permission permission            = 1;    // 
 }   
     
 message SetPermissionResponse { 
-    repeated aserto.directory.v2.Permission results     = 1;    // array of permision instances
+    repeated aserto.directory.common.v2.Permission results     = 1;    // array of permision instances
 }   
     
-message DeletePermissionRequest {   
-    aserto.directory.v2.PermissionParam param           = 1;    // permission selector
+message DeletePermissionRequest {
+    aserto.directory.common.v2.PermissionIdentifier param       = 1;   // 
 }   
     
 message DeletePermissionResponse {  
-    google.protobuf.Empty result                        = 1;    // empty result
+    google.protobuf.Empty result                                = 1;    // empty result
 }   
     
-message SetObjectRequest {  
-    aserto.directory.v2.Object object                   = 1;    // object instance
+message SetObjectRequest {
+    aserto.directory.common.v2.Object object                    = 1;    // 
 }   
     
 message SetObjectResponse { 
-    repeated aserto.directory.v2.Object results         = 1;    // array of object instances
+    repeated aserto.directory.common.v2.Object results          = 1;    // array of object instances
 }   
     
 message DeleteObjectRequest {
-    aserto.directory.v2.ObjectParam param               = 1;    // object selector   
+    aserto.directory.common.v2.ObjectIdentifier param           = 1;    // 
 }   
     
 message DeleteObjectResponse {  
-    google.protobuf.Empty result                        = 1;    // empty result
+    google.protobuf.Empty result                                = 1;    // empty result
 }   
     
 message SetRelationRequest {    
-    aserto.directory.v2.Relation relation               = 1;    // relation instance
+    aserto.directory.common.v2.Relation relation                = 1;    // 
 }   
     
 message SetRelationResponse {   
-    repeated aserto.directory.v2.Relation results       = 1;    // array of relation instances
+    repeated aserto.directory.common.v2.Relation results        = 1;    // array of relation instances
 }   
     
 message DeleteRelationRequest {
-    aserto.directory.v2.RelationParam param             = 1;    // relation selector 
+    aserto.directory.common.v2.RelationIdentifier param         = 1;    // 
 }   
     
 message DeleteRelationResponse {    
-    google.protobuf.Empty result                        = 1;    // empty result
+    google.protobuf.Empty result                                = 1;    // empty result
 }   
