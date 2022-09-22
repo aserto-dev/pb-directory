@@ -86,7 +86,7 @@ enum Flag {
     FLAG_HIDDEN                             = 0x1;  // hidden object
     FLAG_READONLY                           = 0x2;  // read-only object
     FLAG_SYSTEM                             = 0x4;  // system object
-    FLAG_SHADOW                             = 0x8;  // shadow object by type+key assosciated to parent object
+    FLAG_SHADOW                             = 0x8;  // shadow object by type+key associated to parent object
 }
 
 // ObjectType identifier
