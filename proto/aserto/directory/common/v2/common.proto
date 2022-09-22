@@ -118,6 +118,6 @@ message ObjectIdentifier {
 // Relation identifier
 message RelationIdentifier {
     ObjectIdentifier subject                            = 1;    // subject identifier
-    optional string relation                            = 2;    // relation type ID
+    RelationTypeIdentifier relation                     = 2;    // relation identifier
     ObjectIdentifier object                             = 3;    // object identifier
 }

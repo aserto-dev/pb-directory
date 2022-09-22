@@ -62,7 +62,7 @@ message GetRelationTypeResponse {
 }
 
 message GetRelationTypesRequest {
-    optional string object_type                                 = 1;    // optional object type filter
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // object type selector    
     aserto.api.v2.PaginationRequest page                        = 9;    // pagination request
 }
 
@@ -80,7 +80,7 @@ message GetObjectResponse {
 }
 
 message GetObjectsRequest {
-    optional string type                                        = 1;    // object type filter (OPTIONAL)
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // object type selector
     aserto.api.v2.PaginationRequest page                        = 9;    // pagination request
 }
 
@@ -98,9 +98,7 @@ message GetRelationResponse {
 }
 
 message GetRelationsRequest {
-    aserto.directory.common.v2.ObjectIdentifier subject         = 1;    // subject selector
-    aserto.directory.common.v2.RelationTypeIdentifier relation  = 2;    // relation selector
-    aserto.directory.common.v2.ObjectIdentifier object          = 3;    // object selector
+    aserto.directory.common.v2.RelationIdentifier param         = 1;    // relation selector
     aserto.api.v2.PaginationRequest page                        = 9;    // pagination request
 }
 
