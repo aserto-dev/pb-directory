@@ -112,7 +112,7 @@ message GetPermissionRequest {
 }
 
 message GetPermissionResponse {
-    aserto.directory.common.v2.Permission result                = 1;    // permision instance
+    aserto.directory.common.v2.Permission result                = 1;    // permission instance
 }
 
 message GetPermissionsRequest {
