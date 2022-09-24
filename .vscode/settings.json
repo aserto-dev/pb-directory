@@ -1,0 +1,13 @@
+{
+    "cSpell.enabled": true,
+    "cSpell.enableFiletypes": [
+        "proto3"
+    ],
+    "cSpell.words": [
+        "aserto",
+        "oneof",
+        "proto",
+        "protobuf",
+        "struct"
+    ]
+}
