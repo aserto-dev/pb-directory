@@ -22,6 +22,7 @@ service Directory {
     
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
+    rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {};
     rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {};
     
     // relation methods
@@ -77,6 +78,14 @@ message GetObjectRequest {
 
 message GetObjectResponse {
     aserto.directory.common.v2.Object result                    = 1;    // object instance
+}
+
+message GetObjectManyRequest {
+    repeated aserto.directory.common.v2.ObjectIdentifier param  = 1;    // object identifier list
+}
+
+message GetObjectManyResponse {
+    repeated aserto.directory.common.v2.Object results          = 1;    // array of object instances
 }
 
 message GetObjectsRequest {
