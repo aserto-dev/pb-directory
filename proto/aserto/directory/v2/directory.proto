@@ -38,6 +38,7 @@ service Directory {
     
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
+    rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {};
     rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {};
     
     // relation methods
@@ -113,6 +114,14 @@ message GetObjectRequest {
 }
 
 message GetObjectResponse {
+    repeated Object results                 = 1;    // array of object instances
+}
+
+message GetObjectManyRequest {
+    repeated ObjectParam param              = 1;    // object identifier list
+}
+
+message GetObjectManyResponse {
     repeated Object results                 = 1;    // array of object instances
 }
 
