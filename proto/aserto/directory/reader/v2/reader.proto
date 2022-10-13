@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-package aserto.directory.v2;
+package aserto.directory.reader.v2;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/v2;directory"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v2;reader"; 
 
 import "aserto/api/v2/pagination.proto";
 import "aserto/directory/common/v2/common.proto";
 
-service Directory {
+service Reader {
     // object type metadata methods
     rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
     rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {};

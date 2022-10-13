@@ -4,11 +4,11 @@ deps:
   - remote: buf.build
     owner: aserto-dev
     repository: aserto
-    commit: f347901ee95a4dbd984c7b2efbe20931
+    commit: d1c9724f5c7345cdaafdbad7176a6a14
   - remote: buf.build
     owner: googleapis
     repository: googleapis
-    commit: e9fcfb66f77242e5b8fd4564d7a01033
+    commit: d1263fe26f8e430a967dc22a4d0cad18
   - remote: buf.build
     owner: grpc-ecosystem
     repository: grpc-gateway
