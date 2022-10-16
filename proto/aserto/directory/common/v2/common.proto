@@ -78,7 +78,7 @@ message ObjectDependency {
     string  subject_key                                 = 10;   // object search key of target object
     int32   depth                                       = 11;   // dependency depth
     bool    is_cycle                                    = 12;   // dependency cycle
-    string  path                                        = 13;   // dependency path
+    repeated string path                                = 13;   // dependency path
 }
 
 enum Flag {
