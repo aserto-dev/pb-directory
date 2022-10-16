@@ -103,7 +103,7 @@ message GetRelationRequest {
 }
 
 message GetRelationResponse {
-    aserto.directory.common.v2.Relation result                  = 1;    // relation instance
+    repeated aserto.directory.common.v2.Relation results        = 1;    // array of relation instances
 }
 
 message GetRelationsRequest {
@@ -112,7 +112,7 @@ message GetRelationsRequest {
 }
 
 message GetRelationsResponse {
-    repeated aserto.directory.common.v2.Relation results        = 1;    // results array of relations
+    repeated aserto.directory.common.v2.Relation results        = 1;    // array of relation instances
     aserto.api.v2.PaginationResponse page                       = 9;    // pagination response
 }
 
