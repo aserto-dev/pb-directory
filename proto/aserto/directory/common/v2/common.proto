@@ -121,3 +121,15 @@ message RelationIdentifier {
     RelationTypeIdentifier relation                     = 2;    // relation identifier
     ObjectIdentifier object                             = 3;    // object identifier
 }
+
+// Pagination request
+message PaginationRequest {
+    int32 size                                          = 1;    // requested page size, valid value between 1-100 rows (default 100)
+    string token                                        = 2;    // pagination start token, default ""
+}
+  
+// Pagination response
+message PaginationResponse {
+    string next_token                                   = 1;    // next page token, when empty there are no more pages to fetch
+    int32 result_size                                   = 2;    // result size of the page returned
+}
