@@ -25,7 +25,6 @@ var (
 
 func init() {
 	os.Setenv("GO_VERSION", "1.17")
-	os.Setenv("GOPRIVATE", "github.com/aserto-dev")
 }
 
 // install all required dependencies.
