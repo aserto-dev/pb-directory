@@ -77,6 +77,16 @@ jobs:
     name: Generate on ${{ matrix.cfg.project }}
     steps:
       -
+        name: Read Configuration
+        uses: hashicorp/vault-action@v2.4.1
+        id: vault
+        with:
+          url: ${{ env.VAULT_ADDR }}
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            kv/data/github    "USERNAME"          | USERNAME;
+            kv/data/github    "READ_WRITE_TOKEN"  | READ_WRITE_TOKEN;
+      -
         name: Trigger dispatch
         run: |
           curl -XPOST -u "${USERNAME}:${READ_WRITE_TOKEN}" \
