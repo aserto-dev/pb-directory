@@ -99,10 +99,12 @@ message GetObjectsResponse {
 
 message GetRelationRequest {
     aserto.directory.common.v2.RelationIdentifier param         = 1;    // relation selector
+    optional bool with_objects                                  = 2;    // materialize relation objects
 }
 
 message GetRelationResponse {
     repeated aserto.directory.common.v2.Relation results        = 1;    // array of relation instances
+    map<string, aserto.directory.common.v2.Object> objects      = 2;    // map of materialized relation objects
 }
 
 message GetRelationsRequest {
