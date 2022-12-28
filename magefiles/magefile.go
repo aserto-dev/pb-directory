@@ -24,7 +24,7 @@ var (
 )
 
 func init() {
-	os.Setenv("GO_VERSION", "1.17")
+	os.Setenv("GO_VERSION", "1.19")
 }
 
 // install all required dependencies.
