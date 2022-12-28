@@ -22,8 +22,6 @@ message ExportResponse {
         aserto.directory.common.v2.Object object                = 2;    // object instance (data)
         aserto.directory.common.v2.ObjectType object_type       = 3;    // object type instance (metadata)
         aserto.directory.common.v2.Relation relation            = 4;    // relation instance (data)
-        aserto.directory.common.v2.RelationType relation_type   = 5;    // relation type instance (metadata)
-        aserto.directory.common.v2.Permission permission        = 6;    // permission instance (metadata)
     }
 }
 

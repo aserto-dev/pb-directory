@@ -14,8 +14,6 @@ message ImportRequest {
     Opcode op_code                                              = 1;    // operation Opcode enum value
     oneof msg {
         aserto.directory.common.v2.ObjectType object_type       = 2;    // object_type import message
-        aserto.directory.common.v2.Permission permission        = 3;    // permission import message
-        aserto.directory.common.v2.RelationType relation_type   = 4;    // relation_type import message
         aserto.directory.common.v2.Object object                = 5;    // object import message
         aserto.directory.common.v2.Relation relation            = 6;    // relation import message
     }
@@ -23,8 +21,6 @@ message ImportRequest {
 
 message ImportResponse {
     ImportCounter object_type                                   = 1;    // object_type import counter
-    ImportCounter permission                                    = 2;    // object_type import counter
-    ImportCounter relation_type                                 = 3;    // object_type import counter
     ImportCounter object                                        = 4;    // object import counter
     ImportCounter relation                                      = 5;    // object_type import counter
 

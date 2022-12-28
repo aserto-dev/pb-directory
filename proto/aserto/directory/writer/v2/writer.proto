@@ -13,14 +13,6 @@ service Writer {
     rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
     rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
     
-    // relation type metadata methods
-    rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
-    rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
-    
-    // permission metadata methods
-    rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
-    rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
-    
     // object methods
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {};
@@ -31,7 +23,7 @@ service Writer {
 }
 
 message SetObjectTypeRequest {
-    aserto.directory.common.v2.ObjectType object_type           = 1;    // 
+    aserto.directory.common.v2.ObjectType object_type           = 1;    // object type instance
 }
 
 message SetObjectTypeResponse {
@@ -39,47 +31,15 @@ message SetObjectTypeResponse {
 }
 
 message DeleteObjectTypeRequest {
-    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // 
+    string name                                                 = 1;    // object type identifier
 }
 
 message DeleteObjectTypeResponse {
     google.protobuf.Empty result                                = 1;    // empty result
 }
-
-message SetRelationTypeRequest {
-    aserto.directory.common.v2.RelationType relation_type       = 1;    // 
-}
-
-message SetRelationTypeResponse {
-    aserto.directory.common.v2.RelationType result              = 1;    // relation types instance
-}
-
-message DeleteRelationTypeRequest {
-    aserto.directory.common.v2.RelationTypeIdentifier param     = 1;    // 
-}   
-    
-message DeleteRelationTypeResponse {    
-    google.protobuf.Empty result                                = 1;    // empty result
-}   
-    
-message SetPermissionRequest {
-    aserto.directory.common.v2.Permission permission            = 1;    // 
-}   
-    
-message SetPermissionResponse { 
-    aserto.directory.common.v2.Permission result                = 1;    // permission instance
-}   
-    
-message DeletePermissionRequest {
-    aserto.directory.common.v2.PermissionIdentifier param       = 1;   // 
-}   
-    
-message DeletePermissionResponse {  
-    google.protobuf.Empty result                                = 1;    // empty result
-}   
     
 message SetObjectRequest {
-    aserto.directory.common.v2.Object object                    = 1;    // 
+    aserto.directory.common.v2.Object object                    = 1;    // object instance
 }   
     
 message SetObjectResponse { 
@@ -87,7 +47,7 @@ message SetObjectResponse {
 }   
     
 message DeleteObjectRequest {
-    aserto.directory.common.v2.ObjectIdentifier param           = 1;    // 
+    string id                                                   = 1;    // object instance identifier
 }   
     
 message DeleteObjectResponse {  
@@ -95,7 +55,7 @@ message DeleteObjectResponse {
 }   
     
 message SetRelationRequest {    
-    aserto.directory.common.v2.Relation relation                = 1;    // 
+    aserto.directory.common.v2.Relation relation                = 1;    // relation instance
 }   
     
 message SetRelationResponse {   
@@ -103,7 +63,11 @@ message SetRelationResponse {
 }   
     
 message DeleteRelationRequest {
-    aserto.directory.common.v2.RelationIdentifier param         = 1;    // 
+    string subject_type                                         = 1;    // subject (object) type
+    string subject_id                                           = 2;    // subject identifier
+    string relation                                             = 3;    // relation type
+    string object_type                                          = 4;    // object (object) type
+    string object_id                                            = 5;    // object identifier
 }   
     
 message DeleteRelationResponse {    

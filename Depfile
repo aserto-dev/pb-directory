@@ -36,3 +36,6 @@ go:
   protoc-gen-grpc-gateway:
     importPath: "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"
     version: "v2.13.0"
+  protoc-gen-validate:
+    importPath: "github.com/envoyproxy/protoc-gen-validate"
+    version: "v0.9.1"
