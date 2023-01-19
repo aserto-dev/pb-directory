@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package aserto.directory.schema.v2;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/v2;schema";
+
+import "aserto/api/v1/user.proto";
+
+// Properties of "identity" objects.
+message IdentityProperties {
+    aserto.api.v1.IdentityKind kind         = 1;    // identity kind [email|username|uid|pid|dn|phone]
+    string provider                         = 2;    // identity provider name
+    bool verified                           = 3;    // identity has been verified (false when not explicitly specified)
+    optional string connection_id           = 4;    // IDP connection id which owns the object instance
+}
