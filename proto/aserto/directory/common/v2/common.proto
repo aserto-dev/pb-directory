@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aserto.directory.common.v2;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/common/v2;common"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/common/v2;common";
 
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
@@ -69,11 +69,11 @@ message Relation {
 }
 
 message ObjectDependency {
-	string  object_type                                 = 1;    // object type name of source object
-	string  object_id                                   = 3;    // object id (uuid) of source object
-	string  object_key                                  = 4;    // object search key of source object
+    string  object_type                                 = 1;    // object type name of source object
+    string  object_id                                   = 3;    // object id (uuid) of source object
+    string  object_key                                  = 4;    // object search key of source object
     string  relation                                    = 5;    // relation identifier
-    string  subject_type                                = 7;    // object type id of target object 
+    string  subject_type                                = 7;    // object type id of target object
     string  subject_id                                  = 9;    // object id (uuid) of target object
     string  subject_key                                 = 10;   // object search key of target object
     int32   depth                                       = 11;   // dependency depth
@@ -108,7 +108,7 @@ message RelationTypeIdentifier {
     optional string object_type                         = 3;    // object type referenced by relation
 }
 
-// Object identifier 
+// Object identifier
 message ObjectIdentifier {
     optional string type                                = 1;    // object type
     optional string id                                  = 2;    // internal object id (uuid)
@@ -127,7 +127,7 @@ message PaginationRequest {
     int32 size                                          = 1;    // requested page size, valid value between 1-100 rows (default 100)
     string token                                        = 2;    // pagination start token, default ""
 }
-  
+
 // Pagination response
 message PaginationResponse {
     string next_token                                   = 1;    // next page token, when empty there are no more pages to fetch
