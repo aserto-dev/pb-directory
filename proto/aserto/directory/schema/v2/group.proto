@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package aserto.directory.schema.v2;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/v2;schema";
+
+// Properties of "group" objects.
+message GroupProperties {
+    string connection_id = 1;  // ID of the IDP connection the group is associated with.
+}
