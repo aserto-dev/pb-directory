@@ -8,8 +8,8 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
 message ObjectType {
-    reserved 1;
-    reserved "id";
+    reserved 1, 22;
+    reserved "id", "deleted_at";
 
     string name                                         = 2;    // object type name (unique, lc-string)
     string display_name                                 = 3;    // object type display name
@@ -19,25 +19,23 @@ message ObjectType {
     google.protobuf.Struct schema                       = 10;   // object type schema definition (JSON)
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message Permission {
-    reserved 1;
-    reserved "id";
+    reserved 1, 22;
+    reserved "id", "deleted_at";
 
     string name                                         = 2;    // permission name (unique, cs-string)
     string display_name                                 = 3;    // permission display name
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message RelationType {
-    reserved 1;
-    reserved "id";
+    reserved 1, 22;
+    reserved "id", "deleted_at";
 
     string name                                         = 2;    // relation type name selector
     string object_type                                  = 3;    // object type referenced by relation
@@ -48,13 +46,12 @@ message RelationType {
     repeated string permissions                         = 8;    // permissions associated to relation type instance
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message Object {
-    reserved 1;
-    reserved "id";
+    reserved 1, 22;
+    reserved "id", "deleted_at";
 
     string key                                          = 2;    // external object key (cs-string)
     string type                                         = 3;    // object type name
@@ -62,17 +59,18 @@ message Object {
     google.protobuf.Struct properties                   = 5;    // property bag
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message Relation {
+    reserved 22;
+    reserved "deleted_at";
+
     ObjectIdentifier subject                            = 1;    // subject identifier
     string relation                                     = 2;    // relation type name
     ObjectIdentifier object                             = 3;    // object identifier
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
