@@ -11,7 +11,6 @@ message ObjectType {
     reserved 1;
     reserved "id";
 
-    // int32 id                                            = 1;    // internal object type id
     string name                                         = 2;    // object type name (unique, lc-string)
     string display_name                                 = 3;    // object type display name
     bool is_subject                                     = 4;    // object type is a subject (user|group) (default false)
@@ -28,7 +27,6 @@ message Permission {
     reserved 1;
     reserved "id";
 
-    // string id                                           = 1;    // internal permission id
     string name                                         = 2;    // permission name (unique, cs-string)
     string display_name                                 = 3;    // permission display name
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
@@ -41,7 +39,6 @@ message RelationType {
     reserved 1;
     reserved "id";
 
-    // int32 id                                            = 1;    // relation type id selector
     string name                                         = 2;    // relation type name selector
     string object_type                                  = 3;    // object type referenced by relation
     string display_name                                 = 4;    // relation display name
@@ -59,7 +56,6 @@ message Object {
     reserved 1;
     reserved "id";
 
-    // string id                                           = 1;    // internal object id (uuid)
     string key                                          = 2;    // external object key (cs-string)
     string type                                         = 3;    // object type name
     string display_name                                 = 4;    // display name object
@@ -85,11 +81,9 @@ message ObjectDependency {
     reserved "object_id", "subject_id";
 
     string  object_type                                 = 1;    // object type name of source object
-    // string  object_id                                   = 3;    // object id (uuid) of source object
     string  object_key                                  = 4;    // object search key of source object
     string  relation                                    = 5;    // relation identifier
     string  subject_type                                = 7;    // object type id of target object
-    // string  subject_id                                  = 9;    // object id (uuid) of target object
     string  subject_key                                 = 10;   // object search key of target object
     int32   depth                                       = 11;   // dependency depth
     bool    is_cycle                                    = 12;   // dependency cycle
@@ -109,7 +103,6 @@ message ObjectTypeIdentifier {
     reserved 1;
     reserved "id";
 
-    // optional int32 id                                   = 1;    // internal object type id
     optional string name                                = 2;    // object type name (unique, lc-string)
 }
 
@@ -118,7 +111,6 @@ message PermissionIdentifier {
     reserved 1;
     reserved "id";
 
-    // optional string id                                  = 1;    // internal permission id
     optional string name                                = 2;    // permission name (unique, cs-string)
 }
 
@@ -127,9 +119,7 @@ message RelationTypeIdentifier {
     reserved 1, 3;
     reserved "id", "object_type";
 
-    // optional int32 id                                   = 1;    // relation type id selector
     optional string name                                = 2;    // relation type name selector
-    // optional string object_type                         = 3;    // object type referenced by relation
 }
 
 // Object identifier
@@ -138,7 +128,6 @@ message ObjectIdentifier {
     reserved "id";
 
     optional string type                                = 1;    // object type
-    // optional string id                                  = 2;    // internal object id (uuid)
     optional string key                                 = 3;    // external object key (cs-string)
 }
 
