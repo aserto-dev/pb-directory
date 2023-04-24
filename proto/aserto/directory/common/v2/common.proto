@@ -114,10 +114,11 @@ message PermissionIdentifier {
 
 // RelationType identifier
 message RelationTypeIdentifier {
-    reserved 1, 3;
-    reserved "id", "object_type";
+    reserved 1;
+    reserved "id";
 
     optional string name                                = 2;    // relation type name selector
+    optional string object_type                         = 3;    // object type referenced by relation
 }
 
 // Object identifier
