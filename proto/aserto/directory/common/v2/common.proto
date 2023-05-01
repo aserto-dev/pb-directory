@@ -8,9 +8,7 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
 message ObjectType {
-    reserved 1, 22;
-    reserved "id", "deleted_at";
-
+    int32 id                                            = 1;    // internal object type id
     string name                                         = 2;    // object type name (unique, lc-string)
     string display_name                                 = 3;    // object type display name
     bool is_subject                                     = 4;    // object type is a subject (user|group) (default false)
@@ -19,24 +17,22 @@ message ObjectType {
     google.protobuf.Struct schema                       = 10;   // object type schema definition (JSON)
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message Permission {
-    reserved 1, 22;
-    reserved "id", "deleted_at";
-
+    string id                                           = 1;    // internal permission id
     string name                                         = 2;    // permission name (unique, cs-string)
     string display_name                                 = 3;    // permission display name
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message RelationType {
-    reserved 1, 22;
-    reserved "id", "deleted_at";
-
+    int32 id                                            = 1;    // relation type id selector
     string name                                         = 2;    // relation type name selector
     string object_type                                  = 3;    // object type referenced by relation
     string display_name                                 = 4;    // relation display name
@@ -46,42 +42,39 @@ message RelationType {
     repeated string permissions                         = 8;    // permissions associated to relation type instance
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message Object {
-    reserved 1, 22;
-    reserved "id", "deleted_at";
-
+    string id                                           = 1;    // internal object id (uuid)
     string key                                          = 2;    // external object key (cs-string)
     string type                                         = 3;    // object type name
     string display_name                                 = 4;    // display name object
     google.protobuf.Struct properties                   = 5;    // property bag
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message Relation {
-    reserved 22;
-    reserved "deleted_at";
-
     ObjectIdentifier subject                            = 1;    // subject identifier
-    string relation                                     = 2;    // relation type name
+    string relation                                     = 2;    // relation type ID
     ObjectIdentifier object                             = 3;    // object identifier
     google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
     google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    google.protobuf.Timestamp deleted_at                = 22;   // deleted timestamp (UTC)
     string hash                                         = 23;   // object instance hash
 }
 
 message ObjectDependency {
-    reserved 3, 9;
-    reserved "object_id", "subject_id";
-
     string  object_type                                 = 1;    // object type name of source object
+    string  object_id                                   = 3;    // object id (uuid) of source object
     string  object_key                                  = 4;    // object search key of source object
     string  relation                                    = 5;    // relation identifier
     string  subject_type                                = 7;    // object type id of target object
+    string  subject_id                                  = 9;    // object id (uuid) of target object
     string  subject_key                                 = 10;   // object search key of target object
     int32   depth                                       = 11;   // dependency depth
     bool    is_cycle                                    = 12;   // dependency cycle
@@ -98,35 +91,27 @@ enum Flag {
 
 // ObjectType identifier
 message ObjectTypeIdentifier {
-    reserved 1;
-    reserved "id";
-
+    optional int32 id                                   = 1;    // internal object type id
     optional string name                                = 2;    // object type name (unique, lc-string)
 }
 
 // Permission identifier
 message PermissionIdentifier {
-    reserved 1;
-    reserved "id";
-
+    optional string id                                  = 1;    // internal permission id
     optional string name                                = 2;    // permission name (unique, cs-string)
 }
 
 // RelationType identifier
 message RelationTypeIdentifier {
-    reserved 1;
-    reserved "id";
-
+    optional int32 id                                   = 1;    // relation type id selector
     optional string name                                = 2;    // relation type name selector
     optional string object_type                         = 3;    // object type referenced by relation
 }
 
 // Object identifier
 message ObjectIdentifier {
-    reserved 2;
-    reserved "id";
-
     optional string type                                = 1;    // object type
+    optional string id                                  = 2;    // internal object id (uuid)
     optional string key                                 = 3;    // external object key (cs-string)
 }
 
