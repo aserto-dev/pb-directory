@@ -17,16 +17,16 @@ go:
     version: "v1.3.11"
   svu:
     importPath: "github.com/caarlos0/svu"
-    version: "latest"
+    version: "v1.10.2"
   buf:
     importPath: "github.com/bufbuild/buf/cmd/buf"
-    version: "v1.17.0"
+    version: "v1.19.0"
   protoc-gen-buf-breaking:
     importPath: "github.com/bufbuild/buf/cmd/protoc-gen-buf-breaking"
-    version: "v1.17.0"
+    version: "v1.19.0"
   protoc-gen-buf-lint:
     importPath: "github.com/bufbuild/buf/cmd/protoc-gen-buf-lint"
-    version: "v1.17.0"
+    version: "v1.19.0"
   protoc-gen-go:
     importPath: google.golang.org/protobuf/cmd/protoc-gen-go
     version: "v1.30.0"
