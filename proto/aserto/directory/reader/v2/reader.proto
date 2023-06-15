@@ -73,10 +73,13 @@ message GetRelationTypesResponse {
 
 message GetObjectRequest {
     aserto.directory.common.v2.ObjectIdentifier param           = 1;    // object selector
+    optional bool with_relations                                = 2;    // materialize the incoming and outgoing relations of the object instance
 }
 
 message GetObjectResponse {
     aserto.directory.common.v2.Object result                    = 1;    // object instance
+    repeated aserto.directory.common.v2.Relation incoming       = 2;    // incoming relations of object instance
+    repeated aserto.directory.common.v2.Relation outgoing       = 3;    // outgoing relations of object instance
 }
 
 message GetObjectManyRequest {
