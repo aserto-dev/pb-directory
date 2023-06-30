@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package aserto.directory.model.v2;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v2;model";
+
+service Model {
+    rpc UploadModel(stream UploadModelRequest) returns (UploadModelResponse) {};
+    rpc DownloadModel(DownloadModelRequest) returns (stream DownloadModelResponse) {};
+    
+    
+}
+
+message Model_metadata {
+    string  name                                        = 1;    // model name
+    string  version                                     = 2;    // model version
+}
+
+message UploadModelRequest {
+    oneof msg {
+        Model_metadata metadata       = 1;     // model metadata  
+        bytes   model_body            = 2;     // model content
+    }
+}
+
+message UploadModelResponse {}
+
+message DownloadModelRequest {}
+
+message DownloadModelResponse {
+    oneof msg {
+        Model_metadata metadata       = 1;     // model metadata  
+        bytes   model_body            = 2;     // model content
+    }
+}
