@@ -4,8 +4,8 @@ go 1.19
 
 require (
 	github.com/aserto-dev/clui v0.8.1
-	github.com/aserto-dev/mage-loot v0.8.14
-	github.com/magefile/mage v1.14.0
+	github.com/aserto-dev/mage-loot v0.8.15
+	github.com/magefile/mage v1.15.0
 )
 
 require (
@@ -26,7 +26,7 @@ require (
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
-	golang.org/x/sys v0.7.0 // indirect
-	golang.org/x/term v0.7.0 // indirect
+	golang.org/x/sys v0.9.0 // indirect
+	golang.org/x/term v0.9.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
