@@ -6,8 +6,10 @@
     "cSpell.words": [
         "aserto",
         "oneof",
+        "openAPIv2",
         "proto",
         "protobuf",
+        "protoc",
         "struct"
     ]
 }
