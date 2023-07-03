@@ -4,9 +4,6 @@ package aserto.directory.reader.v2;
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v2;reader"; 
 
-import "google/api/annotations.proto";
-import "protoc-gen-openapiv2/options/annotations.proto";
-
 import "aserto/directory/common/v2/common.proto";
 
 service Reader {
