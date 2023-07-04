@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package aserto.directory.importer.v3;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/importer/v3;importer"; 
+
+import "aserto/directory/common/v3/common.proto";
+
+service Importer {
+    rpc Import(stream ImportRequest) returns (stream ImportResponse) {};
+}
+
+message ImportRequest {
+    Opcode op_code                                              = 1;    // operation Opcode enum value
+    oneof msg {
+        aserto.directory.common.v3.Object object                = 5;    // object import message
+        aserto.directory.common.v3.Relation relation            = 6;    // relation import message
+    }
+}
+
+message ImportResponse {
+    ImportCounter object                                        = 1;    // object import counter
+    ImportCounter relation                                      = 2;    // relation import counter
+
+}
+
+message ImportCounter {
+    uint64 recv                                                 = 1;    // number of messages received
+    uint64 set                                                  = 2;    // number of messages with OPCODE_SET
+    uint64 delete                                               = 3;    // number of messages with OPCODE_DELETE
+    uint64 error                                                = 4;    // number of messages resulting in error
+}
+
+enum Opcode {
+    OPCODE_UNKNOWN                                              = 0;
+    OPCODE_SET                                                  = 1;
+    OPCODE_DELETE                                               = 2;
+}

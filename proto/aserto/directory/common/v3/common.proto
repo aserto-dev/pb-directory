@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package aserto.directory.common.v3;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/common/v3;common";
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+message ObjectType {
+    string name                                         = 2;    // object type name (unique, lc-string)
+    string display_name                                 = 3;    // object type display name
+    bool is_subject                                     = 4;    // object type is a subject (user|group) (default false)
+    int32 ordinal                                       = 5;    // sort ordinal (default 0)
+    uint32 status                                       = 6;    // status flag bitmap (default 0)
+    google.protobuf.Struct schema                       = 10;   // object type schema definition (JSON)
+    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    string etag                                         = 23;   // object instance etag
+}
+
+message RelationType {
+    string name                                         = 2;    // relation type name selector
+    string object_type                                  = 3;    // object type referenced by relation
+    string display_name                                 = 4;    // relation display name
+    int32 ordinal                                       = 5;    // sort ordinal (default 0)
+    uint32 status                                       = 6;    // status bitmap (default 0)
+    repeated string unions                              = 7;    // relations union-ed with relation type instance
+    repeated string permissions                         = 8;    // permissions associated to relation type instance
+    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    string etag                                         = 23;   // object instance etag
+}
+
+message Permission {
+    string name                                         = 2;    // permission name (unique, cs-string)
+    string display_name                                 = 3;    // permission display name
+    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    string etag                                         = 23;   // object instance etag
+}
+
+message Manifest {
+    string name                                         = 1;    // manifest name (unique, lc-string)
+    string version                                      = 2;    // manifest version (semver)
+    string schema_version                               = 3;    // schema version of manifest payload
+    bytes data                                          = 4;    // manifest data 
+    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    string etag                                         = 23;   // object instance etag
+}
+
+message Object {
+    string id                                           = 1;    // external object identifier (cs-string)
+    string type                                         = 2;    // object type name
+    string display_name                                 = 3;    // display name object
+    google.protobuf.Struct properties                   = 4;    // property bag
+    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    string etag                                         = 23;   // object instance etag
+}
+
+message Relation {
+    string object_type                                  = 1;    // object type
+    string object_id                                    = 2;    // object identifier
+    string relation                                     = 3;    // object relation name
+    string subject_type                                 = 4;    // subject type
+    string subject_id                                   = 5;    // subject identifier
+    string subject_relation                             = 6;    // optional subject relation name
+    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
+    string etag                                         = 23;   // object instance etag
+}
+
+message ObjectDependency {
+    string object_type                                  = 1;    // object type name of source object
+    string object_id                                    = 2;    // object search key of source object
+    string relation                                     = 3;    // relation identifier
+    string subject_type                                 = 4;    // object type id of target object
+    string subject_id                                   = 5;    // object search key of target object
+    string subject_relation                             = 6;    // optional subject relation name
+    int32 depth                                         = 7;    // dependency depth
+    bool is_cycle                                       = 8;    // dependency cycle
+    repeated string path                                = 9;    // dependency path
+}
+
+// Object identifier
+message ObjectIdentifier {
+    string object_type                                  = 1;    // object type (lc-string)
+    string object_id                                    = 2;    // object identifier (cs-string)
+}
+
+// Pagination request
+message PaginationRequest {
+    int32 size                                          = 1;    // requested page size, valid value between 1-100 rows (default 100)
+    string token                                        = 2;    // pagination start token, default ""
+}
+
+// Pagination response
+message PaginationResponse {
+    string next_token                                   = 1;    // next page token, when empty there are no more pages to fetch
+}
