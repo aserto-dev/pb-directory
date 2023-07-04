@@ -31,7 +31,7 @@ service Reader {
             tags: "directory"
             summary: "Get object instance"
             description: "Returns object instance, optionally with relations."
-            operation_id: "directory.object.get"
+            operation_id: "directory.v3.object.get"
             deprecated: false
             security: {
                 security_requirement: {
@@ -55,7 +55,7 @@ service Reader {
             tags: "directory"
             summary: "Get object instances"
             description: "Returns object instances."
-            operation_id: "directory.objects.get"
+            operation_id: "directory.v3.objects.get"
             deprecated: false
             security: {
                 security_requirement: {
@@ -79,7 +79,7 @@ service Reader {
             tags: "directory"
             summary: "Get relation instance"
             description: "Returns relation instance, optionally with objects."
-            operation_id: "directory.relation.get"
+            operation_id: "directory.v3.relation.get"
             deprecated: false
             security: {
                 security_requirement: {
@@ -97,17 +97,17 @@ service Reader {
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/relations/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
-            additional_bindings: [
-                {
-                  get: "/api/v3/directory/relations/{subject_type}/{subject_id}/{subject_relation}/{object_type}/{object_id}/{relation}"
-                }
-              ]        
+            // additional_bindings: [
+            //     {
+            //       get: "/api/v3/directory/relations/{subject_type}/{subject_id}/{subject_relation}/{object_type}/{object_id}/{relation}"
+            //     }
+            //   ]        
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
             summary: "Get relation instances"
             description: "Returns relation instances."
-            operation_id: "directory.relations.get"
+            operation_id: "directory.v3.relations.get"
             deprecated: false
             security: {
                 security_requirement: {
@@ -132,7 +132,7 @@ service Reader {
             tags: "directory"
             summary: "Check permission"
             description: "Returns check permission outcome."
-            operation_id: "directory.check.permission"
+            operation_id: "directory.v3.check.permission"
             deprecated: false
             security: {
                 security_requirement: {
@@ -157,7 +157,7 @@ service Reader {
             tags: "directory"
             summary: "Check relation"
             description: "Returns check relation outcome."
-            operation_id: "directory.check.relation"
+            operation_id: "directory.v3.check.relation"
             deprecated: false
             security: {
                 security_requirement: {
@@ -182,7 +182,7 @@ service Reader {
             tags: "directory"
             summary: "Get graph"
             description: "Returns object graph from anchor to subject or object."
-            operation_id: "directory.graph"
+            operation_id: "directory.v3.graph"
             deprecated: false
             security: {
                 security_requirement: {
@@ -287,7 +287,8 @@ message GetRelationRequest {
     string relation                                             = 3;    // relation name
     string subject_type                                         = 4;    // subject type
     string subject_id                                           = 5;    // subject identifier
-    optional bool with_objects                                  = 6;    // materialize relation objects
+    string subject_relation                                     = 6;    // optional subject relation name
+    optional bool with_objects                                  = 7;    // materialize relation objects
 }
 
 message GetRelationResponse {
@@ -301,6 +302,7 @@ message GetRelationsRequest {
     string relation                                             = 3;    // relation name
     string subject_type                                         = 4;    // subject type
     string subject_id                                           = 5;    // subject identifier
+    string subject_relation                                     = 6;    // optional subject relation name
     aserto.directory.common.v3.PaginationRequest page           = 9;    // pagination request
 }
 

@@ -19,16 +19,6 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 			name: "Apache 2.0 License";
 			url: "https://github.com/aserto-dev/pb-directory/blob/main/LICENSE";
 		};
-        extensions: {
-            // key: "x-logo";
-            // value: {
-            //     external_resource: {
-            //         url: "https://avatars.githubusercontent.com/u/76832699?s=200&v=4";
-            //         description: "Aserto Logo";
-            //         extension: "png";
-            //     }
-            // }
-        }
 	};
 	external_docs: {
 		url: "https://docs.aserto.com";

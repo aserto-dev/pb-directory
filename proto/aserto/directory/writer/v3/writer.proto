@@ -31,9 +31,9 @@ service Writer {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
-            summary: "Set relation type"
-            description: "Set relation type."
-            operation_id: "directory.relation_type.set"
+            summary: "Set object"
+            description: "Set object."
+            operation_id: "directory.v3.object.set"
             deprecated: false
             security: {
                 security_requirement: {
@@ -54,9 +54,9 @@ service Writer {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
-            summary: "Delete permission"
-            description: "Delete permission."
-            operation_id: "directory.permission.delete"
+            summary: "Delete object"
+            description: "Delete object."
+            operation_id: "directory.v3.object.delete"
             deprecated: false
             security: {
                 security_requirement: {
@@ -81,7 +81,7 @@ service Writer {
             tags: "directory"
             summary: "Set relation"
             description: "Set relation."
-            operation_id: "directory.relation.set"
+            operation_id: "directory.v3.relation.set"
             deprecated: false
             security: {
                 security_requirement: {
@@ -98,13 +98,13 @@ service Writer {
 
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
         option (google.api.http) = {
-            delete: "/api/v3/directory/relation/{object_type}/{object_id}/{relation_type}/{subject_type}/{subject_id}/{subject_relation}"
+            delete: "/api/v3/directory/relation/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
             summary: "Delete relation"
             description: "Delete relation."
-            operation_id: "directory.relation.delete"
+            operation_id: "directory.v3.relation.delete"
             deprecated: false
             security: {
                 security_requirement: {
