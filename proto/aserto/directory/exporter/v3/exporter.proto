@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package aserto.directory.exporter.v3;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/exporter/v3;exporter"; 
+
+import "aserto/directory/common/v3/common.proto";
+
+import "google/protobuf/timestamp.proto";
+
+service Exporter {
+    rpc Export(ExportRequest) returns (stream ExportResponse) {};
+}
+
+message ExportRequest {
+    uint32 options                                              = 1;    // data export options mask
+    google.protobuf.Timestamp start_from                        = 20;   // start export from timestamp (UTC)
+}
+
+message ExportResponse {
+    oneof msg {
+        aserto.directory.common.v3.Object object                = 2;    // object instance (data)
+        aserto.directory.common.v3.Relation relation            = 4;    // relation instance (data)
+    }
+}
+
+enum Option {
+    OPTION_UNKNOWN                                              = 0x0;    // nothing selected (default initialization value)
+    OPTION_DATA_OBJECTS                                         = 0x1;    // object instances
+    OPTION_DATA_RELATIONS                                       = 0x2;    // relation instances with id values
+    OPTION_DATA                                                 = 0x3;    // all data = OPTION_DATA_OBJECTS | OPTION_DATA_RELATIONS
+}
