@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package aserto.directory.model.v3;
 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v3;model"; 
+
 import "google/protobuf/empty.proto";
 
 import "aserto/directory/common/v3/common.proto";
