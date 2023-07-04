@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package aserto.directory.model.v3;
+
+import "google/protobuf/empty.proto";
+
+import "aserto/directory/common/v3/common.proto";
+
+service Model {
+    rpc GetManifest(GetManifestRequest) returns (GetManifestResponse) {};
+    rpc SetManifest(SetManifestRequest) returns (SetManifestResponse) {};
+    rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {};
+}
+
+message GetManifestRequest {
+    string name                                                 = 1;    // manifest name (unique, lc-string)
+    string version                                              = 2;    // manifest version (semver)
+    string schema_version                                       = 3;    // schema version of manifest payload
+}
+
+message GetManifestResponse {
+    aserto.directory.common.v3.Manifest result                  = 1;    // manifest instance
+}
+
+message SetManifestRequest {
+    aserto.directory.common.v3.Manifest manifest                = 1;    // manifest instance
+}
+
+message SetManifestResponse {
+    aserto.directory.common.v3.Manifest result                  = 1;    // manifest instance
+}
+
+message DeleteManifestRequest {
+    string name                                                 = 1;    // manifest name (unique, lc-string)
+    string version                                              = 2;    // manifest version (semver)
+    string schema_version                                       = 3;    // schema version of manifest payload
+}
+
+message DeleteManifestResponse {
+    google.protobuf.Empty result                                = 1;    // empty result
+}
