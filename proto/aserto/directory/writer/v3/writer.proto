@@ -179,6 +179,7 @@ message SetObjectResponse {
 message DeleteObjectRequest {
     string object_type                                          = 1;    // object type name (lc-string)
     string object_id                                            = 2;    // object identifier (cs-string)
+    optional bool with_relations                                = 3;    // delete object relations, both object and subject relations.
 }   
     
 message DeleteObjectResponse {  
