@@ -30,7 +30,7 @@ service Reader {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
             summary: "Get object instance"
-            description: "Returns object instance, optionally with relations."
+            description: "Returns single object instance, optionally with relations."
             operation_id: "directory.v3.object.get"
             deprecated: false
             security: {
@@ -53,8 +53,8 @@ service Reader {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
-            summary: "Get object instances"
-            description: "Returns object instances."
+            summary: "List object instances"
+            description: "Returns list of object instances."
             operation_id: "directory.v3.objects.get"
             deprecated: false
             security: {
@@ -78,7 +78,7 @@ service Reader {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
             summary: "Get relation instance"
-            description: "Returns relation instance, optionally with objects."
+            description: "Returns single relation instance, optionally with objects."
             operation_id: "directory.v3.relation.get"
             deprecated: false
             security: {
@@ -96,18 +96,18 @@ service Reader {
 
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/relations/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
-            // additional_bindings: [
-            //     {
-            //       get: "/api/v3/directory/relations/{subject_type}/{subject_id}/{subject_relation}/{object_type}/{object_id}/{relation}"
-            //     }
-            //   ]        
+            get: "/api/v3/directory/relations/object/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
+            additional_bindings: [
+                {
+                  get: "/api/v3/directory/relations/subject/{subject_type}/{subject_id}/{subject_relation}/{object_type}/{object_id}/{relation}"
+                }
+              ]        
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
-            summary: "Get relation instances"
-            description: "Returns relation instances."
-            operation_id: "directory.v3.relations.get"
+            summary: "List relations instances"
+            description: "Returns list of relation instances."
+            // operation_id: "directory.v3.relations.get.object"
             deprecated: false
             security: {
                 security_requirement: {
