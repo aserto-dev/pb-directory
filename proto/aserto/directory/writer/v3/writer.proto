@@ -169,7 +169,7 @@ service Writer {
 // }   
     
 message SetObjectRequest {
-    aserto.directory.common.v3.Object object                    = 1;    // 
+    aserto.directory.common.v3.Object object                    = 1;    // object instance
 }   
     
 message SetObjectResponse { 
@@ -177,8 +177,7 @@ message SetObjectResponse {
 }   
     
 message DeleteObjectRequest {
-    string object_type                                          = 1;    // object type name (lc-string)
-    string object_id                                            = 2;    // object identifier (cs-string)
+    aserto.directory.common.v3.Object object                    = 1;    // object instance
     optional bool with_relations                                = 3;    // delete object relations, both object and subject relations.
 }   
     
@@ -187,25 +186,15 @@ message DeleteObjectResponse {
 }   
     
 message SetRelationRequest {    
-    aserto.directory.common.v3.Relation relation                = 1;    // 
+    aserto.directory.common.v3.Relation relation                = 1;    // relation instance
 }   
     
 message SetRelationResponse {   
-    string object_type                                          = 1;    // object type
-    string object_id                                            = 2;    // object identifier
-    string relation                                             = 3;    // object relation name
-    string subject_type                                         = 4;    // subject type
-    string subject_id                                           = 5;    // subject identifier
-    string subject_relation                                     = 6;    // optional subject relation name
+    aserto.directory.common.v3.Relation result                  = 1;    // relation instance
 }   
     
 message DeleteRelationRequest {
-    string object_type                                          = 1;    // object type
-    string object_id                                            = 2;    // object identifier
-    string relation                                             = 3;    // object relation name
-    string subject_type                                         = 4;    // subject type
-    string subject_id                                           = 5;    // subject identifier
-    string subject_relation                                     = 6;    // optional subject relation name
+    aserto.directory.common.v3.Relation relation                = 1;    // relation instance
 }   
     
 message DeleteRelationResponse {    
