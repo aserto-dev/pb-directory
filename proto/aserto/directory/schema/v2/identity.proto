@@ -18,6 +18,6 @@ enum IdentityKind {
     IDENTITY_KIND_EMAIL                     = 2;    // email address
     IDENTITY_KIND_USERNAME                  = 3;    // username
     IDENTITY_KIND_DN                        = 4;    // distinguished name format RFC1779
-    IDENTITY_KIND_PHONE                     = 5;    // phonenumber using the format described in RFC3966, +1-201-555-0111 (without the tel: prefix)
+    IDENTITY_KIND_PHONE                     = 5;    // phone number using the format described in RFC3966, +1-201-555-0111 (without the tel: prefix)
     IDENTITY_KIND_EMPID                     = 6;    // employee identifier
 }

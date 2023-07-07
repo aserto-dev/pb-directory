@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aserto.directory.reader.v3;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v3;reader"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v3;reader";
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
@@ -13,15 +13,15 @@ service Reader {
     // object type metadata methods
     rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
     rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {};
-    
+
     // relation type metadata methods
     rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
     rpc GetRelationTypes(GetRelationTypesRequest) returns (GetRelationTypesResponse) {};
-    
+
     // permission metadata methods
     rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
     rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse) {};
-    
+
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
         option (google.api.http) = {
@@ -69,7 +69,7 @@ service Reader {
             }
         };
     };
-    
+
     // relation methods
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {
         option (google.api.http) = {
@@ -101,7 +101,7 @@ service Reader {
                 {
                   get: "/api/v3/directory/relations/subject/{subject_type}/{subject_id}/{subject_relation}/{object_type}/{object_id}/{relation}"
                 }
-              ]        
+              ]
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -121,7 +121,7 @@ service Reader {
             }
         };
     };
-    
+
     // check permission method
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
         option (google.api.http) = {
@@ -318,9 +318,9 @@ message CheckPermissionRequest {
     string subject_type                                         = 4;    // subject type
     string subject_id                                           = 5;    // subject identifier
     bool trace                                                  = 7;    // collect trace information
-}   
+}
 
-message CheckPermissionResponse { 
+message CheckPermissionResponse {
     bool check                                                  = 1;    // check result (BOOL)
     repeated string trace                                       = 2;    // trace information
 }
@@ -332,14 +332,14 @@ message CheckRelationRequest {
     string subject_type                                         = 4;    // subject type
     string subject_id                                           = 5;    // subject identifier
     bool trace                                                  = 7;    // collect trace information
-}   
+}
 
-message CheckRelationResponse { 
+message CheckRelationResponse {
     bool check                                                  = 1;    // check result (BOOL)
     repeated string trace                                       = 2;    // trace information
 }
 
-message CheckResponse { 
+message CheckResponse {
     bool check                                                  = 1;    // check result (BOOL)
     repeated string trace                                       = 2;    // trace information
 }

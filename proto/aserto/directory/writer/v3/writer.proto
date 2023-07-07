@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aserto.directory.writer.v3;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v3;writer"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v3;writer";
 
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
@@ -14,15 +14,15 @@ service Writer {
     // object type metadata methods
     // rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
     // rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
-    
+
     // relation type metadata methods
     // rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
     // rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
-    
+
     // permission metadata methods
     // rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
     // rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
-    
+
     // object methods
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
         option (google.api.http) = {
@@ -45,7 +45,7 @@ service Writer {
                     value: {}
                 }
             }
-        };    
+        };
     };
 
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
@@ -68,9 +68,9 @@ service Writer {
                     value: {}
                 }
             }
-        };   
+        };
     };
-    
+
     // relation methods
     rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
         option (google.api.http) = {
@@ -93,7 +93,7 @@ service Writer {
                     value: {}
                 }
             }
-        };    
+        };
     };
 
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
@@ -116,12 +116,12 @@ service Writer {
                     value: {}
                 }
             }
-        };   
+        };
     };
 }
 
 // message SetObjectTypeRequest {
-//     aserto.directory.common.v3.ObjectType object_type           = 1;    // 
+//     aserto.directory.common.v3.ObjectType object_type           = 1;    //
 // }
 
 // message SetObjectTypeResponse {
@@ -129,7 +129,7 @@ service Writer {
 // }
 
 // message DeleteObjectTypeRequest {
-//     aserto.directory.common.v3.ObjectTypeIdentifier param       = 1;    // 
+//     aserto.directory.common.v3.ObjectTypeIdentifier param       = 1;    //
 // }
 
 // message DeleteObjectTypeResponse {
@@ -137,7 +137,7 @@ service Writer {
 // }
 
 // message SetRelationTypeRequest {
-//     aserto.directory.common.v3.RelationType relation_type       = 1;    // 
+//     aserto.directory.common.v3.RelationType relation_type       = 1;    //
 // }
 
 // message SetRelationTypeResponse {
@@ -145,58 +145,58 @@ service Writer {
 // }
 
 // message DeleteRelationTypeRequest {
-//     aserto.directory.common.v3.RelationTypeIdentifier param     = 1;    // 
-// }   
-    
-// message DeleteRelationTypeResponse {    
+//     aserto.directory.common.v3.RelationTypeIdentifier param     = 1;    //
+// }
+
+// message DeleteRelationTypeResponse {
 //     google.protobuf.Empty result                                = 1;    // empty result
-// }   
-    
+// }
+
 // message SetPermissionRequest {
-//     aserto.directory.common.v3.Permission permission            = 1;    // 
-// }   
-    
-// message SetPermissionResponse { 
+//     aserto.directory.common.v3.Permission permission            = 1;    //
+// }
+
+// message SetPermissionResponse {
 //     aserto.directory.common.v3.Permission result                = 1;    // permission instance
-// }   
-    
+// }
+
 // message DeletePermissionRequest {
-//     aserto.directory.common.v3.PermissionIdentifier param       = 1;   // 
-// }   
-    
-// message DeletePermissionResponse {  
+//     aserto.directory.common.v3.PermissionIdentifier param       = 1;   //
+// }
+
+// message DeletePermissionResponse {
 //     google.protobuf.Empty result                                = 1;    // empty result
-// }   
-    
+// }
+
 message SetObjectRequest {
     aserto.directory.common.v3.Object object                    = 1;    // object instance
-}   
-    
-message SetObjectResponse { 
+}
+
+message SetObjectResponse {
     aserto.directory.common.v3.Object result                    = 1;    // object instance
-}   
-    
+}
+
 message DeleteObjectRequest {
     aserto.directory.common.v3.Object object                    = 1;    // object instance
     optional bool with_relations                                = 3;    // delete object relations, both object and subject relations.
-}   
-    
-message DeleteObjectResponse {  
+}
+
+message DeleteObjectResponse {
     google.protobuf.Empty result                                = 1;    // empty result
-}   
-    
-message SetRelationRequest {    
+}
+
+message SetRelationRequest {
     aserto.directory.common.v3.Relation relation                = 1;    // relation instance
-}   
-    
-message SetRelationResponse {   
+}
+
+message SetRelationResponse {
     aserto.directory.common.v3.Relation result                  = 1;    // relation instance
-}   
-    
+}
+
 message DeleteRelationRequest {
     aserto.directory.common.v3.Relation relation                = 1;    // relation instance
-}   
-    
-message DeleteRelationResponse {    
+}
+
+message DeleteRelationResponse {
     google.protobuf.Empty result                                = 1;    // empty result
-}   
+}

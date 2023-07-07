@@ -34,10 +34,7 @@ enum Option {
     OPTION_METADATA_PERMISSIONS                                 = 0x4;    // permission metadata
     OPTION_METADATA                                             = 0x7;    // all metadata = OPTION_METADATA_OBJECT_TYPES | OPTION_METADATA_RELATION_TYPES | OPTION_METADATA_PERMISSIONS
     OPTION_DATA_OBJECTS                                         = 0x8;    // object instances
-    OPTION_DATA_RELATIONS                                       = 0x10;   // relation instances with id values
-    OPTION_DATA_RELATIONS_WITH_KEYS                             = 0x20;   // relation instances with key values
+    OPTION_DATA_RELATIONS                                       = 0x10;   // relation instances
     OPTION_DATA                                                 = 0x18;   // all data = OPTION_DATA_OBJECTS | OPTION_DATA_RELATIONS
-    OPTION_DATA_WITH_KEYS                                       = 0x28;   // all data with keys = OPTION_DATA_OBJECTS | OPTION_DATA_RELATIONS_WITH_KEYS
     OPTION_ALL                                                  = 0x1F;   // all metadata and data = OPTION_METADATA | OPTION_DATA
-    OPTION_ALL_WITH_KEYS                                        = 0x2F;   // all metadata and data with keys = OPTION_METADATA | OPTION_DATA_WITH_KEYS
 }

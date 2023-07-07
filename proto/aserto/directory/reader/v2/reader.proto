@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aserto.directory.reader.v2;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v2;reader"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v2;reader";
 
 import "aserto/directory/common/v2/common.proto";
 
@@ -10,24 +10,24 @@ service Reader {
     // object type metadata methods
     rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
     rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {};
-    
+
     // relation type metadata methods
     rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
     rpc GetRelationTypes(GetRelationTypesRequest) returns (GetRelationTypesResponse) {};
-    
+
     // permission metadata methods
     rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
     rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse) {};
-    
+
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
     rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {};
     rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {};
-    
+
     // relation methods
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {};
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {};
-    
+
     // check permission method
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
 
@@ -64,7 +64,7 @@ message GetRelationTypeResponse {
 }
 
 message GetRelationTypesRequest {
-    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // object type selector    
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // object type selector
     aserto.directory.common.v2.PaginationRequest page           = 9;    // pagination request
 }
 
@@ -144,9 +144,9 @@ message CheckPermissionRequest {
     aserto.directory.common.v2.PermissionIdentifier permission  = 2;    // permission selector
     aserto.directory.common.v2.ObjectIdentifier object          = 3;    // object selector
     bool trace                                                  = 7;    // collect trace information
-}   
+}
 
-message CheckPermissionResponse { 
+message CheckPermissionResponse {
     bool check                                                  = 1;    // check result (BOOL)
     repeated string trace                                       = 2;    // trace information
 }
@@ -156,14 +156,14 @@ message CheckRelationRequest {
     aserto.directory.common.v2.RelationTypeIdentifier relation  = 2;    // relation selector
     aserto.directory.common.v2.ObjectIdentifier object          = 3;    // object selector
     bool trace                                                  = 7;    // collect trace information
-}   
+}
 
-message CheckRelationResponse { 
+message CheckRelationResponse {
     bool check                                                  = 1;    // check result (BOOL)
     repeated string trace                                       = 2;    // trace information
 }
 
-message CheckResponse { 
+message CheckResponse {
     bool check                                                  = 1;    // check result (BOOL)
     repeated string trace                                       = 2;    // trace information
 }
