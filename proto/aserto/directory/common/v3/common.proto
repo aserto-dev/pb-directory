@@ -4,6 +4,8 @@ package aserto.directory.common.v3;
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/common/v3;common";
 
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
@@ -41,62 +43,97 @@ message Permission {
 }
 
 message Manifest {
-    string name                                         = 1;    // manifest name (unique, lc-string)
-    string version                                      = 2;    // manifest version (semver)
-    string schema_version                               = 3;    // schema version of manifest payload
-    bytes data                                          = 4;    // manifest data 
-    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    string etag                                         = 23;   // object instance etag
+    // manifest name (unique, lc-string)
+    string name                                         = 1     [(google.api.field_behavior) = REQUIRED];
+    // manifest version (semver)
+    string version                                      = 2     [(google.api.field_behavior) = REQUIRED];
+    // manifest data
+    bytes data                                          = 3     [(google.api.field_behavior) = REQUIRED];
+    // created at timestamp (UTC)
+    google.protobuf.Timestamp created_at                = 20    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // last updated timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // object instance etag
+    string etag                                         = 23    [(google.api.field_behavior) = OPTIONAL];
 }
 
 message Object {
-    string id                                           = 1;    // external object identifier (cs-string)
-    string type                                         = 2;    // object type name
-    string display_name                                 = 3;    // display name object
-    google.protobuf.Struct properties                   = 4;    // property bag
-    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    string etag                                         = 23;   // object instance etag
+    // external object identifier (cs-string)
+    string id                                           = 1     [(google.api.field_behavior) = REQUIRED];
+    // object type name
+    string type                                         = 2     [(google.api.field_behavior) = REQUIRED];
+    // display name object
+    string display_name                                 = 3     [(google.api.field_behavior) = OPTIONAL];
+    // property bag
+    google.protobuf.Struct properties                   = 4     [(google.api.field_behavior) = OPTIONAL];
+    // created at timestamp (UTC)
+    google.protobuf.Timestamp created_at                = 20    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // last updated timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // object instance etag
+    string etag                                         = 23    [(google.api.field_behavior) = OPTIONAL];
 }
 
 message Relation {
-    string object_type                                  = 1;    // object type
-    string object_id                                    = 2;    // object identifier
-    string relation                                     = 3;    // object relation name
-    string subject_type                                 = 4;    // subject type
-    string subject_id                                   = 5;    // subject identifier
-    string subject_relation                             = 6;    // optional subject relation name
-    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    string etag                                         = 23;   // object instance etag
+    // object type
+    string object_type                                  = 1     [(google.api.field_behavior) = REQUIRED];
+    // object identifier
+    string object_id                                    = 2     [(google.api.field_behavior) = REQUIRED];
+    // object relation name
+    string relation                                     = 3     [(google.api.field_behavior) = REQUIRED];
+    // subject type
+    string subject_type                                 = 4     [(google.api.field_behavior) = REQUIRED];
+    // subject identifier
+    string subject_id                                   = 5     [(google.api.field_behavior) = REQUIRED];
+    // optional subject relation name
+    string subject_relation                             = 6     [(google.api.field_behavior) = OPTIONAL];
+    // created at timestamp (UTC)
+    google.protobuf.Timestamp created_at                = 20    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // last updated timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // object instance etag
+    string etag                                         = 23    [(google.api.field_behavior) = OPTIONAL];
 }
 
 message ObjectDependency {
-    string object_type                                  = 1;    // object type name of source object
-    string object_id                                    = 2;    // object search key of source object
-    string relation                                     = 3;    // relation identifier
-    string subject_type                                 = 4;    // object type id of target object
-    string subject_id                                   = 5;    // object search key of target object
-    string subject_relation                             = 6;    // optional subject relation name
-    int32 depth                                         = 7;    // dependency depth
-    bool is_cycle                                       = 8;    // dependency cycle
-    repeated string path                                = 9;    // dependency path
+    // object type
+    string object_type                                  = 1     [(google.api.field_behavior) = OUTPUT_ONLY];
+    // object identifier
+    string object_id                                    = 2    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // object relation name
+    string relation                                     = 3    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // subject type
+    string subject_type                                 = 4    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // subject identifier
+    string subject_id                                   = 5    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // optional subject relation name
+    string subject_relation                             = 6    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // dependency depth
+    int32 depth                                         = 7    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // dependency cycle
+    bool is_cycle                                       = 8    [(google.api.field_behavior) = OUTPUT_ONLY];
+    // dependency path
+    repeated string path                                = 9    [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 // Object identifier
 message ObjectIdentifier {
-    string object_type                                  = 1;    // object type (lc-string)
-    string object_id                                    = 2;    // object identifier (cs-string)
+    // object type (lc-string)
+    string object_type                                  = 1     [(google.api.field_behavior) = REQUIRED];
+    // object identifier (cs-string)
+    string object_id                                    = 2     [(google.api.field_behavior) = REQUIRED];
 }
 
 // Pagination request
 message PaginationRequest {
-    int32 size                                          = 1;    // requested page size, valid value between 1-100 rows (default 100)
-    string token                                        = 2;    // pagination start token, default ""
+    // requested page size, valid value between 1-100 rows (default 100)
+    int32 size                                          = 1     [(google.api.field_behavior) = OPTIONAL];
+    // pagination start token, default ""
+    string token                                        = 2     [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Pagination response
 message PaginationResponse {
-    string next_token                                   = 1;    // next page token, when empty there are no more pages to fetch
+    // next page token, when empty there are no more pages to fetch
+    string next_token                                   = 1     [(google.api.field_behavior) = OUTPUT_ONLY];
 }

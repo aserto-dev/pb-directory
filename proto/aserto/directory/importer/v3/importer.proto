@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aserto.directory.importer.v3;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/importer/v3;importer"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/importer/v3;importer";
 
 import "aserto/directory/common/v3/common.proto";
 
