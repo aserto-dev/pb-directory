@@ -6,38 +6,54 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v
 
 import "google/protobuf/empty.proto";
 
-import "aserto/directory/common/v3/common.proto";
-
 service Model {
-    rpc GetManifest(GetManifestRequest) returns (GetManifestResponse) {};
-    rpc SetManifest(SetManifestRequest) returns (SetManifestResponse) {};
-    rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {};
+    rpc GetModel(GetModelRequest) returns (stream GetModelResponse) {};
+    rpc SetModel(stream SetModelRequest) returns (SetModelResponse) {};
 }
 
-message GetManifestRequest {
-    string name                                                 = 1;    // manifest name (unique, lc-string)
-    string version                                              = 2;    // manifest version (semver)
-    string schema_version                                       = 3;    // schema version of manifest payload
+message Metadata {
+    string  name                      = 1;    // Model name (unique, lc-string)
+    string  version                   = 2;    // Model version (semver)
 }
 
-message GetManifestResponse {
-    aserto.directory.common.v3.Manifest result                  = 1;    // manifest instance
+enum OnDelete {
+    ON_DELETE_UNKNOWN                  = 0x0;  // default, will be treated as fail
+    ON_DELETE_FAIL                     = 0x1;  // fail if a type requires to be deleted
+    ON_DELETE_DELETE                   = 0x2;  // delete if a types is required based on a new model
+    ON_DELETE_NUKE                     = 0x3;  // delete all types before creating the new ones
 }
 
-message SetManifestRequest {
-    aserto.directory.common.v3.Manifest manifest                = 1;    // manifest instance
+message MetadataReq {
+    Metadata metadata                 = 1;
+    OnDelete op_code                  = 2;    // operation code indicating how to handle types deletion
 }
 
-message SetManifestResponse {
-    aserto.directory.common.v3.Manifest result                  = 1;    // manifest instance
+message GetModelRequest {
+    google.protobuf.Empty result      = 1;    // empty result
 }
 
-message DeleteManifestRequest {
-    string name                                                 = 1;    // manifest name (unique, lc-string)
-    string version                                              = 2;    // manifest version (semver)
-    string schema_version                                       = 3;    // schema version of manifest payload
+message GetModelResponse {
+    oneof msg {
+        Metadata metadata             = 1;     // Model metadata  
+        bytes   body                  = 2;     // Model content
+    }
 }
 
-message DeleteManifestResponse {
-    google.protobuf.Empty result                                = 1;    // empty result
+message SetModelRequest {
+    oneof msg {
+        MetadataReq metadata          = 1;     // Model metadata 
+        bytes   body                  = 2;     // Model content
+    }
+}
+
+message SetModelResponse {
+    google.protobuf.Empty result      = 1;    // empty result
+}
+
+message DeleteModelRequest {
+    Metadata metadata                 = 1; 
+}
+
+message DeleteModelResponse {
+    google.protobuf.Empty result      = 1;    // empty result
 }
