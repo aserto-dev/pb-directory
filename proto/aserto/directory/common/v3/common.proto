@@ -4,7 +4,6 @@ package aserto.directory.common.v3;
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/common/v3;common";
 
-import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
