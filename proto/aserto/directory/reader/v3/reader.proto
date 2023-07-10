@@ -11,18 +11,6 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "aserto/directory/common/v3/common.proto";
 
 service Reader {
-    // object type metadata methods
-    rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
-    rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {};
-
-    // relation type metadata methods
-    rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
-    rpc GetRelationTypes(GetRelationTypesRequest) returns (GetRelationTypesResponse) {};
-
-    // permission metadata methods
-    rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
-    rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse) {};
-
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
         option (google.api.http) = {
@@ -48,6 +36,7 @@ service Reader {
     };
 
     rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {};
+
     rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/objects/{object_type}"
@@ -193,59 +182,6 @@ service Reader {
             }
         };
     };
-}
-
-message GetObjectTypeRequest {
-    string name                                                 = 1;    // object type name (unique, lc-string)
-}
-
-message GetObjectTypeResponse {
-    aserto.directory.common.v3.ObjectType result                = 1;    // object type instance
-}
-
-message GetObjectTypesRequest {
-    aserto.directory.common.v3.PaginationRequest page           = 9;    // pagination request
-}
-
-message GetObjectTypesResponse {
-    repeated aserto.directory.common.v3.ObjectType results      = 1;    // array of object types
-    aserto.directory.common.v3.PaginationResponse page          = 9;    // pagination response
-}
-
-message GetRelationTypeRequest {
-    string object_type                                          = 1;    // object type name (unique, lc-string)
-    string name                                                 = 2;    // relation name (unique, lc-string)
-}
-
-message GetRelationTypeResponse {
-    aserto.directory.common.v3.RelationType result              = 1;    // relation type instance
-}
-
-message GetRelationTypesRequest {
-    string object_type                                          = 1;    // object type name (unique, lc-string)
-    aserto.directory.common.v3.PaginationRequest page           = 9;    // pagination request
-}
-
-message GetRelationTypesResponse {
-    repeated aserto.directory.common.v3.RelationType results    = 1;    // array of relation types
-    aserto.directory.common.v3.PaginationResponse page          = 9;    // pagination response
-}
-
-message GetPermissionRequest {
-    optional string name                                        = 1;    // permission name (unique, cs-string)
-}
-
-message GetPermissionResponse {
-    aserto.directory.common.v3.Permission result                = 1;    // permission instance
-}
-
-message GetPermissionsRequest {
-    aserto.directory.common.v3.PaginationRequest page           = 9;    // pagination request
-}
-
-message GetPermissionsResponse {
-    repeated aserto.directory.common.v3.Permission results      = 1;    // array of permissions
-    aserto.directory.common.v3.PaginationResponse page          = 9;    // pagination response
 }
 
 message GetObjectRequest {

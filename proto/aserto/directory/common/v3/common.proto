@@ -8,63 +8,6 @@ import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
-message ObjectType {
-    // object type name (unique, lc-string)
-    string name                                         = 2;
-    // object type display name
-    string display_name                                 = 3;
-    // object type is a subject (user|group) (default false)
-    bool is_subject                                     = 4;
-    // sort ordinal (default 0)
-    int32 ordinal                                       = 5;
-    // status flag bitmap (default 0)
-    uint32 status                                       = 6;
-    // object type schema definition (JSON)
-    google.protobuf.Struct schema                       = 10;
-    // created at timestamp (UTC)
-    google.protobuf.Timestamp created_at                = 20;
-    // last updated timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;
-    // object instance etag
-    string etag                                         = 23;
-}
-
-message RelationType {
-    // relation type name selector
-    string name                                         = 2;
-    // object type referenced by relation
-    string object_type                                  = 3;
-    // relation display name
-    string display_name                                 = 4;
-    // sort ordinal (default 0)
-    int32 ordinal                                       = 5;
-    // status bitmap (default 0)
-    uint32 status                                       = 6;
-    // relations union-ed with relation type instance
-    repeated string unions                              = 7;
-    // permissions associated to relation type instance
-    repeated string permissions                         = 8;
-    // created at timestamp (UTC)
-    google.protobuf.Timestamp created_at                = 20;
-    // last updated timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;
-    // object instance etag
-    string etag                                         = 23;
-}
-
-message Permission {
-    // permission name (unique, cs-string)
-    string name                                         = 2;
-    // permission display name
-    string display_name                                 = 3;
-    // created at timestamp (UTC)
-    google.protobuf.Timestamp created_at                = 20;
-    // last updated timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;
-    // object instance etag
-    string etag                                         = 23;
-}
-
 message Manifest {
     // manifest name (unique, lc-string)
     string name                                         = 1     [(google.api.field_behavior) = REQUIRED];
