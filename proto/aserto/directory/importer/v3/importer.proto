@@ -11,24 +11,32 @@ service Importer {
 }
 
 message ImportRequest {
-    Opcode op_code                                              = 1;    // operation Opcode enum value
+    // operation Opcode enum value
+    Opcode op_code                                              = 1;
     oneof msg {
-        aserto.directory.common.v3.Object object                = 5;    // object import message
-        aserto.directory.common.v3.Relation relation            = 6;    // relation import message
+        // object import message
+        aserto.directory.common.v3.Object object                = 5;
+        // relation import message
+        aserto.directory.common.v3.Relation relation            = 6;
     }
 }
 
 message ImportResponse {
-    ImportCounter object                                        = 1;    // object import counter
-    ImportCounter relation                                      = 2;    // relation import counter
-
+    // object import counter
+    ImportCounter object                                        = 1;
+    // relation import counter
+    ImportCounter relation                                      = 2;
 }
 
 message ImportCounter {
-    uint64 recv                                                 = 1;    // number of messages received
-    uint64 set                                                  = 2;    // number of messages with OPCODE_SET
-    uint64 delete                                               = 3;    // number of messages with OPCODE_DELETE
-    uint64 error                                                = 4;    // number of messages resulting in error
+    // number of messages received
+    uint64 recv                                                 = 1;
+    // number of messages with OPCODE_SET
+    uint64 set                                                  = 2;
+    // number of messages with OPCODE_DELETE
+    uint64 delete                                               = 3;
+    // number of messages resulting in error
+    uint64 error                                                = 4;
 }
 
 enum Opcode {
