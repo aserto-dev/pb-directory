@@ -7,9 +7,11 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 
+import "aserto/directory/common/v3/common.proto";
+
 service Model {
-    rpc GetModel(GetModelRequest) returns (stream GetModelResponse) {};
-    rpc SetModel(stream SetModelRequest) returns (SetModelResponse) {};
+    rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {};
+    rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {};
 }
 
 message GetManifestRequest {
