@@ -89,6 +89,7 @@ message GetObjectRequest {
     aserto.directory.common.v2.ObjectIdentifier param           = 1;
     // materialize the object relations objects
     optional bool with_relations                                = 2;
+<<<<<<< HEAD
     // pagination request
     aserto.directory.common.v2.PaginationRequest page           = 9;
 }
@@ -102,6 +103,17 @@ message GetObjectResponse {
     repeated aserto.directory.common.v2.Relation relations      = 4;
     // pagination response
     aserto.directory.common.v2.PaginationResponse page          = 9;
+=======
+}
+
+message GetObjectResponse {
+    // object instance
+    aserto.directory.common.v2.Object result                    = 1;
+    // incoming object relations
+    repeated aserto.directory.common.v2.Relation incoming       = 2;
+    // outgoing object relations
+    repeated aserto.directory.common.v2.Relation outgoing       = 3;
+>>>>>>> 716b8d6 (draft 2)
 }
 
 message GetObjectManyRequest {

@@ -9,36 +9,60 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
 message ObjectType {
-    string name                                         = 2;    // object type name (unique, lc-string)
-    string display_name                                 = 3;    // object type display name
-    bool is_subject                                     = 4;    // object type is a subject (user|group) (default false)
-    int32 ordinal                                       = 5;    // sort ordinal (default 0)
-    uint32 status                                       = 6;    // status flag bitmap (default 0)
-    google.protobuf.Struct schema                       = 10;   // object type schema definition (JSON)
-    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    string etag                                         = 23;   // object instance etag
+    // object type name (unique, lc-string)
+    string name                                         = 2;
+    // object type display name
+    string display_name                                 = 3;
+    // object type is a subject (user|group) (default false)
+    bool is_subject                                     = 4;
+    // sort ordinal (default 0)
+    int32 ordinal                                       = 5;
+    // status flag bitmap (default 0)
+    uint32 status                                       = 6;
+    // object type schema definition (JSON)
+    google.protobuf.Struct schema                       = 10;
+    // created at timestamp (UTC)
+    google.protobuf.Timestamp created_at                = 20;
+    // last updated timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;
+    // object instance etag
+    string etag                                         = 23;
 }
 
 message RelationType {
-    string name                                         = 2;    // relation type name selector
-    string object_type                                  = 3;    // object type referenced by relation
-    string display_name                                 = 4;    // relation display name
-    int32 ordinal                                       = 5;    // sort ordinal (default 0)
-    uint32 status                                       = 6;    // status bitmap (default 0)
-    repeated string unions                              = 7;    // relations union-ed with relation type instance
-    repeated string permissions                         = 8;    // permissions associated to relation type instance
-    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    string etag                                         = 23;   // object instance etag
+    // relation type name selector
+    string name                                         = 2;
+    // object type referenced by relation
+    string object_type                                  = 3;
+    // relation display name
+    string display_name                                 = 4;
+    // sort ordinal (default 0)
+    int32 ordinal                                       = 5;
+    // status bitmap (default 0)
+    uint32 status                                       = 6;
+    // relations union-ed with relation type instance
+    repeated string unions                              = 7;
+    // permissions associated to relation type instance
+    repeated string permissions                         = 8;
+    // created at timestamp (UTC)
+    google.protobuf.Timestamp created_at                = 20;
+    // last updated timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;
+    // object instance etag
+    string etag                                         = 23;
 }
 
 message Permission {
-    string name                                         = 2;    // permission name (unique, cs-string)
-    string display_name                                 = 3;    // permission display name
-    google.protobuf.Timestamp created_at                = 20;   // created at timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21;   // last updated timestamp (UTC)
-    string etag                                         = 23;   // object instance etag
+    // permission name (unique, cs-string)
+    string name                                         = 2;
+    // permission display name
+    string display_name                                 = 3;
+    // created at timestamp (UTC)
+    google.protobuf.Timestamp created_at                = 20;
+    // last updated timestamp (UTC)
+    google.protobuf.Timestamp updated_at                = 21;
+    // object instance etag
+    string etag                                         = 23;
 }
 
 message Manifest {

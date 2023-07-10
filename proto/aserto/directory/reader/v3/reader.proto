@@ -5,6 +5,7 @@ package aserto.directory.reader.v3;
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v3;reader";
 
 import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 import "aserto/directory/common/v3/common.proto";
@@ -55,7 +56,7 @@ service Reader {
             tags: "directory"
             summary: "List object instances"
             description: "Returns list of object instances."
-            operation_id: "directory.v3.objects.get"
+            operation_id: "directory.v3.objects.list"
             deprecated: false
             security: {
                 security_requirement: {
@@ -96,18 +97,14 @@ service Reader {
 
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/relations/object/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
-            additional_bindings: [
-                {
-                  get: "/api/v3/directory/relations/subject/{subject_type}/{subject_id}/{subject_relation}/{object_type}/{object_id}/{relation}"
-                }
-              ]
+            post: "/api/v3/directory/relations"
+            body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
             summary: "List relations instances"
             description: "Returns list of relation instances."
-            // operation_id: "directory.v3.relations.get.object"
+            operation_id: "directory.v3.relations.list"
             deprecated: false
             security: {
                 security_requirement: {
@@ -252,108 +249,159 @@ message GetPermissionsResponse {
 }
 
 message GetObjectRequest {
-    string object_type                                          = 1;    // object type name (lc-string)
-    string object_id                                            = 2;    // object identifier (cs-string)
-    optional bool with_relations                                = 3;    // materialize the object relations objects
+    // object type name (lc-string)
+    string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
+    // object identifier (cs-string)
+    string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
+    // materialize the object relations objects
+    optional bool with_relations                                = 3     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
-    aserto.directory.common.v3.Object result                    = 1;    // object instance
-    repeated aserto.directory.common.v3.Relation incoming       = 2;    // incoming object relations
-    repeated aserto.directory.common.v3.Relation outgoing       = 3;    // outgoing object relations
+    // object instance
+    aserto.directory.common.v3.Object result                    = 1;
+    // incoming object relations
+    repeated aserto.directory.common.v3.Relation incoming       = 2;
+    // outgoing object relations
+    repeated aserto.directory.common.v3.Relation outgoing       = 3;
 }
 
 message GetObjectManyRequest {
-    repeated aserto.directory.common.v3.ObjectIdentifier param  = 1;    // object identifier list
+    // object identifier list
+    repeated aserto.directory.common.v3.ObjectIdentifier param  = 1     [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetObjectManyResponse {
-    repeated aserto.directory.common.v3.Object results          = 1;    // array of object instances
+    // array of object instances
+    repeated aserto.directory.common.v3.Object results          = 1;
 }
 
 message GetObjectsRequest {
-    string object_type                                          = 1;    // object type name (lc-string)
-    aserto.directory.common.v3.PaginationRequest page           = 9;    // pagination request
+    // object type name (lc-string)
+    string object_type                                          = 1     [(google.api.field_behavior) = OPTIONAL];
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectsResponse {
-    repeated aserto.directory.common.v3.Object results          = 1;    // array of object instances
-    aserto.directory.common.v3.PaginationResponse page          = 9;    // pagination response
+    // array of object instances
+    repeated aserto.directory.common.v3.Object results          = 1;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message GetRelationRequest {
-    string object_type                                          = 1;    // object type
-    string object_id                                            = 2;    // object identifier
-    string relation                                             = 3;    // relation name
-    string subject_type                                         = 4;    // subject type
-    string subject_id                                           = 5;    // subject identifier
-    string subject_relation                                     = 6;    // optional subject relation name
-    optional bool with_objects                                  = 7;    // materialize relation objects
+    // object type
+    string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
+    // object identifier
+    string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
+    // relation name
+    string relation                                             = 3     [(google.api.field_behavior) = REQUIRED];
+    // subject type
+    string subject_type                                         = 4     [(google.api.field_behavior) = REQUIRED];
+    // subject identifier
+    string subject_id                                           = 5     [(google.api.field_behavior) = REQUIRED];
+    // optional subject relation name
+    string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
+    // materialize relation objects
+    optional bool with_objects                                  = 7     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetRelationResponse {
-    repeated aserto.directory.common.v3.Relation results        = 1;    // array of relation instances
-    map<string, aserto.directory.common.v3.Object> objects      = 2;    // map of materialized relation objects
+    // array of relation instances
+    repeated aserto.directory.common.v3.Relation results        = 1;
+    // map of materialized relation objects
+    map<string, aserto.directory.common.v3.Object> objects      = 2;
 }
 
 message GetRelationsRequest {
-    string object_type                                          = 1;    // object type
-    string object_id                                            = 2;    // object identifier
-    string relation                                             = 3;    // relation name
-    string subject_type                                         = 4;    // subject type
-    string subject_id                                           = 5;    // subject identifier
-    string subject_relation                                     = 6;    // optional subject relation name
-    aserto.directory.common.v3.PaginationRequest page           = 9;    // pagination request
+    // object type
+    string object_type                                          = 1     [(google.api.field_behavior) = OPTIONAL];
+    // object identifier
+    string object_id                                            = 2     [(google.api.field_behavior) = OPTIONAL];
+    // relation name
+    string relation                                             = 3     [(google.api.field_behavior) = OPTIONAL];
+    // subject type
+    string subject_type                                         = 4     [(google.api.field_behavior) = OPTIONAL];
+    // subject identifier
+    string subject_id                                           = 5     [(google.api.field_behavior) = OPTIONAL];
+    // optional subject relation name
+    string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetRelationsResponse {
-    repeated aserto.directory.common.v3.Relation results        = 1;    // array of relation instances
-    aserto.directory.common.v3.PaginationResponse page          = 9;    // pagination response
+    // array of relation instances
+    repeated aserto.directory.common.v3.Relation results        = 1;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message CheckPermissionRequest {
-    string object_type                                          = 1;    // object type
-    string object_id                                            = 2;    // object identifier
-    string permission                                           = 3;    // permission name
-    string subject_type                                         = 4;    // subject type
-    string subject_id                                           = 5;    // subject identifier
-    bool trace                                                  = 7;    // collect trace information
+    // object type
+    string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
+    // object identifier
+    string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
+    // permission name
+    string permission                                           = 3     [(google.api.field_behavior) = REQUIRED];
+    // subject type
+    string subject_type                                         = 4     [(google.api.field_behavior) = REQUIRED];
+    // subject identifier
+    string subject_id                                           = 5     [(google.api.field_behavior) = REQUIRED];
+    // collect trace information
+    bool trace                                                  = 7     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message CheckPermissionResponse {
-    bool check                                                  = 1;    // check result (BOOL)
-    repeated string trace                                       = 2;    // trace information
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
 }
 
 message CheckRelationRequest {
-    string object_type                                          = 1;    // object type
-    string object_id                                            = 2;    // object identifier
-    string relation                                             = 3;    // relation name
-    string subject_type                                         = 4;    // subject type
-    string subject_id                                           = 5;    // subject identifier
-    bool trace                                                  = 7;    // collect trace information
+    // object type
+    string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
+    // object identifier
+    string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
+    // relation name
+    string relation                                             = 3     [(google.api.field_behavior) = REQUIRED];
+    // subject type
+    string subject_type                                         = 4     [(google.api.field_behavior) = REQUIRED];
+    // subject identifier
+    string subject_id                                           = 5     [(google.api.field_behavior) = REQUIRED];
+    // collect trace information
+    bool trace                                                  = 7     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message CheckRelationResponse {
-    bool check                                                  = 1;    // check result (BOOL)
-    repeated string trace                                       = 2;    // trace information
-}
-
-message CheckResponse {
-    bool check                                                  = 1;    // check result (BOOL)
-    repeated string trace                                       = 2;    // trace information
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
 }
 
 message GetGraphRequest {
-    string anchor_type                                          = 1;    // anchor type
-    string anchor_id                                            = 2;    // anchor identifier
-    string object_type                                          = 3;    // object type
-    string object_id                                            = 4;    // object identifier
-    string relation                                             = 5;    // relation name
-    string subject_type                                         = 6;    // subject type
-    string subject_id                                           = 7;    // subject identifier
+    // anchor type
+    string anchor_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
+    // anchor identifier
+    string anchor_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
+    // object type
+    string object_type                                          = 3     [(google.api.field_behavior) = OPTIONAL];
+    // object identifier
+    string object_id                                            = 4     [(google.api.field_behavior) = OPTIONAL];
+    // relation name
+    string relation                                             = 5     [(google.api.field_behavior) = OPTIONAL];
+    // subject type
+    string subject_type                                         = 6     [(google.api.field_behavior) = OPTIONAL];
+    // subject identifier
+    string subject_id                                           = 7     [(google.api.field_behavior) = OPTIONAL];
+    // subject relation
+    string subject_relation                                     = 8     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetGraphResponse {
-    repeated aserto.directory.common.v3.ObjectDependency results= 1;    // dependency graph
+    // dependency graph
+    repeated aserto.directory.common.v3.ObjectDependency results= 1;
 }
