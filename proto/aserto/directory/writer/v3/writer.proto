@@ -39,7 +39,7 @@ service Writer {
 
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
         option (google.api.http) = {
-            delete: "/api/v3/directory/object/{object.type}/{object.id}"
+            delete: "/api/v3/directory/object/{object_type}/{object_id}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -63,7 +63,7 @@ service Writer {
     // relation methods
     rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
         option (google.api.http) = {
-            put: "/api/v3/directory/relation"
+            post: "/api/v3/directory/relation"
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -87,9 +87,8 @@ service Writer {
 
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
         option (google.api.http) = {
-            delete: "/api/v3/directory/relation"
-            body: "*"
-        };
+            delete: "/api/v3/directory/relation/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
+       };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
             summary: "Delete relation"
@@ -121,8 +120,10 @@ message SetObjectResponse {
 }
 
 message DeleteObjectRequest {
-    // object instance
-    aserto.directory.common.v3.Object object                    = 1     [(google.api.field_behavior) = REQUIRED];
+    // object type
+    string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
+    // object identifier
+    string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
     // delete object relations, both object and subject relations.
     optional bool with_relations                                = 3     [(google.api.field_behavior) = OPTIONAL];
 }
@@ -143,8 +144,18 @@ message SetRelationResponse {
 }
 
 message DeleteRelationRequest {
-    // relation instance
-    aserto.directory.common.v3.Relation relation                = 1     [(google.api.field_behavior) = REQUIRED];
+    // object type
+    string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
+    // object identifier
+    string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
+    // object relation name
+    string relation                                             = 3     [(google.api.field_behavior) = REQUIRED];
+    // subject type
+    string subject_type                                         = 4     [(google.api.field_behavior) = REQUIRED];
+    // subject identifier
+    string subject_id                                           = 5     [(google.api.field_behavior) = REQUIRED];
+    // optional subject relation name
+    string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message DeleteRelationResponse {
