@@ -87,11 +87,11 @@ message SetObjectResponse {
 }
 
 message DeleteObjectRequest {
-    aserto.directory.common.v2.ObjectIdentifier param           = 1;    //
+    aserto.directory.common.v2.ObjectIdentifier param           = 1;    // 
     optional bool with_relations                                = 2;    // delete object relations, both object and subject relations.
-}
-
-message DeleteObjectResponse {
+}   
+    
+message DeleteObjectResponse {  
     google.protobuf.Empty result                                = 1;    // empty result
 }
 
