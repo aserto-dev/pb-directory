@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aserto.directory.reader.v2;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v2;reader"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v2;reader";
 
 import "aserto/directory/common/v2/common.proto";
 
@@ -10,24 +10,24 @@ service Reader {
     // object type metadata methods
     rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
     rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {};
-    
+
     // relation type metadata methods
     rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
     rpc GetRelationTypes(GetRelationTypesRequest) returns (GetRelationTypesResponse) {};
-    
+
     // permission metadata methods
     rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
     rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse) {};
-    
+
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
     rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {};
     rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {};
-    
+
     // relation methods
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {};
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {};
-    
+
     // check permission method
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
 
@@ -39,142 +39,189 @@ service Reader {
 }
 
 message GetObjectTypeRequest {
-    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // object type selector
+    // object type selector
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
 }
 
 message GetObjectTypeResponse {
-    aserto.directory.common.v2.ObjectType result                = 1;    // object type instance
+    // object type instance
+    aserto.directory.common.v2.ObjectType result                = 1;
 }
 
 message GetObjectTypesRequest {
-    aserto.directory.common.v2.PaginationRequest page           = 9;    // pagination request
+    // pagination request
+    aserto.directory.common.v2.PaginationRequest page           = 9;
 }
 
 message GetObjectTypesResponse {
-    repeated aserto.directory.common.v2.ObjectType results      = 1;    // array of object types
-    aserto.directory.common.v2.PaginationResponse page          = 9;    // pagination response
+    // array of object types
+    repeated aserto.directory.common.v2.ObjectType results      = 1;
+    // pagination response
+    aserto.directory.common.v2.PaginationResponse page          = 9;
 }
 
 message GetRelationTypeRequest {
-    aserto.directory.common.v2.RelationTypeIdentifier param     = 1;    // relation type selector
+    // relation type selector
+    aserto.directory.common.v2.RelationTypeIdentifier param     = 1;
 }
 
 message GetRelationTypeResponse {
-    aserto.directory.common.v2.RelationType result              = 1;    // relation type instance
+    // relation type instance
+    aserto.directory.common.v2.RelationType result              = 1;
 }
 
 message GetRelationTypesRequest {
-    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // object type selector    
-    aserto.directory.common.v2.PaginationRequest page           = 9;    // pagination request
+    // object type selector
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
+    // pagination request
+    aserto.directory.common.v2.PaginationRequest page           = 9;
 }
 
 message GetRelationTypesResponse {
-    repeated aserto.directory.common.v2.RelationType results    = 1;    // array of relation types
-    aserto.directory.common.v2.PaginationResponse page          = 9;    // pagination response
+    // array of relation types
+    repeated aserto.directory.common.v2.RelationType results    = 1;
+    // pagination response
+    aserto.directory.common.v2.PaginationResponse page          = 9;
 }
 
 message GetObjectRequest {
-    aserto.directory.common.v2.ObjectIdentifier param           = 1;    // object selector
-    optional bool with_relations                                = 2;    // materialize the object relations objects
+    // object selector
+    aserto.directory.common.v2.ObjectIdentifier param           = 1;
+    // materialize the object relations objects
+    optional bool with_relations                                = 2;
 }
 
 message GetObjectResponse {
-    aserto.directory.common.v2.Object result                    = 1;    // object instance
-    repeated aserto.directory.common.v2.Relation incoming       = 2;    // incoming object relations
-    repeated aserto.directory.common.v2.Relation outgoing       = 3;    // outgoing object relations
+    // object instance
+    aserto.directory.common.v2.Object result                    = 1;
+    // incoming object relations of object instance (result.type == incoming.subject.type && result.key == incoming.subject.key)
+    repeated aserto.directory.common.v2.Relation incoming       = 2;
+    // outgoing object relations of object instance (result.type == outgoing.object.type && result.key == outgoing.object.key)
+    repeated aserto.directory.common.v2.Relation outgoing       = 3;
 }
 
 message GetObjectManyRequest {
-    repeated aserto.directory.common.v2.ObjectIdentifier param  = 1;    // object identifier list
+    // object identifier list
+    repeated aserto.directory.common.v2.ObjectIdentifier param  = 1;
 }
 
 message GetObjectManyResponse {
-    repeated aserto.directory.common.v2.Object results          = 1;    // array of object instances
+    // array of object instances
+    repeated aserto.directory.common.v2.Object results          = 1;
 }
 
 message GetObjectsRequest {
-    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;    // object type selector
-    aserto.directory.common.v2.PaginationRequest page           = 9;    // pagination request
+    // object type selector
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
+    // pagination request
+    aserto.directory.common.v2.PaginationRequest page           = 9;
 }
 
 message GetObjectsResponse {
-    repeated aserto.directory.common.v2.Object results          = 1;    // array of object instances
-    aserto.directory.common.v2.PaginationResponse page          = 9;    // pagination response
+    // array of object instances
+    repeated aserto.directory.common.v2.Object results          = 1;
+    // pagination response
+    aserto.directory.common.v2.PaginationResponse page          = 9;
 }
 
 message GetRelationRequest {
-    aserto.directory.common.v2.RelationIdentifier param         = 1;    // relation selector
-    optional bool with_objects                                  = 2;    // materialize relation objects
+    // relation selector
+    aserto.directory.common.v2.RelationIdentifier param         = 1;
+    // materialize relation objects
+    optional bool with_objects                                  = 2;
 }
 
 message GetRelationResponse {
-    repeated aserto.directory.common.v2.Relation results        = 1;    // array of relation instances
-    map<string, aserto.directory.common.v2.Object> objects      = 2;    // map of materialized relation objects
+    // array of relation instances
+    repeated aserto.directory.common.v2.Relation results        = 1;
+    // map of materialized relation objects
+    map<string, aserto.directory.common.v2.Object> objects      = 2;
 }
 
 message GetRelationsRequest {
-    aserto.directory.common.v2.RelationIdentifier param         = 1;    // relation selector
-    aserto.directory.common.v2.PaginationRequest page           = 9;    // pagination request
+    // relation selector
+    aserto.directory.common.v2.RelationIdentifier param         = 1;
+    // pagination request
+    aserto.directory.common.v2.PaginationRequest page           = 9;
 }
 
 message GetRelationsResponse {
-    repeated aserto.directory.common.v2.Relation results        = 1;    // array of relation instances
-    aserto.directory.common.v2.PaginationResponse page          = 9;    // pagination response
+    // array of relation instances
+    repeated aserto.directory.common.v2.Relation results        = 1;
+    // pagination response
+    aserto.directory.common.v2.PaginationResponse page          = 9;
 }
 
 message GetPermissionRequest {
-    aserto.directory.common.v2.PermissionIdentifier param       = 1;    // permission selector
+    // permission selector
+    aserto.directory.common.v2.PermissionIdentifier param       = 1;
 }
 
 message GetPermissionResponse {
-    aserto.directory.common.v2.Permission result                = 1;    // permission instance
+    // permission instance
+    aserto.directory.common.v2.Permission result                = 1;
 }
 
 message GetPermissionsRequest {
-    aserto.directory.common.v2.PaginationRequest page           = 9;    // pagination request
+    // pagination request
+    aserto.directory.common.v2.PaginationRequest page           = 9;
 }
 
 message GetPermissionsResponse {
-    repeated aserto.directory.common.v2.Permission results      = 1;    // array of permissions
-    aserto.directory.common.v2.PaginationResponse page          = 9;    // pagination response
+    // array of permissions
+    repeated aserto.directory.common.v2.Permission results      = 1;
+    // pagination response
+    aserto.directory.common.v2.PaginationResponse page          = 9;
 }
 
 message CheckPermissionRequest {
-    aserto.directory.common.v2.ObjectIdentifier subject         = 1;    // subject selector
-    aserto.directory.common.v2.PermissionIdentifier permission  = 2;    // permission selector
-    aserto.directory.common.v2.ObjectIdentifier object          = 3;    // object selector
-    bool trace                                                  = 7;    // collect trace information
-}   
+    // subject selector
+    aserto.directory.common.v2.ObjectIdentifier subject         = 1;
+    // permission selector
+    aserto.directory.common.v2.PermissionIdentifier permission  = 2;
+    // object selector
+    aserto.directory.common.v2.ObjectIdentifier object          = 3;
+    // collect trace information
+    bool trace                                                  = 7;
+}
 
-message CheckPermissionResponse { 
-    bool check                                                  = 1;    // check result (BOOL)
-    repeated string trace                                       = 2;    // trace information
+message CheckPermissionResponse {
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
 }
 
 message CheckRelationRequest {
-    aserto.directory.common.v2.ObjectIdentifier subject         = 1;    // subject selector
-    aserto.directory.common.v2.RelationTypeIdentifier relation  = 2;    // relation selector
-    aserto.directory.common.v2.ObjectIdentifier object          = 3;    // object selector
-    bool trace                                                  = 7;    // collect trace information
-}   
-
-message CheckRelationResponse { 
-    bool check                                                  = 1;    // check result (BOOL)
-    repeated string trace                                       = 2;    // trace information
+    // subject selector
+    aserto.directory.common.v2.ObjectIdentifier subject         = 1;
+    // relation selector
+    aserto.directory.common.v2.RelationTypeIdentifier relation  = 2;
+    // object selector
+    aserto.directory.common.v2.ObjectIdentifier object          = 3;
+    // collect trace information
+    bool trace                                                  = 7;
 }
 
-message CheckResponse { 
-    bool check                                                  = 1;    // check result (BOOL)
-    repeated string trace                                       = 2;    // trace information
+message CheckRelationResponse {
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
 }
 
 message GetGraphRequest {
-    aserto.directory.common.v2.ObjectIdentifier anchor          = 1;    // anchor selector
-    aserto.directory.common.v2.ObjectIdentifier subject         = 2;    // subject selector
-    aserto.directory.common.v2.RelationTypeIdentifier relation  = 3;    // relation selector
-    aserto.directory.common.v2.ObjectIdentifier object          = 4;    // object selector
+    // anchor selector
+    aserto.directory.common.v2.ObjectIdentifier anchor          = 1;
+    // subject selector
+    aserto.directory.common.v2.ObjectIdentifier subject         = 2;
+    // relation selector
+    aserto.directory.common.v2.RelationTypeIdentifier relation  = 3;
+    // object selector
+    aserto.directory.common.v2.ObjectIdentifier object          = 4;
 }
 
 message GetGraphResponse {
-    repeated aserto.directory.common.v2.ObjectDependency results= 1;    // dependency graph
+    // dependency graph
+    repeated aserto.directory.common.v2.ObjectDependency results= 1;
 }
