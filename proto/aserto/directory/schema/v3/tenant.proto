@@ -35,6 +35,9 @@ message AccountProperties {
 
   // Tracks the account owner's progress through the getting-started guide.
   optional GuideState getting_started = 3;
+
+  // The default organization for the account
+  string default_tenant_id = 4;
 }
 
 // The state of a user's progress through the console's getting started guide.

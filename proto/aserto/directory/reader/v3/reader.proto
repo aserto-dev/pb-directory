@@ -318,6 +318,13 @@ message CheckRelationResponse {
     repeated string trace                                       = 2;
 }
 
+message CheckResponse {
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
+}
+
 message GetGraphRequest {
     // anchor type
     string anchor_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
