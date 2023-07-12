@@ -94,9 +94,9 @@ message GetObjectRequest {
 message GetObjectResponse {
     // object instance
     aserto.directory.common.v2.Object result                    = 1;
-    // incoming object relations
+    // incoming object relations of object instance (result.type == incoming.subject.type && result.key == incoming.subject.key)
     repeated aserto.directory.common.v2.Relation incoming       = 2;
-    // outgoing object relations
+    // outgoing object relations of object instance (result.type == outgoing.object.type && result.key == outgoing.object.key)
     repeated aserto.directory.common.v2.Relation outgoing       = 3;
 }
 
