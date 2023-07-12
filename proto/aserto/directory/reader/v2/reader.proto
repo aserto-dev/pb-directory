@@ -210,6 +210,13 @@ message CheckRelationResponse {
     repeated string trace                                       = 2;
 }
 
+message CheckResponse {
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
+}
+
 message GetGraphRequest {
     // anchor selector
     aserto.directory.common.v2.ObjectIdentifier anchor          = 1;
