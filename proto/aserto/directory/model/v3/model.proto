@@ -6,7 +6,6 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v
 
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
-
 import "aserto/directory/common/v3/common.proto";
 
 service Model {
@@ -14,66 +13,92 @@ service Model {
     rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {};
     rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {};
     rpc ListManifests(ListManifestsRequest) returns (ListManifestsResponse) {};
+
+    rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
+    rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {};
 }
 
 message GetManifestRequest {
     // manifest name (unique, lc-string)
-    string name                                                 = 1     [(google.api.field_behavior) = REQUIRED];
+    string  name                                                  = 1      [(google.api.field_behavior) = REQUIRED];
     // manifest version (semver notation)
-    string version                                              = 2     [(google.api.field_behavior) = REQUIRED];
+    string  version                                               = 2      [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetManifestResponse {
     oneof msg {
-        // Manifest metadata
-        Metadata metadata                                       = 1;
-        // Manifest content
-        bytes   body                                            = 2;
+        Metadata metadata                                         = 1;     // Manifest metadata  
+        bytes   body                                              = 2;     // Manifest content
     }
 }
 
 message SetManifestRequest {
+    // manifest instance
     oneof msg {
-        // Manifest metadata
-        Metadata metadata                                       = 1;
-        // Manifest content
-        bytes   body                                            = 2;
+        Metadata metadata                                         = 1;     // Manifest metadata 
+        bytes   body                                              = 2;     // Manifest content
     }
 }
 
 message SetManifestResponse {
-    // empty result
-    google.protobuf.Empty result                                = 1;
+    google.protobuf.Empty result                                  = 1;    // empty result
 }
 
-
 message DeleteManifestRequest {
-    // manifest name (unique, lc-string)
-    string name                                                 = 1     [(google.api.field_behavior) = REQUIRED];
-    // manifest version (semver notation)
-    string version                                              = 2     [(google.api.field_behavior) = REQUIRED];
+    Metadata request                                              = 1      [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteManifestResponse {
-    // empty result
-    google.protobuf.Empty result                                = 1;
+    google.protobuf.Empty result                                  = 1;    // empty result
 }
 
 message ListManifestsRequest {
-    // pagination request
-    aserto.directory.common.v3.PaginationRequest page_request   = 1;
+    aserto.directory.common.v3.PaginationRequest page_request     = 1;    // page request
 }
 
 message ListManifestsResponse {
-    // manifests metadata
-    repeated Metadata manifests                                 = 1;
-    // pagination response
-    aserto.directory.common.v3.PaginationResponse next_page     = 2;
+    repeated Metadata manifests                                   = 1;    // manifests metadata
+    aserto.directory.common.v3.PaginationResponse next_page       = 2;    // next page token
 }
 
 message Metadata {
     // manifest name (unique, lc-string)
-    string  name                                                = 1      [(google.api.field_behavior) = REQUIRED];
+    string  name                                                  = 1      [(google.api.field_behavior) = REQUIRED];
     // manifest version (semver notation)
-    string  version                                             = 2      [(google.api.field_behavior) = REQUIRED];
+    string  version                                               = 2      [(google.api.field_behavior) = REQUIRED];
+}
+
+
+
+
+message ObjectType {
+    // object type name (unique, lc-string)
+    string name                                                   = 1      [(google.api.field_behavior) = REQUIRED];
+    map<string, RelationType> relation_types                      = 2;
+}
+
+message RelationType {
+    // object type name (unique, lc-string)
+    string name                                                   = 1      [(google.api.field_behavior) = REQUIRED];
+    repeated string permissions                                   = 2;
+    repeated string union                                         = 3;
+}
+
+
+message GetObjectTypeRequest {
+    // name of the object type to retrieve
+    string object_type_name                                       = 1      [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetObjectTypeResponse {
+    ObjectType object_type                                        = 1;    // object type
+}
+
+message GetObjectTypesRequest {
+    aserto.directory.common.v3.PaginationRequest page_request     = 1;    // page request
+}
+
+message GetObjectTypesResponse {
+    repeated ObjectType object_types                              = 1;    // object types
+    aserto.directory.common.v3.PaginationResponse next_page       = 2;    // next page token
 }
