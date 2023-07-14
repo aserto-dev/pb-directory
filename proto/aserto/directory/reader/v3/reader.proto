@@ -194,10 +194,6 @@ message GetObjectRequest {
 message GetObjectResponse {
     // object instance
     aserto.directory.common.v3.Object result                    = 1;
-    // incoming object relations
-    repeated aserto.directory.common.v3.Relation incoming       = 2;
-    // outgoing object relations
-    repeated aserto.directory.common.v3.Relation outgoing       = 3;
 }
 
 message GetObjectManyRequest {
