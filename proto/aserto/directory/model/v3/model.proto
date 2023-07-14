@@ -19,10 +19,10 @@ service Model {
 }
 
 message GetManifestRequest {
-    // manifest name (unique, lc-string)
-    string  name                                                  = 1      [(google.api.field_behavior) = REQUIRED];
-    // manifest version (semver notation)
-    string  version                                               = 2      [(google.api.field_behavior) = REQUIRED];
+   // manifest name (unique, lc-string)
+   string  name                                                  = 1      [(google.api.field_behavior) = REQUIRED];
+   // manifest version (semver notation)
+   string  version                                               = 2      [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetManifestResponse {
@@ -45,7 +45,10 @@ message SetManifestResponse {
 }
 
 message DeleteManifestRequest {
-    Metadata request                                              = 1      [(google.api.field_behavior) = REQUIRED];
+    // manifest name (unique, lc-string)
+   string  name                                                  = 1      [(google.api.field_behavior) = REQUIRED];
+   // manifest version (semver notation)
+   string  version                                               = 2      [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteManifestResponse {
