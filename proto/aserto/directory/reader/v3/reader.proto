@@ -61,15 +61,15 @@ service Reader {
     };
 
     // relation methods
-    rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {
+    rpc GetObjectRelations(GetObjectRelationsRequest) returns (GetObjectRelationsResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/relation/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
+            post: "/api/v3/directory/relation/{object_type}/{object_id}/relations"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
-            summary: "Get relation instance"
-            description: "Returns single relation instance, optionally with objects."
-            operation_id: "directory.v3.relation.get"
+            summary: "Get relations for object instance"
+            description: "Returns relation instances that include a given object instance."
+            operation_id: "directory.v3.object.relations"
             deprecated: false
             security: {
                 security_requirement: {
@@ -189,8 +189,6 @@ message GetObjectRequest {
     string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
     // object identifier (cs-string)
     string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
-    // materialize the object relations objects
-    optional bool with_relations                                = 3     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
@@ -226,28 +224,39 @@ message GetObjectsResponse {
     aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
-message GetRelationRequest {
+message GetObjectRelationsRequest {
     // object type
     string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
     // object identifier
     string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
-    // relation name
-    string relation                                             = 3     [(google.api.field_behavior) = REQUIRED];
-    // subject type
-    string subject_type                                         = 4     [(google.api.field_behavior) = REQUIRED];
-    // subject identifier
-    string subject_id                                           = 5     [(google.api.field_behavior) = REQUIRED];
-    // optional subject relation name
+    // diretion of relations to get
+    RelationsTo relations_to                                    = 3     [(google.api.field_behavior) = REQUIRED];
+    // optional filter on object type
+    string neighbor_type                                        = 4     [(google.api.field_behavior) = OPTIONAL];
+    // optional filter on relation type
+    string relation                                             = 5     [(google.api.field_behavior) = OPTIONAL];
+    // optional filter on subject relation name
     string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
     // materialize relation objects
-    optional bool with_objects                                  = 7     [(google.api.field_behavior) = OPTIONAL];
+    bool with_objects                                           = 7     [(google.api.field_behavior) = OPTIONAL];
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
 
-message GetRelationResponse {
+enum RelationsTo {
+    RELATIONS_TO_UNKNOWN                                        = 0;
+    RELATIONS_TO_SUBJECTS                                       = 1;
+    RELATIONs_TO_OBJECTS                                        = 2;
+    RELATIONS_TO_BOTH                                           = 3;
+}
+
+message GetObjectRelationsResponse {
     // array of relation instances
     repeated aserto.directory.common.v3.Relation results        = 1;
     // map of materialized relation objects
     map<string, aserto.directory.common.v3.Object> objects      = 2;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message GetRelationsRequest {
