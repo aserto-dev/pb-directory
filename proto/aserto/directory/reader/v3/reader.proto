@@ -60,30 +60,6 @@ service Reader {
         };
     };
 
-    // relation methods
-    rpc GetObjectRelations(GetObjectRelationsRequest) returns (GetObjectRelationsResponse) {
-        option (google.api.http) = {
-            get: "/api/v3/directory/objects/{object_type}/{object_id}/relations"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            tags: "directory"
-            summary: "Get relations for object instance"
-            description: "Returns relation instances that include a given object instance."
-            operation_id: "directory.v3.object.relations"
-            deprecated: false
-            security: {
-                security_requirement: {
-                    key: "TenantID";
-                    value: {}
-                }
-                security_requirement: {
-                    key: "DirectoryAPIKey";
-                    value: {}
-                }
-            }
-        };
-    };
-
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
         option (google.api.http) = {
             post: "/api/v3/directory/relations"
@@ -189,11 +165,21 @@ message GetObjectRequest {
     string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
     // object identifier (cs-string)
     string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
+    // include object relations
+    bool with_relations                                         = 3;
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
     // object instance
     aserto.directory.common.v3.Object result                    = 1;
+    // incoming object relations
+    repeated aserto.directory.common.v3.Relation incoming       = 2;
+    // outgoing object relations
+    repeated aserto.directory.common.v3.Relation outgoing       = 3;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9;
 }
 
 message GetObjectManyRequest {
@@ -216,26 +202,6 @@ message GetObjectsRequest {
 message GetObjectsResponse {
     // array of object instances
     repeated aserto.directory.common.v3.Object results          = 1;
-    // pagination response
-    aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
-}
-
-message GetObjectRelationsRequest {
-    // object type
-    string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
-    // object identifier
-    string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
-    // materialize relation objects
-    bool with_objects                                           = 3     [(google.api.field_behavior) = OPTIONAL];
-    // pagination request
-    aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
-}
-
-message GetObjectRelationsResponse {
-    // array of relation instances
-    repeated aserto.directory.common.v3.Relation results        = 1;
-    // map of materialized relation objects
-    map<string, aserto.directory.common.v3.Object> objects      = 2;
     // pagination response
     aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }
