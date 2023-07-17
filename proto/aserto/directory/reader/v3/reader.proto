@@ -225,25 +225,10 @@ message GetObjectRelationsRequest {
     string object_type                                          = 1     [(google.api.field_behavior) = REQUIRED];
     // object identifier
     string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
-    // diretion of relations to get
-    RelationsTo relations_to                                    = 3     [(google.api.field_behavior) = REQUIRED];
-    // optional filter on object type
-    string neighbor_type                                        = 4     [(google.api.field_behavior) = OPTIONAL];
-    // optional filter on relation type
-    string relation                                             = 5     [(google.api.field_behavior) = OPTIONAL];
-    // optional filter on subject relation name
-    string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
     // materialize relation objects
-    bool with_objects                                           = 7     [(google.api.field_behavior) = OPTIONAL];
+    bool with_objects                                           = 3     [(google.api.field_behavior) = OPTIONAL];
     // pagination request
     aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
-}
-
-enum RelationsTo {
-    RELATIONS_TO_UNKNOWN                                        = 0;
-    RELATIONS_TO_SUBJECTS                                       = 1;
-    RELATIONs_TO_OBJECTS                                        = 2;
-    RELATIONS_TO_BOTH                                           = 3;
 }
 
 message GetObjectRelationsResponse {
@@ -268,6 +253,8 @@ message GetRelationsRequest {
     string subject_id                                           = 5     [(google.api.field_behavior) = OPTIONAL];
     // optional subject relation name
     string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
+    // materialize relation objects
+    bool with_objects                                           = 7     [(google.api.field_behavior) = OPTIONAL];
     // pagination request
     aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
@@ -275,6 +262,8 @@ message GetRelationsRequest {
 message GetRelationsResponse {
     // array of relation instances
     repeated aserto.directory.common.v3.Relation results        = 1;
+    // map of materialized relation objects
+    map<string, aserto.directory.common.v3.Object> objects      = 2;
     // pagination response
     aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }
