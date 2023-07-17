@@ -63,7 +63,7 @@ service Reader {
     // relation methods
     rpc GetObjectRelations(GetObjectRelationsRequest) returns (GetObjectRelationsResponse) {
         option (google.api.http) = {
-            post: "/api/v3/directory/relation/{object_type}/{object_id}/relations"
+            get: "/api/v3/directory/objects/{object_type}/{object_id}/relations"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
