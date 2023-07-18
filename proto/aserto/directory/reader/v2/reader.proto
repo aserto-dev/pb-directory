@@ -92,12 +92,12 @@ message GetObjectRequest {
 }
 
 message GetObjectResponse {
+    reserved 2, 3;
+    reserved "incoming", "outgoing";
     // object instance
     aserto.directory.common.v2.Object result                    = 1;
-    // incoming object relations of object instance (result.type == incoming.subject.type && result.key == incoming.subject.key)
-    repeated aserto.directory.common.v2.Relation incoming       = 2;
-    // outgoing object relations of object instance (result.type == outgoing.object.type && result.key == outgoing.object.key)
-    repeated aserto.directory.common.v2.Relation outgoing       = 3;
+    // object relations
+    repeated aserto.directory.common.v2.Relation relations      = 4;
 }
 
 message GetObjectManyRequest {
