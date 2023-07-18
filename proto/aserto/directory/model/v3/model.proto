@@ -12,6 +12,8 @@ import "aserto/directory/common/v3/common.proto";
 service Model {
     rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {};
     rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {};
+    rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {};
+    rpc ListManifests(ListManifestsRequest) returns (ListManifestsResponse) {};
 }
 
 message GetManifestRequest {
@@ -22,19 +24,28 @@ message GetManifestRequest {
 }
 
 message GetManifestResponse {
-    // manifest instance
-    aserto.directory.common.v3.Manifest result                  = 1;
+    oneof msg {
+        // Manifest metadata
+        Metadata metadata                                       = 1;
+        // Manifest content
+        bytes   body                                            = 2;
+    }
 }
 
 message SetManifestRequest {
-    // manifest instance
-    aserto.directory.common.v3.Manifest manifest                = 1     [(google.api.field_behavior) = REQUIRED];
+    oneof msg {
+        // Manifest metadata
+        Metadata metadata                                       = 1;
+        // Manifest content
+        bytes   body                                            = 2;
+    }
 }
 
 message SetManifestResponse {
-    // manifest instance
-    aserto.directory.common.v3.Manifest result                  = 1;
+    // empty result
+    google.protobuf.Empty result                                = 1;
 }
+
 
 message DeleteManifestRequest {
     // manifest name (unique, lc-string)
@@ -46,4 +57,23 @@ message DeleteManifestRequest {
 message DeleteManifestResponse {
     // empty result
     google.protobuf.Empty result                                = 1;
+}
+
+message ListManifestsRequest {
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page_request   = 1;
+}
+
+message ListManifestsResponse {
+    // manifests metadata
+    repeated Metadata manifests                                 = 1;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse next_page     = 2;
+}
+
+message Metadata {
+    // manifest name (unique, lc-string)
+    string  name                                                = 1      [(google.api.field_behavior) = REQUIRED];
+    // manifest version (semver notation)
+    string  version                                             = 2      [(google.api.field_behavior) = REQUIRED];
 }
