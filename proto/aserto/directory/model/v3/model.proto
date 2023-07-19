@@ -2,106 +2,211 @@ syntax = "proto3";
 
 package aserto.directory.model.v3;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v3;model"; 
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v3;model";
 
-import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
 import "aserto/directory/common/v3/common.proto";
 
 service Model {
-    rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {};
-    rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {};
-    rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {};
-    rpc ListManifests(ListManifestsRequest) returns (ListManifestsResponse) {};
+	rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {
+		// get: "/api/v3/directory/manifest/{name}/{version}"
+	};
+	rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {
+		// post: "/api/v3/directory/manifest/{name}/{version}"
+	};
+    rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
+        option (google.api.http) = {
+            delete: "/api/v3/directory/manifest/{name}/{version}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Delete manifest"
+            description: "Delete manifest."
+            operation_id: "directory.v3.manifest.delete"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+	rpc ListManifests(ListManifestsRequest) returns (ListManifestsResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/manifests"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "List manifests"
+            description: "Returns list of stored manifests."
+            operation_id: "directory.v3.manifests.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+	};
 
-    rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
-    rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {};
+	rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/object_type/{name}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get object type"
+            description: "Returns single object type."
+            operation_id: "directory.v3.object_types.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+	};
+	rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/object_types"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "List all object types"
+            description: "Returns list of object types."
+            operation_id: "directory.v3.object_types.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+	};
 }
 
 message GetManifestRequest {
    // manifest name (unique, lc-string)
-   string  name                                                  = 1      [(google.api.field_behavior) = REQUIRED];
+   string  name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
    // manifest version (semver notation)
-   string  version                                               = 2      [(google.api.field_behavior) = REQUIRED];
+   string  version                                              = 2      [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetManifestResponse {
     oneof msg {
-        Metadata metadata                                         = 1;     // Manifest metadata  
-        bytes   body                                              = 2;     // Manifest content
+        // Manifest metadata
+        Metadata metadata                                       = 1;
+        // Manifest content
+        bytes   body                                            = 2;
     }
 }
 
 message SetManifestRequest {
     // manifest instance
     oneof msg {
-        Metadata metadata                                         = 1;     // Manifest metadata 
-        bytes   body                                              = 2;     // Manifest content
+        // Manifest metadata
+        Metadata metadata                                       = 1;
+        // Manifest content
+        bytes   body                                            = 2;
     }
 }
 
 message SetManifestResponse {
-    google.protobuf.Empty result                                  = 1;    // empty result
+    // empty result
+    google.protobuf.Empty result                                = 1;
 }
 
 message DeleteManifestRequest {
     // manifest name (unique, lc-string)
-   string  name                                                  = 1      [(google.api.field_behavior) = REQUIRED];
+   string  name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
    // manifest version (semver notation)
-   string  version                                               = 2      [(google.api.field_behavior) = REQUIRED];
+   string  version                                              = 2      [(google.api.field_behavior) = REQUIRED];
 }
 
 message DeleteManifestResponse {
-    google.protobuf.Empty result                                  = 1;    // empty result
+    // empty result
+    google.protobuf.Empty result                                = 1;
 }
 
 message ListManifestsRequest {
-    aserto.directory.common.v3.PaginationRequest page_request     = 1;    // page request
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9      [(google.api.field_behavior) = OPTIONAL];
 }
 
 message ListManifestsResponse {
-    repeated Metadata manifests                                   = 1;    // manifests metadata
-    aserto.directory.common.v3.PaginationResponse next_page       = 2;    // next page token
+    // manifests metadata
+    repeated Metadata manifests                                 = 1;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9;
 }
+
+message GetObjectTypeRequest {
+    // name of the object type to retrieve
+    string name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetObjectTypeResponse {
+    // object type
+    ObjectType result                                           = 1;
+}
+
+message GetObjectTypesRequest {
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
+}
+
+message GetObjectTypesResponse {
+    // array of object types
+    repeated ObjectType results                                 = 1;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
 
 message Metadata {
     // manifest name (unique, lc-string)
-    string  name                                                  = 1      [(google.api.field_behavior) = REQUIRED];
+    string  name                                                = 1      [(google.api.field_behavior) = REQUIRED];
     // manifest version (semver notation)
-    string  version                                               = 2      [(google.api.field_behavior) = REQUIRED];
+    string  version                                             = 2      [(google.api.field_behavior) = REQUIRED];
 }
-
-
-
 
 message ObjectType {
     // object type name (unique, lc-string)
-    string name                                                   = 1      [(google.api.field_behavior) = REQUIRED];
-    map<string, RelationType> relation_types                      = 2;
+    string name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
+    map<string, RelationType> relation_types                    = 2;
 }
 
 message RelationType {
     // object type name (unique, lc-string)
-    string name                                                   = 1      [(google.api.field_behavior) = REQUIRED];
-    repeated string permissions                                   = 2;
-    repeated string union                                         = 3;
+    string name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
+    // array of object type permissions
+    repeated string permissions                                 = 2;
+    // array of other relations types included in this one
+    repeated string unions                                      = 3;
 }
 
 
-message GetObjectTypeRequest {
-    // name of the object type to retrieve
-    string object_type_name                                       = 1      [(google.api.field_behavior) = REQUIRED];
-}
-
-message GetObjectTypeResponse {
-    ObjectType object_type                                        = 1;    // object type
-}
-
-message GetObjectTypesRequest {
-    aserto.directory.common.v3.PaginationRequest page_request     = 1;    // page request
-}
-
-message GetObjectTypesResponse {
-    repeated ObjectType object_types                              = 1;    // object types
-    aserto.directory.common.v3.PaginationResponse next_page       = 2;    // next page token
-}
