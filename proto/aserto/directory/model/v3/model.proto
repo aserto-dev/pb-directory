@@ -12,12 +12,60 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "aserto/directory/common/v3/common.proto";
 
 service Model {
-	rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {
-		// get: "/api/v3/directory/manifest/{name}/{version}"
-	};
-	rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {
-		// post: "/api/v3/directory/manifest/{name}/{version}"
-	};
+    rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {
+        // Binary file downloads are not supported by grpc-gateway.
+        // This endpoint is defined manually in openapi-directory.
+        // With the options that correspond to the following annotations but the response body
+        // is streamed.
+
+        // option (google.api.http) = {
+        //     get: "/api/v3/directory/manifest/{name}/{version}"
+        // };
+        // option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        //     tags: "directory"
+        //     summary: "Get manifest"
+        //     description: "Get manifest."
+        //     operation_id: "directory.v3.manifest.get"
+        //     deprecated: false
+        //     security: {
+        //         security_requirement: {
+        //             key: "TenantID";
+        //             value: {}
+        //         }
+        //         security_requirement: {
+        //             key: "DirectoryAPIKey";
+        //             value: {}
+        //         }
+        //     }
+        // };
+    };
+    rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {
+        // Binary file uploads are not supported by grpc-gateway.
+        // This endpoint is defined manually in openapi-directory.
+        // With the options that correspond to the following annotations but the request body is
+        // streamed.
+
+        // option (google.api.http) = {
+        //     post: "/api/v3/directory/manifest/{name}/{version}"
+        // };
+        // option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        //     tags: "directory"
+        //     summary: "Set manifest"
+        //     description: "Set manifest."
+        //     operation_id: "directory.v3.manifest.set"
+        //     deprecated: false
+        //     security: {
+        //         security_requirement: {
+        //             key: "TenantID";
+        //             value: {}
+        //         }
+        //         security_requirement: {
+        //             key: "DirectoryAPIKey";
+        //             value: {}
+        //         }
+        //     }
+        // };
+    };
     rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
         option (google.api.http) = {
             delete: "/api/v3/directory/manifest/{name}/{version}"
@@ -40,7 +88,7 @@ service Model {
             }
         };
     };
-	rpc ListManifests(ListManifestsRequest) returns (ListManifestsResponse) {
+    rpc ListManifests(ListManifestsRequest) returns (ListManifestsResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/manifests"
         };
@@ -61,9 +109,9 @@ service Model {
                 }
             }
         };
-	};
+    };
 
-	rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {
+    rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/object_type/{name}"
         };
@@ -84,8 +132,8 @@ service Model {
                 }
             }
         };
-	};
-	rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {
+    };
+    rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/object_types"
         };
@@ -106,7 +154,7 @@ service Model {
                 }
             }
         };
-	};
+    };
 }
 
 message GetManifestRequest {
