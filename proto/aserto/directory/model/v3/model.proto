@@ -9,6 +9,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
+import "aserto/directory/common/v2/common.proto";
 import "aserto/directory/common/v3/common.proto";
 
 service Model {
@@ -110,7 +111,7 @@ service Model {
             }
         };
     };
-
+    
     rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/object_type/{name}"
@@ -142,6 +143,98 @@ service Model {
             summary: "List all object types"
             description: "Returns list of object types."
             operation_id: "directory.v3.object_types.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // relation type metadata methods
+    rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/relation_type/{object_type_name}/{name}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get relation type for an object type with a given relation name"
+            description: "Returns single relation type."
+            operation_id: "directory.v3.relation_type.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+    rpc GetRelationTypes(GetRelationTypesRequest) returns (GetRelationTypesResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/relation_types/{object_type_name}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get relation types for an object type"
+            description: "Returns list of relation types."
+            operation_id: "directory.v3.relation_types.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // permission metadata methods
+    rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/permission/{name}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get a permission"
+            description: "Returns single permission."
+            operation_id: "directory.v3.permission.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+    rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/permissions"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get all permissions"
+            description: "Returns a list of permissions."
+            operation_id: "directory.v3.permission.list"
             deprecated: false
             security: {
                 security_requirement: {
@@ -213,25 +306,71 @@ message ListManifestsResponse {
 }
 
 message GetObjectTypeRequest {
-    // name of the object type to retrieve
-    string name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
+    // object type selector
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
 }
 
 message GetObjectTypeResponse {
-    // object type
-    ObjectType result                                           = 1;
+    // object type instance
+    aserto.directory.common.v2.ObjectType result                = 1;
 }
 
 message GetObjectTypesRequest {
     // pagination request
-    aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
+    aserto.directory.common.v2.PaginationRequest page           = 9;
 }
 
 message GetObjectTypesResponse {
     // array of object types
-    repeated ObjectType results                                 = 1;
+    repeated aserto.directory.common.v2.ObjectType results      = 1;
     // pagination response
-    aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
+    aserto.directory.common.v2.PaginationResponse page          = 9;
+}
+
+message GetRelationTypeRequest {
+    // relation type selector
+    aserto.directory.common.v2.RelationTypeIdentifier param     = 1;
+}
+
+message GetRelationTypeResponse {
+    // relation type instance
+    aserto.directory.common.v2.RelationType result              = 1;
+}
+
+message GetRelationTypesRequest {
+    // object type selector
+    aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
+    // pagination request
+    aserto.directory.common.v2.PaginationRequest page           = 9;
+}
+
+message GetRelationTypesResponse {
+    // array of relation types
+    repeated aserto.directory.common.v2.RelationType results    = 1;
+    // pagination response
+    aserto.directory.common.v2.PaginationResponse page          = 9;
+}
+
+message GetPermissionRequest {
+    // permission selector
+    aserto.directory.common.v2.PermissionIdentifier param       = 1;
+}
+
+message GetPermissionResponse {
+    // permission instance
+    aserto.directory.common.v2.Permission result                = 1;
+}
+
+message GetPermissionsRequest {
+    // pagination request
+    aserto.directory.common.v2.PaginationRequest page           = 9;
+}
+
+message GetPermissionsResponse {
+    // array of permissions
+    repeated aserto.directory.common.v2.Permission results      = 1;
+    // pagination response
+    aserto.directory.common.v2.PaginationResponse page          = 9;
 }
 
 
@@ -241,20 +380,4 @@ message Metadata {
     // manifest version (semver notation)
     string  version                                             = 2      [(google.api.field_behavior) = REQUIRED];
 }
-
-message ObjectType {
-    // object type name (unique, lc-string)
-    string name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
-    map<string, RelationType> relation_types                    = 2;
-}
-
-message RelationType {
-    // object type name (unique, lc-string)
-    string name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
-    // array of object type permissions
-    repeated string permissions                                 = 2;
-    // array of other relations types included in this one
-    repeated string unions                                      = 3;
-}
-
 
