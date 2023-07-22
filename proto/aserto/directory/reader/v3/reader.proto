@@ -190,7 +190,7 @@ message GetObjectRequest {
     // object identifier (cs-string)
     string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
     // materialize the object relations objects
-    optional bool with_relations                                = 3     [(google.api.field_behavior) = OPTIONAL];
+    bool with_relations                                         = 3     [(google.api.field_behavior) = OPTIONAL];
     // pagination request
     aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
@@ -242,7 +242,7 @@ message GetRelationRequest {
     // optional subject relation name
     string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
     // materialize relation objects
-    optional bool with_objects                                  = 7     [(google.api.field_behavior) = OPTIONAL];
+    bool with_objects                                           = 7     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetRelationResponse {
