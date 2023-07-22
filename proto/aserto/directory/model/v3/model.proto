@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package aserto.directory.model.v3;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v3;model"; 
+
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+
+import "aserto/directory/common/v3/common.proto";
+
+service Model {
+    rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {};
+    rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {};
+}
+
+message GetManifestRequest {
+    // manifest name (unique, lc-string)
+    string name                                                 = 1     [(google.api.field_behavior) = REQUIRED];
+    // manifest version (semver notation)
+    string version                                              = 2     [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetManifestResponse {
+    // manifest instance
+    aserto.directory.common.v3.Manifest result                  = 1;
+}
+
+message SetManifestRequest {
+    // manifest instance
+    aserto.directory.common.v3.Manifest manifest                = 1     [(google.api.field_behavior) = REQUIRED];
+}
+
+message SetManifestResponse {
+    // manifest instance
+    aserto.directory.common.v3.Manifest result                  = 1;
+}
+
+message DeleteManifestRequest {
+    // manifest name (unique, lc-string)
+    string name                                                 = 1     [(google.api.field_behavior) = REQUIRED];
+    // manifest version (semver notation)
+    string version                                              = 2     [(google.api.field_behavior) = REQUIRED];
+}
+
+message DeleteManifestResponse {
+    // empty result
+    google.protobuf.Empty result                                = 1;
+}
