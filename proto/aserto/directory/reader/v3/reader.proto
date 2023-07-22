@@ -191,15 +191,17 @@ message GetObjectRequest {
     string object_id                                            = 2     [(google.api.field_behavior) = REQUIRED];
     // materialize the object relations objects
     optional bool with_relations                                = 3     [(google.api.field_behavior) = OPTIONAL];
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
     // object instance
     aserto.directory.common.v3.Object result                    = 1;
-    // incoming object relations
-    repeated aserto.directory.common.v3.Relation incoming       = 2;
-    // outgoing object relations
-    repeated aserto.directory.common.v3.Relation outgoing       = 3;
+    // object relations
+    repeated aserto.directory.common.v3.Relation relations      = 4;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message GetObjectManyRequest {
