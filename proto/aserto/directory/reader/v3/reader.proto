@@ -39,7 +39,7 @@ service Reader {
 
     rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/objects/{object_type}"
+            get: "/api/v3/directory/objects"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
