@@ -246,8 +246,8 @@ message GetRelationRequest {
 }
 
 message GetRelationResponse {
-    // array of relation instances
-    repeated aserto.directory.common.v3.Relation results        = 1;
+    // relation instance
+    aserto.directory.common.v3.Relation result                  = 1;
     // map of materialized relation objects
     map<string, aserto.directory.common.v3.Object> objects      = 2;
 }
