@@ -14,7 +14,7 @@ service Reader {
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/object/{object_type}/{object_id}"
+            get: "/api/v3/directory/object"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -63,7 +63,7 @@ service Reader {
     // relation methods
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/relation/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
+            get: "/api/v3/directory/relation"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -86,8 +86,7 @@ service Reader {
 
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
         option (google.api.http) = {
-            post: "/api/v3/directory/relations"
-            body: "*"
+            get: "/api/v3/directory/relations"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -161,8 +160,7 @@ service Reader {
     // graph methods
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {
         option (google.api.http) = {
-            post: "/api/v3/directory/graph"
-            body: "*"
+            get: "/api/v3/directory/relations/{anchor_type}/{anchor_id}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -246,8 +244,8 @@ message GetRelationRequest {
 }
 
 message GetRelationResponse {
-    // array of relation instances
-    repeated aserto.directory.common.v3.Relation results        = 1;
+    // relation instance
+    aserto.directory.common.v3.Relation result                  = 1;
     // map of materialized relation objects
     map<string, aserto.directory.common.v3.Object> objects      = 2;
 }
@@ -265,8 +263,6 @@ message GetRelationsRequest {
     string subject_id                                           = 5     [(google.api.field_behavior) = OPTIONAL];
     // optional subject relation name
     string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
-    // materialize relation objects
-    bool with_objects                                           = 7     [(google.api.field_behavior) = OPTIONAL];
     // pagination request
     aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
@@ -274,8 +270,6 @@ message GetRelationsRequest {
 message GetRelationsResponse {
     // array of relation instances
     repeated aserto.directory.common.v3.Relation results        = 1;
-    // map of materialized relation objects
-    map<string, aserto.directory.common.v3.Object> objects      = 2;
     // pagination response
     aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }

@@ -48,7 +48,7 @@ message Relation {
 
 message ObjectDependency {
     // object type
-    string object_type                                  = 1     [(google.api.field_behavior) = OUTPUT_ONLY];
+    string object_type                                  = 1    [(google.api.field_behavior) = OUTPUT_ONLY];
     // object identifier
     string object_id                                    = 2    [(google.api.field_behavior) = OUTPUT_ONLY];
     // object relation name
