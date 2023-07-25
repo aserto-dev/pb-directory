@@ -263,6 +263,8 @@ message GetRelationsRequest {
     string subject_id                                           = 5     [(google.api.field_behavior) = OPTIONAL];
     // optional subject relation name
     string subject_relation                                     = 6     [(google.api.field_behavior) = OPTIONAL];
+    // materialize relation objects
+    bool with_objects                                           = 7     [(google.api.field_behavior) = OPTIONAL];
     // pagination request
     aserto.directory.common.v3.PaginationRequest page           = 9     [(google.api.field_behavior) = OPTIONAL];
 }
@@ -270,6 +272,8 @@ message GetRelationsRequest {
 message GetRelationsResponse {
     // array of relation instances
     repeated aserto.directory.common.v3.Relation results        = 1;
+    // map of materialized relation objects
+    map<string, aserto.directory.common.v3.Object> objects      = 2;
     // pagination response
     aserto.directory.common.v3.PaginationResponse page          = 9     [(google.api.field_behavior) = OUTPUT_ONLY];
 }
