@@ -87,7 +87,7 @@ service Writer {
 
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
         option (google.api.http) = {
-            delete: "/api/v3/directory/relation/{object_type}/{object_id}/{relation}/{subject_type}/{subject_id}/{subject_relation}"
+            delete: "/api/v3/directory/relation"
        };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"

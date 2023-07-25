@@ -40,6 +40,7 @@ service Model {
         //     }
         // };
     };
+
     rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {
         // Binary file uploads are not supported by grpc-gateway.
         // This endpoint is defined manually in openapi-directory.
@@ -67,6 +68,7 @@ service Model {
         //     }
         // };
     };
+
     rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
         option (google.api.http) = {
             delete: "/api/v3/directory/manifest/{name}/{version}"
@@ -89,6 +91,7 @@ service Model {
             }
         };
     };
+
     rpc ListManifests(ListManifestsRequest) returns (ListManifestsResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/manifests"
