@@ -71,8 +71,7 @@ service Model {
 
     rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
         option (google.api.http) = {
-            delete: "/api/v3/directory/manifest"
-            body: "*"
+            delete: "/api/v3/directory/manifest/{name}/{version}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"

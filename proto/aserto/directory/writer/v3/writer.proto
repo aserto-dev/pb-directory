@@ -39,8 +39,7 @@ service Writer {
 
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
         option (google.api.http) = {
-            delete: "/api/v3/directory/object"
-            body: "*"
+            delete: "/api/v3/directory/object/{object_type}/{object_id}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -89,7 +88,6 @@ service Writer {
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
         option (google.api.http) = {
             delete: "/api/v3/directory/relation"
-            body: "*"
        };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"

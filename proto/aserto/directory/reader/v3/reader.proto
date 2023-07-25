@@ -14,7 +14,7 @@ service Reader {
     // object methods
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/object"
+            get: "/api/v3/directory/object/{object_type}/{object_id}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -160,7 +160,7 @@ service Reader {
     // graph methods
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/relations/{anchor_type}/{anchor_id}"
+            get: "/api/v3/directory/graph/{anchor_type}/{anchor_id}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
