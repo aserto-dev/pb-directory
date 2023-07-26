@@ -187,17 +187,25 @@ message GetObjectRequest {
     // object type name (lc-string)
     string object_type                                          = 1
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier (cs-string)
     string object_id                                            = 2
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // materialize the object relations objects
@@ -241,8 +249,13 @@ message GetObjectsRequest {
     // object type name (lc-string)
     string object_type                                          = 1
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // pagination request
@@ -266,48 +279,73 @@ message GetRelationRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // relation name
     string relation                                             = 3
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // optional subject relation name
     string subject_relation                                     = 6
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // materialize relation objects
@@ -328,43 +366,73 @@ message GetRelationsRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "(^$)|(^[^\\s]+$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // relation name
     string relation                                             = 3
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "(^$)|(^[^\\s]+$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // optional subject relation name
     string subject_relation                                     = 6
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // materialize relation objects
@@ -395,41 +463,61 @@ message CheckPermissionRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // permission name
     string permission                                           = 3
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // collect trace information
@@ -450,41 +538,61 @@ message CheckRelationRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // relation name
     string relation                                             = 3
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // collect trace information
@@ -505,59 +613,97 @@ message GetGraphRequest {
     // anchor type
     string anchor_type                                          = 1
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // anchor identifier
     string anchor_id                                            = 2
     [
-        (buf.validate.field).required = true,
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "^[^\\s]+$",
+        (buf.validate.field) = {
+            required: true
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object type
     string object_type                                          = 3
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // object identifier
     string object_id                                            = 4
     [
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "(^$)|(^[^\\s]+$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // relation name
     string relation                                             = 5
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // subject type
     string subject_type                                         = 6
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // subject identifier
     string subject_id                                           = 7
     [
-        (buf.validate.field).string.max_len = 256,
-        (buf.validate.field).string.pattern = "(^$)|(^[^\\s]+$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 256
+                pattern: "^[^\\s]+$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // subject relation
     string subject_relation                                     = 8
     [
-        (buf.validate.field).string.max_len = 64,
-        (buf.validate.field).string.pattern = "(^$)|(^[a-z][a-z0-9_-]{1,62}[a-z0-9]$)",
+        (buf.validate.field) = {
+            ignore_empty: true,
+            string: {
+                max_len: 64
+                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
 }
