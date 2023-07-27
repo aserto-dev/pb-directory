@@ -14,6 +14,9 @@ import "aserto/directory/common/v3/common.proto";
 
 service Model {
     rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {
+        // Disable grpc-gateway for this rpc.
+        option (google.api.http) = {};
+
         // Binary file downloads are not supported by grpc-gateway.
         // This endpoint is defined manually in openapi-directory.
         // With the options that correspond to the following annotations but the response body
@@ -42,6 +45,9 @@ service Model {
     };
 
     rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {
+        // Disable grpc-gateway for this rpc.
+        option (google.api.http) = {};
+
         // Binary file uploads are not supported by grpc-gateway.
         // This endpoint is defined manually in openapi-directory.
         // With the options that correspond to the following annotations but the request body is
