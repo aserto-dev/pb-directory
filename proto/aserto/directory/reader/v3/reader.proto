@@ -311,7 +311,7 @@ message GetRelationRequest {
             cel: {
                 id: "get_relation.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -359,7 +359,7 @@ message GetRelationRequest {
             cel: {
                 id: "get_relation.subject_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -422,7 +422,7 @@ message GetRelationsRequest {
             cel: {
                 id: "get_relations.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -470,7 +470,7 @@ message GetRelationsRequest {
             cel: {
                 id: "get_relations.subject_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -543,7 +543,7 @@ message CheckPermissionRequest {
             cel: {
                 id: "check_permission.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -559,7 +559,7 @@ message CheckPermissionRequest {
             cel: {
                 id: "check_permission.permission"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -591,7 +591,7 @@ message CheckPermissionRequest {
             cel: {
                 id: "check_permission.subject_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -638,7 +638,7 @@ message CheckRelationRequest {
             cel: {
                 id: "check_relation.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -686,7 +686,7 @@ message CheckRelationRequest {
             cel: {
                 id: "check_relation.subject_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -733,7 +733,7 @@ message GetGraphRequest {
             cel: {
                 id: "get_graph.anchor_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -765,7 +765,7 @@ message GetGraphRequest {
             cel: {
                 id: "get_graph.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -813,7 +813,7 @@ message GetGraphRequest {
             cel: {
                 id: "get_graph.subject_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: ""this.matches('^[\\\\S]+$')""
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
