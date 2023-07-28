@@ -6,6 +6,7 @@ deps:
   - buf.build/googleapis/googleapis
   - buf.build/grpc-ecosystem/grpc-gateway
   - buf.build/aserto-dev/aserto
+  - buf.build/bufbuild/protovalidate
 
 lint:
   use:
@@ -15,7 +16,7 @@ lint:
     - SERVICE_SUFFIX
     - PACKAGE_VERSION_SUFFIX
   enum_zero_value_suffix: _UNKNOWN
-      
+
 breaking:
   use:
     - FILE

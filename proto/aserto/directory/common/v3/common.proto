@@ -7,84 +7,309 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/common/
 import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+
 
 message Object {
-    // external object identifier (cs-string)
-    string id                                           = 1     [(google.api.field_behavior) = REQUIRED];
     // object type name
-    string type                                         = 2     [(google.api.field_behavior) = REQUIRED];
+    string type                                         = 1
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "object.type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // external object identifier (cs-string, no spaces or tabs)
+    string id                                           = 2
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "object.id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // display name object
-    string display_name                                 = 3     [(google.api.field_behavior) = OPTIONAL];
+    string display_name                                 = 3
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
     // property bag
-    google.protobuf.Struct properties                   = 4     [(google.api.field_behavior) = OPTIONAL];
+    google.protobuf.Struct properties                   = 4
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
     // created at timestamp (UTC)
-    google.protobuf.Timestamp created_at                = 20    [(google.api.field_behavior) = OUTPUT_ONLY];
+    google.protobuf.Timestamp created_at                = 20
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // last updated timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21    [(google.api.field_behavior) = OUTPUT_ONLY];
+    google.protobuf.Timestamp updated_at                = 21
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // object instance etag
-    string etag                                         = 23    [(google.api.field_behavior) = OPTIONAL];
+    string etag                                         = 23
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
 }
 
 message Relation {
     // object type
-    string object_type                                  = 1     [(google.api.field_behavior) = REQUIRED];
+    string object_type                                  = 1
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "relation.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // object identifier
-    string object_id                                    = 2     [(google.api.field_behavior) = REQUIRED];
+    string object_id                                    = 2
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "relation.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: ""this.matches('^[\\\\S]+$')""
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // object relation name
-    string relation                                     = 3     [(google.api.field_behavior) = REQUIRED];
+    string relation                                     = 3
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "relation.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // subject type
-    string subject_type                                 = 4     [(google.api.field_behavior) = REQUIRED];
+    string subject_type                                 = 4
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "relation.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // subject identifier
-    string subject_id                                   = 5     [(google.api.field_behavior) = REQUIRED];
+    string subject_id                                   = 5
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "relation.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: ""this.matches('^[\\\\S]+$')""
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // optional subject relation name
-    string subject_relation                             = 6     [(google.api.field_behavior) = OPTIONAL];
+    string subject_relation                             = 6
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "relation.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
     // created at timestamp (UTC)
-    google.protobuf.Timestamp created_at                = 20    [(google.api.field_behavior) = OUTPUT_ONLY];
+    google.protobuf.Timestamp created_at                = 20
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // last updated timestamp (UTC)
-    google.protobuf.Timestamp updated_at                = 21    [(google.api.field_behavior) = OUTPUT_ONLY];
+    google.protobuf.Timestamp updated_at                = 21
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // object instance etag
-    string etag                                         = 23    [(google.api.field_behavior) = OPTIONAL];
+    string etag                                         = 23
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
 }
 
 message ObjectDependency {
     // object type
-    string object_type                                  = 1    [(google.api.field_behavior) = OUTPUT_ONLY];
+    string object_type                                  = 1
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // object identifier
-    string object_id                                    = 2    [(google.api.field_behavior) = OUTPUT_ONLY];
+    string object_id                                    = 2
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // object relation name
-    string relation                                     = 3    [(google.api.field_behavior) = OUTPUT_ONLY];
+    string relation                                     = 3
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // subject type
-    string subject_type                                 = 4    [(google.api.field_behavior) = OUTPUT_ONLY];
+    string subject_type                                 = 4
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // subject identifier
-    string subject_id                                   = 5    [(google.api.field_behavior) = OUTPUT_ONLY];
+    string subject_id                                   = 5
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // optional subject relation name
-    string subject_relation                             = 6    [(google.api.field_behavior) = OUTPUT_ONLY];
+    string subject_relation                             = 6
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // dependency depth
-    int32 depth                                         = 7    [(google.api.field_behavior) = OUTPUT_ONLY];
+    int32 depth                                         = 7
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // dependency cycle
-    bool is_cycle                                       = 8    [(google.api.field_behavior) = OUTPUT_ONLY];
+    bool is_cycle                                       = 8
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // dependency path
-    repeated string path                                = 9    [(google.api.field_behavior) = OUTPUT_ONLY];
+    repeated string path                                = 9
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
 }
 
 // Object identifier
 message ObjectIdentifier {
     // object type (lc-string)
-    string object_type                                  = 1     [(google.api.field_behavior) = REQUIRED];
+    string object_type                                  = 1
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "object_identifier.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // object identifier (cs-string)
-    string object_id                                    = 2     [(google.api.field_behavior) = REQUIRED];
+    string object_id                                    = 2
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "object_identifier.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: ""this.matches('^[\\\\S]+$')""
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
 }
 
 // Pagination request
 message PaginationRequest {
     // requested page size, valid value between 1-100 rows (default 100)
-    int32 size                                          = 1     [(google.api.field_behavior) = OPTIONAL];
+    int32 size                                          = 1
+    [
+        (buf.validate.field).int32 = {
+            gte: 1,
+            lte: 100
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
     // pagination start token, default ""
-    string token                                        = 2     [(google.api.field_behavior) = OPTIONAL];
+    string token                                        = 2
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
 }
 
 // Pagination response
 message PaginationResponse {
     // next page token, when empty there are no more pages to fetch
-    string next_token                                   = 1     [(google.api.field_behavior) = OUTPUT_ONLY];
+    string next_token                                   = 1
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
+}
+
+// Object type
+message ObjectType {
+    // object type name (lc-string)
+    string name                                         = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // relations associated to object type
+    repeated string relations                           = 2
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // permissions associated to object type
+    repeated string permissions                         = 3
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
 }
