@@ -23,7 +23,7 @@ service Model {
         // is streamed.
 
         // option (google.api.http) = {
-        //     get: "/api/v3/directory/manifest/{name}/{version}"
+        //     get: "/api/v3/directory/manifest/{name}?version={semver_version}"
         // };
         // option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         //     tags: "directory"
@@ -125,8 +125,8 @@ service Model {
 message GetManifestRequest {
    // manifest name (unique, lc-string)
    string  name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
-   // manifest version (semver notation)
-   string  version                                              = 2      [(google.api.field_behavior) = REQUIRED];
+   // manifest version (semver notation). default to latest.
+   string  version                                              = 2      [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetManifestResponse {
