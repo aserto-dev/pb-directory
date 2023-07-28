@@ -130,9 +130,13 @@ message DeleteObjectRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "delete_object.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -142,9 +146,13 @@ message DeleteObjectRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "delete_object.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -180,10 +188,13 @@ message DeleteRelationRequest {
     string object_type                                          = 1
     [
         (buf.validate.field) = {
-            required: true
+            cel: {
+                id: "delete_relation.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -193,9 +204,13 @@ message DeleteRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "delete_relation.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -205,9 +220,13 @@ message DeleteRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "delete_relation.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -217,9 +236,13 @@ message DeleteRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "delete_relation.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -229,9 +252,13 @@ message DeleteRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "delete_relation.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -241,9 +268,13 @@ message DeleteRelationRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "delete_relation.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
-                max_len: 64,
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+                max_len: 64
             }
         },
         (google.api.field_behavior) = OPTIONAL

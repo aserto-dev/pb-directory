@@ -9,15 +9,20 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "buf/validate/validate.proto";
 
+
 message Object {
     // object type name
     string type                                         = 1
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "object.type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
-                max_len: 64,
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+                max_len: 64
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -27,9 +32,13 @@ message Object {
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "object.id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
-                max_len: 256,
-                pattern: "^[^\\s]+$"
+                max_len: 256
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -67,9 +76,13 @@ message Relation {
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "relation.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
-                max_len: 64,
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+                max_len: 64
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -79,9 +92,13 @@ message Relation {
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "relation.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
-                max_len: 256,
-                pattern: "^[^\\s]+$"
+                max_len: 256
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -91,9 +108,13 @@ message Relation {
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "relation.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
-                max_len: 64,
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+                max_len: 64
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -103,9 +124,13 @@ message Relation {
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "relation.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
-                max_len: 64,
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+                max_len: 64
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -115,9 +140,13 @@ message Relation {
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "relation.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
-                max_len: 256,
-                pattern: "^[^\\s]+$"
+                max_len: 256
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -127,9 +156,13 @@ message Relation {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "relation.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
-                max_len: 64,
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+                max_len: 64
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -206,9 +239,13 @@ message ObjectIdentifier {
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "object_identifier.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
-                max_len: 64,
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
+                max_len: 64
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -218,9 +255,13 @@ message ObjectIdentifier {
     [
         (buf.validate.field) = {
             required: true,
+            cel: {
+                id: "object_identifier.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
-                max_len: 256,
-                pattern: "^[^\\s]+$"
+                max_len: 256
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -251,5 +292,24 @@ message PaginationResponse {
     string next_token                                   = 1
     [
         (google.api.field_behavior) = OUTPUT_ONLY
+    ];
+}
+
+// Object type
+message ObjectType {
+    // object type name (lc-string)
+    string name                                         = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // relations associated to object type
+    repeated string relations                           = 2
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // permissions associated to object type
+    repeated string permissions                         = 3
+    [
+        (google.api.field_behavior) = OPTIONAL
     ];
 }

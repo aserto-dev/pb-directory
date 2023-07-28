@@ -189,9 +189,13 @@ message GetObjectRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_object.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -201,12 +205,15 @@ message GetObjectRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_object.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
-        },
-        (google.api.field_behavior) = REQUIRED
+        }
     ];
     // materialize the object relations objects
     bool with_relations                                         = 3
@@ -251,9 +258,13 @@ message GetObjectsRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_objects.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -281,9 +292,13 @@ message GetRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_relation.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -293,9 +308,13 @@ message GetRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_relation.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -305,9 +324,13 @@ message GetRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_relation.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -317,9 +340,13 @@ message GetRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_relation.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -329,9 +356,13 @@ message GetRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_relation.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -341,9 +372,13 @@ message GetRelationRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_relation.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -368,9 +403,13 @@ message GetRelationsRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_relations.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -380,9 +419,13 @@ message GetRelationsRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_relations.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -392,9 +435,13 @@ message GetRelationsRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_relations.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -404,9 +451,13 @@ message GetRelationsRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_relations.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -416,9 +467,13 @@ message GetRelationsRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_relations.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -428,9 +483,13 @@ message GetRelationsRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_relations.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -465,9 +524,13 @@ message CheckPermissionRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_permission.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -477,9 +540,13 @@ message CheckPermissionRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_permission.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -489,9 +556,13 @@ message CheckPermissionRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_permission.permission"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -501,9 +572,13 @@ message CheckPermissionRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_permission.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -513,9 +588,13 @@ message CheckPermissionRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_permission.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -540,9 +619,13 @@ message CheckRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_relation.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -552,9 +635,13 @@ message CheckRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_relation.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -564,9 +651,13 @@ message CheckRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_relation.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -576,9 +667,13 @@ message CheckRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_relation.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -588,9 +683,13 @@ message CheckRelationRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "check_relation.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -615,9 +714,13 @@ message GetGraphRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_graph.anchor_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -627,9 +730,13 @@ message GetGraphRequest {
     [
         (buf.validate.field) = {
             required: true
+            cel: {
+                id: "get_graph.anchor_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = REQUIRED
@@ -639,9 +746,13 @@ message GetGraphRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_graph.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -651,9 +762,13 @@ message GetGraphRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_graph.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -663,9 +778,13 @@ message GetGraphRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_graph.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -675,9 +794,13 @@ message GetGraphRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_graph.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -687,9 +810,13 @@ message GetGraphRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_graph.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[^\\t\\n\\f\\r ]+$')"
+            }
             string: {
                 max_len: 256
-                pattern: "^[^\\s]+$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
@@ -699,13 +826,23 @@ message GetGraphRequest {
     [
         (buf.validate.field) = {
             ignore_empty: true,
+            cel: {
+                id: "get_graph.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
             string: {
                 max_len: 64
-                pattern: "^[a-z][a-z0-9_-]{1,62}[a-z0-9]$"
             }
         },
         (google.api.field_behavior) = OPTIONAL
     ];
+
+    option (buf.validate.message).cel = {
+        id: "graph.directionality",
+        message: "anchor.(type+id) must match either subject.(type+id) or object.(type+id) to determine graph directionality",
+        expression: "(this.anchor_type == this.object_type && this.anchor_id == this.object_id) || (this.anchor_type == this.subject_type && this.anchor_id == this.subject_id)"
+    };
 }
 
 message GetGraphResponse {
