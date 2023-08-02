@@ -54,7 +54,7 @@ service Model {
         // streamed.
 
         // option (google.api.http) = {
-        //     post: "/api/v3/directory/manifest/{name}/{version}"
+        //     post: "/api/v3/directory/manifest/{name}?version={semver_version}"
         // };
         // option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         //     tags: "directory"
@@ -181,7 +181,7 @@ message Metadata {
     // manifest name (unique, lc-string)
     string  name                                                = 1     [(google.api.field_behavior) = REQUIRED];
     // manifest version (semver notation)
-    string  version                                             = 2     [(google.api.field_behavior) = REQUIRED];
+    string  version                                             = 2     [(google.api.field_behavior) = OPTIONAL];
     // created at timestamp (UTC)
     google.protobuf.Timestamp created_at                        = 20    [(google.api.field_behavior) = OUTPUT_ONLY];
     // last updated timestamp (UTC)
