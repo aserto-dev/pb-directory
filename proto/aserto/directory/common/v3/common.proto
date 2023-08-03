@@ -35,7 +35,7 @@ message Object {
             cel: {
                 id: "object.id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('\\\\S+')"
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -95,7 +95,7 @@ message Relation {
             cel: {
                 id: "relation.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('\\\\S+')"
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -143,7 +143,7 @@ message Relation {
             cel: {
                 id: "relation.subject_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('\\\\S+')"
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -258,7 +258,7 @@ message ObjectIdentifier {
             cel: {
                 id: "object_identifier.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('\\\\S+')"
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256

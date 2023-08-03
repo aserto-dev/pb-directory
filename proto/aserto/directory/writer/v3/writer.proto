@@ -149,7 +149,7 @@ message DeleteObjectRequest {
             cel: {
                 id: "delete_object.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('\\\\S+')"
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -207,7 +207,7 @@ message DeleteRelationRequest {
             cel: {
                 id: "delete_relation.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('\\\\S+')"
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
@@ -255,7 +255,7 @@ message DeleteRelationRequest {
             cel: {
                 id: "delete_relation.subject_id"
                 message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('\\\\S+')"
+                expression: "this.matches('^[\\\\S]+$')"
             }
             string: {
                 max_len: 256
