@@ -9,6 +9,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
+import "buf/validate/validate.proto";
 
 import "aserto/directory/common/v3/common.proto";
 
@@ -123,10 +124,38 @@ service Model {
 }
 
 message GetManifestRequest {
-   // manifest name (unique, lc-string)
-   string  name                                                 = 1      [(google.api.field_behavior) = REQUIRED];
-   // manifest version (semver notation). default to latest.
-   string  version                                              = 2      [(google.api.field_behavior) = OPTIONAL];
+    // manifest name (unique, lc-string)
+    string name                                                 = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "get_manifest.name"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // manifest version (semver notation). default to latest.
+    string version                                              = 2
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_manifest.version"
+                message: "must be 1, 2 or 3 digits separated by a dot like, 1, 1.2 or 1.2.3"
+                expression: "this.matches('^([0-9]{1,3})(.[0-9]{1,3}){0,2}$')"
+            }
+            string: {
+                max_len: 11
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
 }
 
 message GetManifestResponse {
@@ -155,9 +184,37 @@ message SetManifestResponse {
 
 message DeleteManifestRequest {
     // manifest name (unique, lc-string)
-    string name                                                 = 1     [(google.api.field_behavior) = REQUIRED];
+    string name                                                 = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "get_manifest.name"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // manifest version (semver notation)
-    string version                                              = 2     [(google.api.field_behavior) = REQUIRED];
+    string version                                              = 2
+    [
+        (buf.validate.field) = {
+            required: true,
+            cel: {
+                id: "delete_manifest.version"
+                message: "must be 1, 2 or 3 digits separated by a dot like, 1, 1.2 or 1.2.3"
+                expression: "this.matches('^([0-9]{1,3})(.[0-9]{1,3}){0,2}$')"
+            }
+            string: {
+                max_len: 11
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
 }
 
 message DeleteManifestResponse {
@@ -167,7 +224,10 @@ message DeleteManifestResponse {
 
 message ListManifestsRequest {
     // pagination request
-    aserto.directory.common.v3.PaginationRequest page           = 9      [(google.api.field_behavior) = OPTIONAL];
+    aserto.directory.common.v3.PaginationRequest page           = 9
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
 }
 
 message ListManifestsResponse {
@@ -179,18 +239,62 @@ message ListManifestsResponse {
 
 message Metadata {
     // manifest name (unique, lc-string)
-    string  name                                                = 1     [(google.api.field_behavior) = REQUIRED];
+    string  name                                                = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "get_manifest.name"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
     // manifest version (semver notation)
-    string  version                                             = 2     [(google.api.field_behavior) = OPTIONAL];
+    string  version                                             = 2
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "list_manifest.version"
+                message: "must be 1, 2 or 3 digits separated by a dot like, 1, 1.2 or 1.2.3"
+                expression: "this.matches('^([0-9]{1,3})(.[0-9]{1,3}){0,2}$')"
+            }
+            string: {
+                max_len: 11
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
     // created at timestamp (UTC)
-    google.protobuf.Timestamp created_at                        = 20    [(google.api.field_behavior) = OUTPUT_ONLY];
+    google.protobuf.Timestamp created_at                        = 20
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // last updated timestamp (UTC)
-    google.protobuf.Timestamp updated_at                        = 21    [(google.api.field_behavior) = OUTPUT_ONLY];
+    google.protobuf.Timestamp updated_at                        = 21
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
     // object instance etag
-    string etag                                                 = 23    [(google.api.field_behavior) = OPTIONAL];
+    string etag                                                 = 23
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
 }
 
 message Body {
     // manifest content
-    bytes data                                                  = 2;
+    bytes data                                                  = 2
+    [
+        (buf.validate.field) = {
+            bytes: {
+                max_len: 65536
+            }
+        }
+    ];
 }
