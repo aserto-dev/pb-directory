@@ -75,6 +75,29 @@ service Model {
         //     }
         // };
     };
+
+    rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
+        option (google.api.http) = {
+                delete: "/api/v3/directory/manifest"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Delete manifest"
+            description: "Delete manifest."
+            operation_id: "directory.v3.manifest.delete"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
 }
 
 message GetManifestRequest {
@@ -104,10 +127,19 @@ message SetManifestResponse {
     google.protobuf.Empty result                                = 1;
 }
 
+message DeleteManifestRequest {
+    // empty request
+    google.protobuf.Empty empty                                 = 1;
+}
+
+message DeleteManifestResponse {
+    // empty result
+    google.protobuf.Empty result                                = 1;
+}
 
 message Metadata {
-    // created at timestamp (UTC)
-    google.protobuf.Timestamp created_at                        = 20
+    // last updated timestamp (UTC)
+    google.protobuf.Timestamp updated_at                        = 21
     [
         (google.api.field_behavior) = OUTPUT_ONLY
     ];
