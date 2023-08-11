@@ -24,7 +24,7 @@ service Model {
         // is streamed.
 
         // option (google.api.http) = {
-        //     get: "/api/v3/directory/manifest/{name}?version={semver_version}"
+        //     get: "/api/v3/directory/manifest"
         // };
         // option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         //     tags: "directory"
@@ -55,7 +55,7 @@ service Model {
         // streamed.
 
         // option (google.api.http) = {
-        //     post: "/api/v3/directory/manifest/{name}?version={semver_version}"
+        //     post: "/api/v3/directory/manifest"
         // };
         // option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         //     tags: "directory"
@@ -78,7 +78,7 @@ service Model {
 
     rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
         option (google.api.http) = {
-            delete: "/api/v3/directory/manifest/{name}/{version}"
+                delete: "/api/v3/directory/manifest"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -98,64 +98,11 @@ service Model {
             }
         };
     };
-
-    rpc ListManifests(ListManifestsRequest) returns (ListManifestsResponse) {
-        option (google.api.http) = {
-            get: "/api/v3/directory/manifests"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            tags: "directory"
-            summary: "List manifests"
-            description: "Returns list of stored manifests."
-            operation_id: "directory.v3.manifests.list"
-            deprecated: false
-            security: {
-                security_requirement: {
-                    key: "TenantID";
-                    value: {}
-                }
-                security_requirement: {
-                    key: "DirectoryAPIKey";
-                    value: {}
-                }
-            }
-        };
-    };
 }
 
 message GetManifestRequest {
-    // manifest name (unique, lc-string)
-    string name                                                 = 1
-    [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "get_manifest.name"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // manifest version (semver notation). default to latest.
-    string version                                              = 2
-    [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_manifest.version"
-                message: "must be 1, 2 or 3 digits separated by a dot like, 1, 1.2 or 1.2.3"
-                expression: "this.matches('^([0-9]{1,3})(.[0-9]{1,3}){0,2}$')"
-            }
-            string: {
-                max_len: 11
-            }
-        },
-        (google.api.field_behavior) = OPTIONAL
-    ];
+    // empty request
+    google.protobuf.Empty empty                                 = 1;
 }
 
 message GetManifestResponse {
@@ -170,10 +117,8 @@ message GetManifestResponse {
 message SetManifestRequest {
     // manifest instance
     oneof msg {
-        // Manifest metadata
-        Metadata metadata                                       = 1;
         // Manifest content
-        Body body                                               = 2;
+        Body body                                               = 1;
     }
 }
 
@@ -183,38 +128,8 @@ message SetManifestResponse {
 }
 
 message DeleteManifestRequest {
-    // manifest name (unique, lc-string)
-    string name                                                 = 1
-    [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "get_manifest.name"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // manifest version (semver notation)
-    string version                                              = 2
-    [
-        (buf.validate.field) = {
-            required: true,
-            cel: {
-                id: "delete_manifest.version"
-                message: "must be 1, 2 or 3 digits separated by a dot like, 1, 1.2 or 1.2.3"
-                expression: "this.matches('^([0-9]{1,3})(.[0-9]{1,3}){0,2}$')"
-            }
-            string: {
-                max_len: 11
-            }
-        },
-        (google.api.field_behavior) = REQUIRED
-    ];
+    // empty request
+    google.protobuf.Empty empty                                 = 1;
 }
 
 message DeleteManifestResponse {
@@ -222,59 +137,7 @@ message DeleteManifestResponse {
     google.protobuf.Empty result                                = 1;
 }
 
-message ListManifestsRequest {
-    // pagination request
-    aserto.directory.common.v3.PaginationRequest page           = 9
-    [
-        (google.api.field_behavior) = OPTIONAL
-    ];
-}
-
-message ListManifestsResponse {
-    // manifests metadata
-    repeated Metadata manifests                                 = 1;
-    // pagination response
-    aserto.directory.common.v3.PaginationResponse page          = 9;
-}
-
 message Metadata {
-    // manifest name (unique, lc-string)
-    string  name                                                = 1
-    [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "get_manifest.name"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // manifest version (semver notation)
-    string  version                                             = 2
-    [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "list_manifest.version"
-                message: "must be 1, 2 or 3 digits separated by a dot like, 1, 1.2 or 1.2.3"
-                expression: "this.matches('^([0-9]{1,3})(.[0-9]{1,3}){0,2}$')"
-            }
-            string: {
-                max_len: 11
-            }
-        },
-        (google.api.field_behavior) = OPTIONAL
-    ];
-    // created at timestamp (UTC)
-    google.protobuf.Timestamp created_at                        = 20
-    [
-        (google.api.field_behavior) = OUTPUT_ONLY
-    ];
     // last updated timestamp (UTC)
     google.protobuf.Timestamp updated_at                        = 21
     [
