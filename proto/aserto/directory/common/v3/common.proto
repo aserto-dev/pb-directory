@@ -295,21 +295,64 @@ message PaginationResponse {
     ];
 }
 
-// Object type
-message ObjectType {
-    // object type name (lc-string)
-    string name                                         = 1
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // relations associated to object type
-    repeated string relations                           = 2
-    [
-        (google.api.field_behavior) = OPTIONAL
-    ];
-    // permissions associated to object type
-    repeated string permissions                         = 3
-    [
-        (google.api.field_behavior) = OPTIONAL
-    ];
+message Model {
+    int32 version                                       = 1;
+    map<string, TypeDefinition> types                   = 2;
+}
+
+message TypeDefinition {
+    map<string, RelationDefinition> relations           = 1;
+    map<string, PermissionOperator> permissions         = 2;
+}
+
+message RelationDefinition {
+    repeated RelationOperator relation_set              = 1;
+}
+
+message RelationOperator {
+    oneof rd {
+        DirectRelation direct                           = 1;
+        SubjectRelation subject                         = 2;
+        WildcardRelation wildcard                       = 3;
+    }
+}
+
+message PermissionOperator {
+    oneof pd {
+        UnionOperator union                             = 1;
+        IntersectionOperator intersection               = 2;
+        ExclusionOperator exclusion                     = 3;
+        ArrowOperator Arrow                             = 4;
+    }
+}
+
+message DirectRelation {
+    string object_type                                  = 1;
+}
+
+message SubjectRelation {
+    string object_type                                  = 1;
+    string relation                                     = 2;
+}
+
+message WildcardRelation {
+    string object_type                                  = 1;
+}
+
+message UnionOperator {
+    repeated string union                               = 1;
+}
+
+message IntersectionOperator {
+    repeated string intersection                        = 1;
+}
+
+message ExclusionOperator {
+    string base                                         = 1;
+    string subtract                                     = 2;
+}
+
+message ArrowOperator {
+    string relation                                     = 1;
+    string permission                                   = 2;
 }
