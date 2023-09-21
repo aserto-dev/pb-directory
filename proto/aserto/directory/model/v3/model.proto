@@ -4,9 +4,10 @@ package aserto.directory.model.v3;
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/model/v3;model";
 
-import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "buf/validate/validate.proto";
@@ -111,6 +112,8 @@ message GetManifestResponse {
         Metadata metadata                                       = 1;
         // Manifest content
         Body body                                               = 2;
+        // Model
+        google.protobuf.Struct Model                            = 3;
     }
 }
 
