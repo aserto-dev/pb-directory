@@ -12,7 +12,7 @@ import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "buf/validate/validate.proto";
 
-import "aserto/directory/common/v3/common.proto";
+// import "aserto/directory/common/v3/common.proto";
 
 service Model {
     rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {
@@ -113,7 +113,7 @@ message GetManifestResponse {
         // Manifest content
         Body body                                               = 2;
         // Model
-        google.protobuf.Struct Model                            = 3;
+        google.protobuf.Struct model                            = 3;
     }
 }
 
