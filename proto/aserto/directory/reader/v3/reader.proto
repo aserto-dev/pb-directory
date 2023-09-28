@@ -108,6 +108,31 @@ service Reader {
         };
     };
 
+    // check method
+    rpc Check(CheckRequest) returns (CheckResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/check"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Check"
+            description: "Returns check outcome."
+            operation_id: "directory.v3.check"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
     // check permission method
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
         option (google.api.http) = {
@@ -516,6 +541,101 @@ message GetRelationsResponse {
     [
         (google.api.field_behavior) = OUTPUT_ONLY
     ];
+}
+
+message CheckRequest {
+    // object type
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object identifier
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // relation name
+    string relation                                           = 3
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.relation"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject type
+    string subject_type                                         = 4
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject identifier
+    string subject_id                                           = 5
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // collect trace information
+    bool trace                                                  = 7
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message CheckResponse {
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
 }
 
 message CheckPermissionRequest {
