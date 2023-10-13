@@ -316,7 +316,7 @@ message GetRelationRequest {
     string object_type                                          = 1
     [
         (buf.validate.field) = {
-            required: true
+            ignore_empty: true,
             cel: {
                 id: "get_relation.object_type"
                 message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
@@ -332,7 +332,7 @@ message GetRelationRequest {
     string object_id                                            = 2
     [
         (buf.validate.field) = {
-            required: true
+            ignore_empty: true,
             cel: {
                 id: "get_relation.object_id"
                 message: "cannot contain any spaces or other whitespace characters"
@@ -348,7 +348,7 @@ message GetRelationRequest {
     string relation                                             = 3
     [
         (buf.validate.field) = {
-            required: true
+            ignore_empty: true,
             cel: {
                 id: "get_relation.relation"
                 message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
@@ -364,7 +364,7 @@ message GetRelationRequest {
     string subject_type                                         = 4
     [
         (buf.validate.field) = {
-            required: true
+            ignore_empty: true,
             cel: {
                 id: "get_relation.subject_type"
                 message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
@@ -380,7 +380,7 @@ message GetRelationRequest {
     string subject_id                                           = 5
     [
         (buf.validate.field) = {
-            required: true
+            ignore_empty: true,
             cel: {
                 id: "get_relation.subject_id"
                 message: "cannot contain any spaces or other whitespace characters"
@@ -413,6 +413,12 @@ message GetRelationRequest {
     [
         (google.api.field_behavior) = OPTIONAL
     ];
+
+    option (buf.validate.message).cel = {
+        id: "get_relation.directionality",
+        message: "either subject or object must be fully qualified (type + id) to determine graph directionality",
+        expression: "(this.object_type != '' && this.object_id != '') || (this.subject_type != '' && this.subject_id != '')"
+    };
 }
 
 message GetRelationResponse {
@@ -529,6 +535,12 @@ message GetRelationsRequest {
     [
         (google.api.field_behavior) = OPTIONAL
     ];
+
+    option (buf.validate.message).cel = {
+        id: "get_relations.directionality",
+        message: "either subject or object must be fully qualified (type + id) to determine graph directionality",
+        expression: "(this.object_type != '' && this.object_id != '') || (this.subject_type != '' && this.subject_id != '')"
+    };
 }
 
 message GetRelationsResponse {
