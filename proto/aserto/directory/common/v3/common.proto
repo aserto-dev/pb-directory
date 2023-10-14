@@ -18,8 +18,8 @@ message Object {
             required: true,
             cel: {
                 id: "object.type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -78,8 +78,8 @@ message Relation {
             required: true,
             cel: {
                 id: "relation.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -110,8 +110,8 @@ message Relation {
             required: true,
             cel: {
                 id: "relation.relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -126,8 +126,8 @@ message Relation {
             required: true,
             cel: {
                 id: "relation.subject_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -158,8 +158,8 @@ message Relation {
             ignore_empty: true,
             cel: {
                 id: "relation.subject_relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -241,8 +241,8 @@ message ObjectIdentifier {
             required: true,
             cel: {
                 id: "object_identifier.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64

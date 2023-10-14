@@ -216,8 +216,8 @@ message GetObjectRequest {
             required: true
             cel: {
                 id: "get_object.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -285,8 +285,8 @@ message GetObjectsRequest {
             ignore_empty: true,
             cel: {
                 id: "get_objects.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -319,8 +319,8 @@ message GetRelationRequest {
             ignore_empty: true,
             cel: {
                 id: "get_relation.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -351,8 +351,8 @@ message GetRelationRequest {
             ignore_empty: true,
             cel: {
                 id: "get_relation.relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -367,8 +367,8 @@ message GetRelationRequest {
             ignore_empty: true,
             cel: {
                 id: "get_relation.subject_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -399,8 +399,8 @@ message GetRelationRequest {
             ignore_empty: true,
             cel: {
                 id: "get_relation.subject_relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -436,8 +436,8 @@ message GetRelationsRequest {
             ignore_empty: true,
             cel: {
                 id: "get_relations.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -468,8 +468,8 @@ message GetRelationsRequest {
             ignore_empty: true,
             cel: {
                 id: "get_relations.relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -484,8 +484,8 @@ message GetRelationsRequest {
             ignore_empty: true,
             cel: {
                 id: "get_relations.subject_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -516,8 +516,8 @@ message GetRelationsRequest {
             ignore_empty: true,
             cel: {
                 id: "get_relations.subject_relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -563,8 +563,8 @@ message CheckRequest {
             required: true
             cel: {
                 id: "check.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -611,8 +611,8 @@ message CheckRequest {
             required: true
             cel: {
                 id: "check.subject_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -658,8 +658,8 @@ message CheckPermissionRequest {
             required: true
             cel: {
                 id: "check_permission.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -706,8 +706,8 @@ message CheckPermissionRequest {
             required: true
             cel: {
                 id: "check_permission.subject_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -753,8 +753,8 @@ message CheckRelationRequest {
             required: true
             cel: {
                 id: "check_relation.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -785,8 +785,8 @@ message CheckRelationRequest {
             required: true
             cel: {
                 id: "check_relation.relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -801,8 +801,8 @@ message CheckRelationRequest {
             required: true
             cel: {
                 id: "check_relation.subject_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -848,8 +848,8 @@ message GetGraphRequest {
             required: true
             cel: {
                 id: "get_graph.anchor_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -880,8 +880,8 @@ message GetGraphRequest {
             ignore_empty: true,
             cel: {
                 id: "get_graph.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -912,8 +912,8 @@ message GetGraphRequest {
             ignore_empty: true,
             cel: {
                 id: "get_graph.relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -928,8 +928,8 @@ message GetGraphRequest {
             ignore_empty: true,
             cel: {
                 id: "get_graph.subject_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -960,8 +960,8 @@ message GetGraphRequest {
             ignore_empty: true,
             cel: {
                 id: "get_graph.subject_relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64

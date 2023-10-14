@@ -132,8 +132,8 @@ message DeleteObjectRequest {
             required: true
             cel: {
                 id: "delete_object.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -190,8 +190,8 @@ message DeleteRelationRequest {
         (buf.validate.field) = {
             cel: {
                 id: "delete_relation.object_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -222,8 +222,8 @@ message DeleteRelationRequest {
             required: true
             cel: {
                 id: "delete_relation.relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -238,8 +238,8 @@ message DeleteRelationRequest {
             required: true
             cel: {
                 id: "delete_relation.subject_type"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -270,8 +270,8 @@ message DeleteRelationRequest {
             ignore_empty: true,
             cel: {
                 id: "delete_relation.subject_relation"
-                message: "must be all lowercase, start with a letter, can contain letters, digits, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-z][a-z0-9_-]{1,62}[a-z0-9]$')"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
             }
             string: {
                 max_len: 64
