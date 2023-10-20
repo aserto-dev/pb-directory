@@ -38,6 +38,9 @@ message AccountProperties {
 
   // The default organization for the account
   string default_tenant_id = 4;
+
+  // Tracks the account owner's progress through the onboarding process.
+  optional OnboardingState onboarding = 5;
 }
 
 // The state of a user's progress through the console's getting started guide.
@@ -47,4 +50,13 @@ message GuideState {
 
   // Progress information about individual steps in the guide.
   google.protobuf.Struct steps = 2;
+}
+
+
+// The state of a user's progress through the console's onboarding process.
+message OnboardingState {
+  // Whether or not the onboarding process was completed.
+  bool completed = 1;
+  // Progress information about the last completed step
+  int32 current_step = 2;
 }
