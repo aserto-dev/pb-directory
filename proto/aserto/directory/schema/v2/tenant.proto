@@ -23,7 +23,7 @@ message TenantProperties {
   // If true, the tenant cannot be reverted to the v1 directory experience.
   bool directory_v2_only = 3;
 
-  // Additional properties that are only set accounts (personal tennats).
+  // Additional properties that are only set accounts (personal tenant).
   optional AccountProperties account = 4;
 
 }

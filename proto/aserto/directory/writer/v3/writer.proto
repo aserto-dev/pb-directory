@@ -158,7 +158,7 @@ message DeleteObjectRequest {
         (google.api.field_behavior) = REQUIRED
     ];
     // delete object relations, both object and subject relations.
-    optional bool with_relations                                = 3
+    bool with_relations                                         = 3
     [
         (google.api.field_behavior) = OPTIONAL
     ];
