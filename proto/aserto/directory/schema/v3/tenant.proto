@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package aserto.directory.schema.v2;
+package aserto.directory.schema.v3;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/v2;schema";
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/v3;schema";
 
 import "google/protobuf/struct.proto";
 

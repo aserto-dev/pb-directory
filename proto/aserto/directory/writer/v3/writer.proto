@@ -1,0 +1,287 @@
+syntax = "proto3";
+
+package aserto.directory.writer.v3;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v3;writer";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "buf/validate/validate.proto";
+
+import "aserto/directory/common/v3/common.proto";
+
+service Writer {
+    // object methods
+    rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/object"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Set object"
+            description: "Set object."
+            operation_id: "directory.v3.object.set"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
+        option (google.api.http) = {
+            delete: "/api/v3/directory/object/{object_type}/{object_id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Delete object"
+            description: "Delete object."
+            operation_id: "directory.v3.object.delete"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // relation methods
+    rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/relation"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Set relation"
+            description: "Set relation."
+            operation_id: "directory.v3.relation.set"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
+        option (google.api.http) = {
+            delete: "/api/v3/directory/relation"
+       };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Delete relation"
+            description: "Delete relation."
+            operation_id: "directory.v3.relation.delete"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+}
+
+message SetObjectRequest {
+    // object instance
+    aserto.directory.common.v3.Object object                    = 1
+    [
+        (buf.validate.field).required = true,
+        (google.api.field_behavior) = REQUIRED
+    ];
+}
+
+message SetObjectResponse {
+    // object instance
+    aserto.directory.common.v3.Object result                    = 1;
+}
+
+message DeleteObjectRequest {
+    // object type
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "delete_object.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object identifier
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "delete_object.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // delete object relations, both object and subject relations.
+    bool with_relations                                         = 3
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message DeleteObjectResponse {
+    // empty result
+    google.protobuf.Empty result                                = 1;
+}
+
+message SetRelationRequest {
+    // relation instance
+    aserto.directory.common.v3.Relation relation                = 1
+    [
+        (buf.validate.field).required = true,
+        (google.api.field_behavior) = REQUIRED
+    ];
+}
+
+message SetRelationResponse {
+    // relation instance
+    aserto.directory.common.v3.Relation result                  = 1;
+}
+
+message DeleteRelationRequest {
+    // object type
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            cel: {
+                id: "delete_relation.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object identifier
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "delete_relation.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object relation name
+    string relation                                             = 3
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "delete_relation.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject type
+    string subject_type                                         = 4
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "delete_relation.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject identifier
+    string subject_id                                           = 5
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "delete_relation.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // optional subject relation name
+    string subject_relation                                     = 6
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "delete_relation.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message DeleteRelationResponse {
+    // empty result
+    google.protobuf.Empty result                                = 1;
+}

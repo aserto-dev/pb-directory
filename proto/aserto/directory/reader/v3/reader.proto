@@ -1,0 +1,983 @@
+syntax = "proto3";
+
+package aserto.directory.reader.v3;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v3;reader";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "buf/validate/validate.proto";
+
+import "aserto/directory/common/v3/common.proto";
+
+service Reader {
+    // object methods
+    rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/object/{object_type}/{object_id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get object instance"
+            description: "Returns single object instance, optionally with relations."
+            operation_id: "directory.v3.object.get"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {};
+
+    rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/objects"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "List object instances"
+            description: "Returns list of object instances."
+            operation_id: "directory.v3.objects.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // relation methods
+    rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/relation"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get relation instance"
+            description: "Returns single relation instance, optionally with objects."
+            operation_id: "directory.v3.relation.get"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/relations"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "List relations instances"
+            description: "Returns list of relation instances."
+            operation_id: "directory.v3.relations.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // check method
+    rpc Check(CheckRequest) returns (CheckResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/check"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Check"
+            description: "Returns check outcome."
+            operation_id: "directory.v3.check"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // check permission method
+    rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/check/permission"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Check permission"
+            description: "Returns check permission outcome."
+            operation_id: "directory.v3.check.permission"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // check relation method
+    rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/check/relation"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Check relation"
+            description: "Returns check relation outcome."
+            operation_id: "directory.v3.check.relation"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // graph methods
+    rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/graph/{anchor_type}/{anchor_id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get graph"
+            description: "Returns object graph from anchor to subject or object."
+            operation_id: "directory.v3.graph"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+}
+
+message GetObjectRequest {
+    // object type name (lc-string)
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "get_object.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object identifier (cs-string)
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "get_object.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        }
+    ];
+    // materialize the object relations objects
+    bool with_relations                                         = 3
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message GetObjectResponse {
+    // object instance
+    aserto.directory.common.v3.Object result                    = 1;
+    // object relations
+    repeated aserto.directory.common.v3.Relation relations      = 4;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
+}
+
+message GetObjectManyRequest {
+    // object identifier list
+    repeated aserto.directory.common.v3.ObjectIdentifier param  = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+}
+
+message GetObjectManyResponse {
+    // array of object instances
+    repeated aserto.directory.common.v3.Object results          = 1;
+}
+
+message GetObjectsRequest {
+    // object type name (lc-string)
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_objects.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message GetObjectsResponse {
+    // array of object instances
+    repeated aserto.directory.common.v3.Object results          = 1;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
+}
+
+message GetRelationRequest {
+    // object type
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relation.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object identifier
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relation.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // relation name
+    string relation                                             = 3
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relation.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject type
+    string subject_type                                         = 4
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relation.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject identifier
+    string subject_id                                           = 5
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relation.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // optional subject relation name
+    string subject_relation                                     = 6
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relation.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // materialize relation objects
+    bool with_objects                                           = 7
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+
+    option (buf.validate.message).cel = {
+        id: "get_relation.directionality",
+        message: "either subject or object must be fully qualified (type + id) to determine graph directionality",
+        expression: "(this.object_type != '' && this.object_id != '') || (this.subject_type != '' && this.subject_id != '')"
+    };
+}
+
+message GetRelationResponse {
+    // relation instance
+    aserto.directory.common.v3.Relation result                  = 1;
+    // map of materialized relation objects
+    map<string, aserto.directory.common.v3.Object> objects      = 2;
+}
+
+message GetRelationsRequest {
+    // object type
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relations.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // object identifier
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relations.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // relation name
+    string relation                                             = 3
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relations.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // subject type
+    string subject_type                                         = 4
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relations.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // subject identifier
+    string subject_id                                           = 5
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relations.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // optional subject relation name
+    string subject_relation                                     = 6
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_relations.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // materialize relation objects
+    bool with_objects                                           = 7
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 9
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+
+    option (buf.validate.message).cel = {
+        id: "get_relations.directionality",
+        message: "either subject or object must be fully qualified (type + id) to determine graph directionality",
+        expression: "(this.object_type != '' && this.object_id != '') || (this.subject_type != '' && this.subject_id != '')"
+    };
+}
+
+message GetRelationsResponse {
+    // array of relation instances
+    repeated aserto.directory.common.v3.Relation results        = 1;
+    // map of materialized relation objects
+    map<string, aserto.directory.common.v3.Object> objects      = 2;
+    // pagination response
+    aserto.directory.common.v3.PaginationResponse page          = 9
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
+}
+
+message CheckRequest {
+    // object type
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object identifier
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // relation name
+    string relation                                           = 3
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.relation"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject type
+    string subject_type                                         = 4
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject identifier
+    string subject_id                                           = 5
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // collect trace information
+    bool trace                                                  = 7
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message CheckResponse {
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
+}
+
+message CheckPermissionRequest {
+    // object type
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_permission.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object identifier
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_permission.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // permission name
+    string permission                                           = 3
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_permission.permission"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject type
+    string subject_type                                         = 4
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_permission.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject identifier
+    string subject_id                                           = 5
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_permission.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // collect trace information
+    bool trace                                                  = 7
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message CheckPermissionResponse {
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
+}
+
+message CheckRelationRequest {
+    // object type
+    string object_type                                          = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_relation.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object identifier
+    string object_id                                            = 2
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_relation.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // relation name
+    string relation                                             = 3
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_relation.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject type
+    string subject_type                                         = 4
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_relation.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // subject identifier
+    string subject_id                                           = 5
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "check_relation.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // collect trace information
+    bool trace                                                  = 7
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message CheckRelationResponse {
+    // check result
+    bool check                                                  = 1;
+    // trace information
+    repeated string trace                                       = 2;
+}
+
+message GetGraphRequest {
+    // anchor type
+    string anchor_type                                          = 1
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "get_graph.anchor_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // anchor identifier
+    string anchor_id                                            = 2
+    [
+        (buf.validate.field) = {
+            required: true
+            cel: {
+                id: "get_graph.anchor_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = REQUIRED
+    ];
+    // object type
+    string object_type                                          = 3
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_graph.object_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // object identifier
+    string object_id                                            = 4
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_graph.object_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // relation name
+    string relation                                             = 5
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_graph.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // subject type
+    string subject_type                                         = 6
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_graph.subject_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // subject identifier
+    string subject_id                                           = 7
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_graph.subject_id"
+                message: "cannot contain any spaces or other whitespace characters"
+                expression: "this.matches('^[\\\\S]+$')"
+            }
+            string: {
+                max_len: 256
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // subject relation
+    string subject_relation                                     = 8
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "get_graph.subject_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+
+    option (buf.validate.message).cel = {
+        id: "graph.directionality",
+        message: "anchor.(type+id) must match either subject.(type+id) or object.(type+id) to determine graph directionality",
+        expression: "(this.anchor_type == this.object_type && this.anchor_id == this.object_id) || (this.anchor_type == this.subject_type && this.anchor_id == this.subject_id)"
+    };
+}
+
+message GetGraphResponse {
+    // dependency graph
+    repeated aserto.directory.common.v3.ObjectDependency results= 1;
+}
