@@ -414,10 +414,18 @@ message GetRelationRequest {
         (google.api.field_behavior) = OPTIONAL
     ];
 
+    // if object_id is set an object_type must be specified
     option (buf.validate.message).cel = {
-        id: "get_relation.directionality",
-        message: "either subject or object must be fully qualified (type + id) to determine graph directionality",
-        expression: "(this.object_type != '' && this.object_id != '') || (this.subject_type != '' && this.subject_id != '')"
+        id: "get_relation.object_id_with_type",
+        message: "when an object_id is specified, the accompanying object_type must be provided",
+        expression: "(this.object_type == '' && this.object_id == '') || (this.object_type != '' && this.object_id == '') || (this.object_type != '' && this.object_id != '')"
+    };
+
+    // if subject_id is set a subject_type must be specified
+    option (buf.validate.message).cel = {
+        id: "get_relation.subject_id_with_type",
+        message: "when an subject_id is specified, the accompanying subject_type must be provided",
+        expression: "(this.subject_type == '' && this.subject_id == '') || (this.subject_type != '' && this.subject_id == '') || (this.subject_type != '' && this.subject_id != '')"
     };
 }
 
@@ -536,10 +544,18 @@ message GetRelationsRequest {
         (google.api.field_behavior) = OPTIONAL
     ];
 
+    // if object_id is set an object_type must be specified
     option (buf.validate.message).cel = {
-        id: "get_relations.directionality",
-        message: "either subject or object must be fully qualified (type + id) to determine graph directionality",
-        expression: "(this.object_type != '' && this.object_id != '') || (this.subject_type != '' && this.subject_id != '')"
+        id: "get_relations.object_id_with_type",
+        message: "when an object_id is specified, the accompanying object_type must be provided",
+        expression: "(this.object_type == '' && this.object_id == '') || (this.object_type != '' && this.object_id == '') || (this.object_type != '' && this.object_id != '')"
+    };
+
+    // if subject_id is set a subject_type must be specified
+    option (buf.validate.message).cel = {
+        id: "get_relations.subject_id_with_type",
+        message: "when an subject_id is specified, the accompanying subject_type must be provided",
+        expression: "(this.subject_type == '' && this.subject_id == '') || (this.subject_type != '' && this.subject_id == '') || (this.subject_type != '' && this.subject_id != '')"
     };
 }
 
