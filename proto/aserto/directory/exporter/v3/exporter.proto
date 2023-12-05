@@ -6,6 +6,7 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/exporte
 
 import "aserto/directory/common/v3/common.proto";
 
+import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
 service Exporter {
@@ -25,6 +26,8 @@ message ExportResponse {
         aserto.directory.common.v3.Object object                = 2;
         // relation instance (data)
         aserto.directory.common.v3.Relation relation            = 4;
+        // object and/or relation stats (no data)
+        google.protobuf.Struct stats                            = 8;
     }
 }
 
@@ -37,4 +40,6 @@ enum Option {
     OPTION_DATA_RELATIONS                                       = 0x10;
     // all data = OPTION_DATA_OBJECTS | OPTION_DATA_RELATIONS
     OPTION_DATA                                                 = 0x18;
+    // stats
+    OPTION_STATS                                                = 0x40;
 }
