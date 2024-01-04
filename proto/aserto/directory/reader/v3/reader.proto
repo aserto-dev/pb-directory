@@ -518,7 +518,7 @@ message GetRelationsRequest {
         (google.api.field_behavior) = OPTIONAL
     ];
     // optional subject relation name
-    string subject_relation                                     = 6
+    optional string subject_relation                            = 6
     [
         (buf.validate.field) = {
             ignore_empty: true,
