@@ -518,7 +518,7 @@ message GetRelationsRequest {
         (google.api.field_behavior) = OPTIONAL
     ];
     // optional subject relation name
-    optional string subject_relation                            = 6
+    string subject_relation                                     = 6
     [
         (buf.validate.field) = {
             ignore_empty: true,
@@ -535,6 +535,11 @@ message GetRelationsRequest {
     ];
     // materialize relation objects
     bool with_objects                                           = 7
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+    // only return relations that do not have a subject relation.
+    bool with_empty_subject_relation                            = 8
     [
         (google.api.field_behavior) = OPTIONAL
     ];
