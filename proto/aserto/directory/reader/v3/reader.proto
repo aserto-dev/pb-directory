@@ -538,6 +538,11 @@ message GetRelationsRequest {
     [
         (google.api.field_behavior) = OPTIONAL
     ];
+    // only return relations that do not have a subject relation.
+    bool with_empty_subject_relation                            = 8
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
     // pagination request
     aserto.directory.common.v3.PaginationRequest page           = 9
     [
