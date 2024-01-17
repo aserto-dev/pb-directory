@@ -88,6 +88,12 @@ service Reader {
                     value: {}
                 }
             }
+            responses: {
+                key: "304"
+                value: {
+                    description: "Relation not modified."
+                }
+            }
         };
     };
 
