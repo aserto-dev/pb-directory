@@ -33,6 +33,12 @@ service Reader {
                     value: {}
                 }
             }
+            responses: {
+                key: "304"
+                value: {
+                    description: "Object not modified."
+                }
+            }
         };
     };
 
