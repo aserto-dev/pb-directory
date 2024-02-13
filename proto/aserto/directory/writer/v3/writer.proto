@@ -108,6 +108,54 @@ service Writer {
             }
         };
     };
+
+    // assertions methods
+    rpc SetAssertion(SetAssertionRequest) returns (SetAssertionResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/assertion"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Set assertion"
+            description: "Set assertion."
+            operation_id: "directory.v3.assertion.set"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    rpc DeleteAssertion(DeleteAssertionRequest) returns (DeleteAssertionResponse) {
+        option (google.api.http) = {
+            delete: "/api/v3/directory/assertion"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Delete assertion"
+            description: "Delete assertion."
+            operation_id: "directory.v3.assertion.delete"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
 }
 
 message SetObjectRequest {
@@ -282,6 +330,26 @@ message DeleteRelationRequest {
 }
 
 message DeleteRelationResponse {
+    // empty result
+    google.protobuf.Empty result                                = 1;
+}
+
+message SetAssertionRequest {
+    aserto.directory.common.v3.Assertion assertion          = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+}
+
+message SetAssertionResponse {
+    aserto.directory.common.v3.Assertion result                 = 1;
+}
+
+message DeleteAssertionRequest {
+    uint32 assertion_id                                         = 1;
+}
+
+message DeleteAssertionResponse {
     // empty result
     google.protobuf.Empty result                                = 1;
 }
