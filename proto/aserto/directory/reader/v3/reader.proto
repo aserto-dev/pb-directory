@@ -218,6 +218,54 @@ service Reader {
             }
         };
     };
+
+    // assertions methods
+    rpc GetAssertion(GetAssertionRequest) returns (GetAssertionResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/assertion"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get assertion instance"
+            description: "Returns single assertion instance."
+            operation_id: "directory.v3.assertion.get"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    // assertions methods
+    rpc ListAssertions(ListAssertionsRequest) returns (ListAssertionsResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/assertions"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "List assertions"
+            description: "Returns list of assertion instances."
+            operation_id: "directory.v3.assertions.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
 }
 
 message GetObjectRequest {
@@ -1013,4 +1061,31 @@ message GetGraphRequest {
 message GetGraphResponse {
     // dependency graph
     repeated aserto.directory.common.v3.ObjectDependency results= 1;
+}
+
+message GetAssertionRequest {
+    uint32 assertion_id               = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+}
+
+message GetAssertionResponse {
+    aserto.directory.common.v3.Assertion result = 1;
+}
+
+message ListAssertionsRequest {
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 1
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message ListAssertionsResponse {
+    repeated aserto.directory.common.v3.Assertion results       = 1;
+    aserto.directory.common.v3.PaginationResponse page          = 2
+    [
+        (google.api.field_behavior) = OUTPUT_ONLY
+    ];
 }
