@@ -99,6 +99,29 @@ service Model {
             }
         };
     };
+
+    rpc ModelInfo(ModelInfoRequest) returns (ModelInfoResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/model/info"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Query model type system"
+            description: "Returns model type system information."
+            operation_id: "directory.v3.model.info"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    }
 }
 
 message GetManifestRequest {
@@ -162,5 +185,91 @@ message Body {
                 max_len: 65536
             }
         }
+    ];
+}
+
+enum ModelInfoOptions {
+    // default setting
+    MODEL_INFO_DEFAULT                                          = 0x0;
+    // return associated relations
+    MODEL_INFO_RELATIONS                                        = 0x1;
+    // return associated permissions
+    MODEL_INFO_PERMISSIONS                                      = 0x2;
+    // return associated relations and permissions
+    MODEL_INFO_ALL                                              = 0x3; // MODEL_INFO_RELATIONS + MODEL_INFO_PERMISSIONS
+}
+
+message ModelInfoRequest {
+    ModelInfo filter                                            = 1;
+    ModelInfoOptions options                                    = 2;
+}
+
+message ModelInfoResponse {
+    repeated ModelInfo results                                  = 1;    
+}
+
+message ModelInfo {
+    string obj_type                                             = 1
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "model_info.obj_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+
+    string relation                                             = 2
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "model_info.relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+
+    string sub_type                                             = 3
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "model_info.sub_type"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
+    ];
+
+    string sub_relation                                         = 4
+    [
+        (buf.validate.field) = {
+            ignore_empty: true,
+            cel: {
+                id: "model_info.sub_relation"
+                message: "must be all lowercase, start with a letter, can contain letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
+                expression: "this.matches('^[a-z][a-z0-9\\\\._-]{1,62}[a-z0-9]$')"
+            }
+            string: {
+                max_len: 64
+            }
+        },
+        (google.api.field_behavior) = OPTIONAL
     ];
 }
