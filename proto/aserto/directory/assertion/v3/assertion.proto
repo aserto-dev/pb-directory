@@ -130,10 +130,8 @@ message ListAssertionsRequest {
 
 message ListAssertionsResponse {
     repeated Assert results                                     = 1;
-    aserto.directory.common.v3.PaginationResponse page          = 2
-    [
-        (google.api.field_behavior) = OUTPUT_ONLY
-    ];
+
+    aserto.directory.common.v3.PaginationResponse page          = 2;
 }
 
 message SetAssertionRequest {
