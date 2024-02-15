@@ -100,7 +100,7 @@ service Model {
         };
     };
 
-    rpc ModelInfo(ModelInfoRequest) returns (ModelInfoResponse) {
+    rpc Info(InfoRequest) returns (InfoResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/model/info"
         };
@@ -188,27 +188,27 @@ message Body {
     ];
 }
 
-enum ModelInfoOptions {
+enum InfoOptions {
     // default setting
-    MODEL_INFO_DEFAULT                                          = 0x0;
+    INFO_DEFAULT                                                = 0x0;
     // return associated relations
-    MODEL_INFO_RELATIONS                                        = 0x1;
+    INFO_RELATIONS                                              = 0x1;
     // return associated permissions
-    MODEL_INFO_PERMISSIONS                                      = 0x2;
+    INFO_PERMISSIONS                                            = 0x2;
     // return associated relations and permissions
-    MODEL_INFO_ALL                                              = 0x3; // MODEL_INFO_RELATIONS + MODEL_INFO_PERMISSIONS
+    INFO_ALL                                                    = 0x3; // MODEL_INFO_RELATIONS + MODEL_INFO_PERMISSIONS
 }
 
-message ModelInfoRequest {
-    ModelInfo filter                                            = 1;
-    ModelInfoOptions options                                    = 2;
+message InfoRequest {
+    Info filter                                                 = 1;
+    InfoOptions options                                         = 2;
 }
 
-message ModelInfoResponse {
-    repeated ModelInfo results                                  = 1;    
+message InfoResponse {
+    repeated Info results                                       = 1;    
 }
 
-message ModelInfo {
+message Info {
     string obj_type                                             = 1
     [
         (buf.validate.field) = {
