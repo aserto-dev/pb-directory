@@ -157,10 +157,7 @@ message DeleteAssertionResponse {
 
 message Assert {
     // assertion identifier
-    uint32 id                                                   = 1
-    [
-        (google.api.field_behavior) = OUTPUT_ONLY
-    ];
+    uint32 id                                                   = 1;
 
     // expected outcome of assertion
     bool expected                                               = 2
