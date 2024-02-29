@@ -16,7 +16,7 @@ import "aserto/directory/reader/v3/reader.proto";
 service Assertion {
     rpc GetAssertion(GetAssertionRequest) returns (GetAssertionResponse) {
         option (google.api.http) = {
-            get: "/api/v3/directory/assertion"
+            get: "/api/v3/directory/assertion/{id}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
@@ -86,7 +86,7 @@ service Assertion {
 
     rpc DeleteAssertion(DeleteAssertionRequest) returns (DeleteAssertionResponse) {
         option (google.api.http) = {
-            delete: "/api/v3/directory/assertion"
+            delete: "/api/v3/directory/assertion/{id}"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             tags: "directory"
