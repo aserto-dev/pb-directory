@@ -147,7 +147,10 @@ message SetAssertionResponse {
 
 message DeleteAssertionRequest {
     // assertion identifier
-    uint32 assertion_id                                         = 1;
+    uint32 id                                                   = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
 }
 
 message DeleteAssertionResponse {
