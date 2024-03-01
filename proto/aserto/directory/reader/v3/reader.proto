@@ -271,10 +271,7 @@ message GetObjectResponse {
     // object relations
     repeated aserto.directory.common.v3.Relation relations      = 4;
     // pagination response
-    aserto.directory.common.v3.PaginationResponse page          = 9
-    [
-        (google.api.field_behavior) = OUTPUT_ONLY
-    ];
+    aserto.directory.common.v3.PaginationResponse page          = 9;
 }
 
 message GetObjectManyRequest {
@@ -318,10 +315,7 @@ message GetObjectsResponse {
     // array of object instances
     repeated aserto.directory.common.v3.Object results          = 1;
     // pagination response
-    aserto.directory.common.v3.PaginationResponse page          = 9
-    [
-        (google.api.field_behavior) = OUTPUT_ONLY
-    ];
+    aserto.directory.common.v3.PaginationResponse page          = 9;
 }
 
 message GetRelationRequest {
@@ -583,10 +577,7 @@ message GetRelationsResponse {
     // map of materialized relation objects
     map<string, aserto.directory.common.v3.Object> objects      = 2;
     // pagination response
-    aserto.directory.common.v3.PaginationResponse page          = 9
-    [
-        (google.api.field_behavior) = OUTPUT_ONLY
-    ];
+    aserto.directory.common.v3.PaginationResponse page          = 9;
 }
 
 message CheckRequest {

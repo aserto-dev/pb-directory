@@ -1,0 +1,177 @@
+syntax = "proto3";
+
+package aserto.directory.assertion.v3;
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/assertion/v3;assertion";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "aserto/directory/common/v3/common.proto";
+import "aserto/directory/reader/v3/reader.proto";
+
+
+service Assertion {
+    rpc GetAssertion(GetAssertionRequest) returns (GetAssertionResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/assertion/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Get assertion instance"
+            description: "Returns single assertion instance."
+            operation_id: "directory.v3.assertion.get"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    rpc ListAssertions(ListAssertionsRequest) returns (ListAssertionsResponse) {
+        option (google.api.http) = {
+            get: "/api/v3/directory/assertions"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "List assertions"
+            description: "Returns list of assertion instances."
+            operation_id: "directory.v3.assertions.list"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    rpc SetAssertion(SetAssertionRequest) returns (SetAssertionResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/assertion"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Set assertion"
+            description: "Set assertion."
+            operation_id: "directory.v3.assertion.set"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+
+    rpc DeleteAssertion(DeleteAssertionRequest) returns (DeleteAssertionResponse) {
+        option (google.api.http) = {
+            delete: "/api/v3/directory/assertion/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Delete assertion"
+            description: "Delete assertion."
+            operation_id: "directory.v3.assertion.delete"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+}
+
+message GetAssertionRequest {
+    // assertion identifier
+    uint32 id                                                   = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+}
+
+message GetAssertionResponse {
+    Assert result                                               = 1;
+}
+
+message ListAssertionsRequest {
+    // pagination request
+    aserto.directory.common.v3.PaginationRequest page           = 1
+    [
+        (google.api.field_behavior) = OPTIONAL
+    ];
+}
+
+message ListAssertionsResponse {
+    repeated Assert results                                     = 1;
+
+    aserto.directory.common.v3.PaginationResponse page          = 2;
+}
+
+message SetAssertionRequest {
+    Assert assert                                               = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+}
+
+message SetAssertionResponse {
+    Assert result                                               = 1;
+}
+
+message DeleteAssertionRequest {
+    // assertion identifier
+    uint32 id                                                   = 1
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+}
+
+message DeleteAssertionResponse {
+    // empty result
+    google.protobuf.Empty result                                = 1;
+}
+
+message Assert {
+    // assertion identifier
+    uint32 id                                                   = 1;
+
+    // expected outcome of assertion
+    bool expected                                               = 2
+    [
+        (google.api.field_behavior) = REQUIRED
+    ];
+
+    // assertion request
+    oneof msg {
+        aserto.directory.reader.v3.CheckRequest check           = 3;
+        aserto.directory.reader.v3.CheckRelationRequest check_relation = 4;
+        aserto.directory.reader.v3.CheckPermissionRequest check_permission = 5;
+    }
+}

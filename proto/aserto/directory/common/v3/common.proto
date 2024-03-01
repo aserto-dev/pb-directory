@@ -9,7 +9,6 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "buf/validate/validate.proto";
 
-
 message Object {
     // object type name
     string type                                         = 1
@@ -346,22 +345,3 @@ message PaginationResponse {
         (google.api.field_behavior) = OUTPUT_ONLY
     ];
 }
-
-// // Object type
-// message ObjectType {
-//     // object type name (lc-string)
-//     string name                                         = 1
-//     [
-//         (google.api.field_behavior) = REQUIRED
-//     ];
-//     // relations associated to object type
-//     repeated string relations                           = 2
-//     [
-//         (google.api.field_behavior) = OPTIONAL
-//     ];
-//     // permissions associated to object type
-//     repeated string permissions                         = 3
-//     [
-//         (google.api.field_behavior) = OPTIONAL
-//     ];
-// }
