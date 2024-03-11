@@ -13,7 +13,6 @@ on:
       - main
 env:
   VAULT_ADDR: https://vault.eng.aserto.com/
-  VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
 
 jobs:
   build:
@@ -41,8 +40,9 @@ jobs:
         uses: bufbuild/buf-setup-action@v1
         with:
           version: "1.30.0"
-          buf_user: ${ASERTO_BUF_USER}
-          buf_api_token: ${ASERTO_BUF_TOKEN}
+          github_token: ${{ github.token }}
+          buf_user: ${{ steps.vault.outputs.ASERTO_BUF_USER }}
+          buf_api_token: ${{ steps.vault.outputs.ASERTO_BUF_TOKEN}}
       - 
         name: Buf Lint
         uses: bufbuild/buf-lint-action@v1
