@@ -14,22 +14,22 @@ bin:
 go:
   sver:
     importPath: "github.com/aserto-dev/sver/cmd/sver"
-    version: "v1.3.11"
+    version: "v1.3.13"
   svu:
     importPath: "github.com/caarlos0/svu"
-    version: "v1.11.0"
+    version: "v1.12.0"
   buf:
     importPath: "github.com/bufbuild/buf/cmd/buf"
-    version: "v1.26.1"
+    version: "v1.30.0"
   protoc-gen-buf-breaking:
     importPath: "github.com/bufbuild/buf/cmd/protoc-gen-buf-breaking"
-    version: "v1.26.1"
+    version: "v1.30.0"
   protoc-gen-buf-lint:
     importPath: "github.com/bufbuild/buf/cmd/protoc-gen-buf-lint"
-    version: "v1.26.1"
+    version: "v1.30.0"
   protoc-gen-go:
     importPath: google.golang.org/protobuf/cmd/protoc-gen-go
-    version: "v1.32.0"
+    version: "v1.33.0"
   protoc-gen-go-grpc:
     importPath: google.golang.org/grpc/cmd/protoc-gen-go-grpc
     version: "v1.3.0"

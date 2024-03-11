@@ -13,9 +13,7 @@ on:
       - main
 env:
   VAULT_ADDR: https://vault.eng.aserto.com/
-  PRE_RELEASE: ${{ github.ref == 'refs/heads/main' && 'main' || '' }}
-  GO_VERSION: "1.19"
-  VAULT_TOKEN:  ${{ secrets.VAULT_TOKEN }}
+  BUF_VERSION: "1.30.0"
 
 jobs:
   build:
@@ -23,43 +21,53 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       -
-        name: Setup Go
-        uses: actions/setup-go@v4
+        name: Read Configuration
+        uses: hashicorp/vault-action@v3
+        id: vault
         with:
-          go-version: ${{ env.GO_VERSION }}
-      -
-        name: Setup caching
-        uses: actions/cache@v3
+          url: ${{ env.VAULT_ADDR }}
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            kv/data/github    "USERNAME"          | GH_USERNAME;
+            kv/data/github    "READ_WRITE_TOKEN"  | GH_TOKEN;
+            kv/data/buf.build "ASERTO_BUF_USER"   | ASERTO_BUF_USER;
+            kv/data/buf.build "ASERTO_BUF_TOKEN"  | ASERTO_BUF_TOKEN;
+      - 
+        name: Setup buf
+        uses: bufbuild/buf-setup-action@v1
         with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-      -
-        name: Install dependencies
+          version: ${{ env.BUF_VERSION }}
+          github_token: ${{ github.token }}
+          buf_user: ${{ steps.vault.outputs.ASERTO_BUF_USER }}
+          buf_api_token: ${{ steps.vault.outputs.ASERTO_BUF_TOKEN}}
+      - 
+        name: Buf Lint
+        uses: bufbuild/buf-lint-action@v1
+        with:
+          input: "proto"
+      - 
+        name: Buf Breaking
+        uses: bufbuild/buf-breaking-action@v1
+        with:
+          input: "proto"
+          against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main"
+      - 
+        name: Buf Build
         run: |
-          go run mage.go deps
-      -
-        name: lint
-        run: |
-          go run mage.go lint
-      -
-        name: breaking
-        run: |
-          go run mage.go breaking || true
-      -
-        name: build
-        run: |
-          go run mage.go build
-      -
-        name: Push
+          mkdir -p ./bin 
+          buf build proto --output ./bin/directory.bin
+      - 
+        name: Buf Push
+        uses: bufbuild/buf-push-action@v1
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-        run: |
-          go run mage.go push
+        with:
+          input: "proto"
+          buf_token: ${ASERTO_BUF_TOKEN}    
+          create_visibility: public
 
   trigger-dispatches:
     runs-on: ubuntu-latest
@@ -80,17 +88,17 @@ jobs:
     steps:
       -
         name: Read Configuration
-        uses: hashicorp/vault-action@v2.4.3
+        uses: hashicorp/vault-action@v3
         id: vault
         with:
           url: ${{ env.VAULT_ADDR }}
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
-            kv/data/github    "USERNAME"          | USERNAME;
-            kv/data/github    "READ_WRITE_TOKEN"  | READ_WRITE_TOKEN;
+            kv/data/github    "USERNAME"          | GH_USERNAME;
+            kv/data/github    "READ_WRITE_TOKEN"  | GH_TOKEN;
       -
         name: Trigger dispatch
         run: |
-          curl -XPOST -u "${USERNAME}:${READ_WRITE_TOKEN}" \
+          curl -XPOST -u "${GH_USERNAME}:${GH_TOKEN}" \
           -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" \
           https://api.github.com/repos/aserto-dev/${{ matrix.cfg.project }}/actions/workflows/ci.yaml/dispatches --data '{"ref": "main", "inputs": {"proto_ref": "${{ github.ref }}", "proto_sha": "${{ github.sha }}" }}'
