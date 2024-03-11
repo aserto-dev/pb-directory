@@ -41,7 +41,6 @@ jobs:
         uses: bufbuild/buf-setup-action@v1
         with:
           version: "1.30.0"
-          github_token: ${GH_TOKEN}
           buf_user: ${ASERTO_BUF_USER}
           buf_api_token: ${ASERTO_BUF_TOKEN}
       - 
