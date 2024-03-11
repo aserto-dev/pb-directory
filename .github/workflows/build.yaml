@@ -66,7 +66,7 @@ jobs:
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         with:
           input: "proto"
-          buf_token: ${ASERTO_BUF_TOKEN}    
+          buf_token: ${{ steps.vault.outputs.ASERTO_BUF_TOKEN}}
           create_visibility: public
 
   trigger-dispatches:
