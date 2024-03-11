@@ -13,6 +13,7 @@ on:
       - main
 env:
   VAULT_ADDR: https://vault.eng.aserto.com/
+  BUF_VERSION: "1.30.0"
 
 jobs:
   build:
@@ -39,7 +40,7 @@ jobs:
         name: Setup buf
         uses: bufbuild/buf-setup-action@v1
         with:
-          version: "1.30.0"
+          version: ${{ env.BUF_VERSION }}
           github_token: ${{ github.token }}
           buf_user: ${{ steps.vault.outputs.ASERTO_BUF_USER }}
           buf_api_token: ${{ steps.vault.outputs.ASERTO_BUF_TOKEN}}
