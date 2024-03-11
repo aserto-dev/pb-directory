@@ -62,12 +62,9 @@ jobs:
           buf build proto --output ./bin/directory.bin
       - 
         name: Buf Push
-        uses: bufbuild/buf-push-action@v1
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-        with:
-          input: "proto"
-          buf_token: ${{ steps.vault.outputs.ASERTO_BUF_TOKEN}}
-          create_visibility: public
+        run: |
+          buf push proto --tag $(git describe --tags)
 
   trigger-dispatches:
     runs-on: ubuntu-latest
