@@ -36,8 +36,16 @@ jobs:
             kv/data/github    "READ_WRITE_TOKEN"  | GH_TOKEN;
             kv/data/buf.build "ASERTO_BUF_USER"   | ASERTO_BUF_USER;
             kv/data/buf.build "ASERTO_BUF_TOKEN"  | ASERTO_BUF_TOKEN;
+      -
+        name: Install svu
+        run: |
+          echo 'deb [trusted=yes] https://apt.fury.io/caarlos0/ /' | sudo tee /etc/apt/sources.list.d/caarlos0.list
+          sudo apt update
+          sudo apt install svu
+          svu --version
+          svu
       - 
-        name: Setup buf
+        name: Install buf
         uses: bufbuild/buf-setup-action@v1
         with:
           version: ${{ env.BUF_VERSION }}
@@ -64,7 +72,7 @@ jobs:
         name: Buf Push
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         run: |
-          buf push proto --tag $(git describe --tags)
+          buf push proto --tag $(svu)
 
   trigger-dispatches:
     runs-on: ubuntu-latest

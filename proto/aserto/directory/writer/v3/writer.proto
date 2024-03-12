@@ -4,10 +4,10 @@ package aserto.directory.writer.v3;
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v3;writer";
 
+import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
-import "protoc-gen-openapiv2/options/annotations.proto";
 import "buf/validate/validate.proto";
 
 import "aserto/directory/common/v3/common.proto";
