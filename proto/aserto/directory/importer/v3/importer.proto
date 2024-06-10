@@ -43,4 +43,5 @@ enum Opcode {
     OPCODE_UNKNOWN                                              = 0;
     OPCODE_SET                                                  = 1;
     OPCODE_DELETE                                               = 2;
+    OPCODE_DELETE_WITH_RELATIONS                                = 3;
 }
