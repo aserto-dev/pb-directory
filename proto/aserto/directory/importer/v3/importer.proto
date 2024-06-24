@@ -5,6 +5,7 @@ package aserto.directory.importer.v3;
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/importer/v3;importer";
 
 import "aserto/directory/common/v3/common.proto";
+import "aserto/directory/assertion/v3/assertion.proto";
 
 service Importer {
     rpc Import(stream ImportRequest) returns (stream ImportResponse) {};
@@ -18,6 +19,8 @@ message ImportRequest {
         aserto.directory.common.v3.Object object                = 5;
         // relation import message
         aserto.directory.common.v3.Relation relation            = 6;
+        // assertion
+        aserto.directory.assertion.v3.Assert assert             = 7;
     }
 }
 
