@@ -7,66 +7,74 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/
 import "aserto/directory/common/v2/common.proto";
 
 service Reader {
-    // object type metadata methods
+    // get object type metadata
     rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {
         option deprecated = true; 
     };
+    // list object type metadata
     rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {
         option deprecated = true; 
     };
 
-    // relation type metadata methods
+    // get relation type metadata
     rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {
         option deprecated = true; 
     };
+    // list relation type metadata
     rpc GetRelationTypes(GetRelationTypesRequest) returns (GetRelationTypesResponse) {
         option deprecated = true; 
     };
 
-    // permission metadata methods
+    // get permission metadata
     rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {
         option deprecated = true; 
     };
+    // list permission metadata
     rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse) {
         option deprecated = true; 
     };
 
-    // object methods
-    // GetObject
-    // Deprecated: directory.v2.GetObject is deprecated, update to use directory.v3.GetObject.
+    // get object 
+    // Deprecated: directory.v2.GetObject is deprecated, use directory.v3.GetObject.
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
         option deprecated = true; 
     };
-    // GetObjectMany
+    // get multiple objects
     // Deprecated: directory.v2.GetObjectMany is deprecated, update to use directory.v3.GetObjectMany.
     rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {
         option deprecated = true; 
     };
-    // GetObjects
+    // list objects
     // Deprecated: directory.v2.GetObjects is deprecated, update to use directory.v3.GetObjects.
     rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {
         option deprecated = true; 
     };
 
-    // relation methods
+    // get relation
+    // Deprecated: directory.v2.GetRelation is deprecated, update to use directory.v3.GetRelation.
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {
         option deprecated = true; 
     };
+    // list relations
+    // Deprecated: directory.v2.GetRelations is deprecated, update to use directory.v3.GetRelations.
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
         option deprecated = true; 
     };
 
-    // check permission method
+    // check permission
+    // Deprecated: directory.v2.CheckPermission is deprecated, update to use directory.v3.Check.
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
         option deprecated = true; 
     };
 
-    // check relation method
+    // check relation
+    // Deprecated: directory.v2.CheckRelation is deprecated, update to use directory.v3.Check.
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
         option deprecated = true; 
     };
 
-    // graph methods
+    // get object relationship graph
+    // Deprecated: directory.v2.GetGraph is deprecated, update to use directory.v3.GetGraph.
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {
         option deprecated = true; 
     };

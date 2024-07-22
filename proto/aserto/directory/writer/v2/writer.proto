@@ -9,7 +9,6 @@ import "google/protobuf/empty.proto";
 import "aserto/directory/common/v2/common.proto";
 
 service Writer {
-    // object type metadata methods
     rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {
         option deprecated = true; 
     };
@@ -17,7 +16,6 @@ service Writer {
         option deprecated = true; 
     };
 
-    // relation type metadata methods
     rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {
         option deprecated = true; 
     };
@@ -25,7 +23,6 @@ service Writer {
         option deprecated = true; 
     };
 
-    // permission metadata methods
     rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {
         option deprecated = true; 
     };
@@ -33,18 +30,25 @@ service Writer {
         option deprecated = true; 
     };
 
-    // object methods
+    // set object instance
+    // Deprecated: directory.v2.SetObject is deprecated, use directory.v3.SetObject.
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
         option deprecated = true; 
     };
+
+    // delete object instance
+    // Deprecated: directory.v2.DeleteObject is deprecated, use directory.v3.DeleteObject.
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
         option deprecated = true; 
     };
 
-    // relation methods
+    // set relation instance
+    // Deprecated: directory.v2.SetRelation is deprecated, use directory.v3.SetRelation.
     rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
         option deprecated = true; 
     };
+    // delete relation instance
+    // Deprecated: directory.v2.DeleteRelation is deprecated, use directory.v3.DeleteRelation.
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
         option deprecated = true; 
     };
