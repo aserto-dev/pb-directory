@@ -78,8 +78,8 @@ buf-generate:
 
 .PHONY: buf-generate-dev
 buf-generate-dev:
-	@echo -e "$(ATTN_COLOR)==> $@ ${BUF_DEV_IMAGE}$(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf generate "../${PROTO_REPO}/${BUF_DEV_IMAGE}"
+	@echo -e "$(ATTN_COLOR)==> $@ ../${PROTO_REPO}/bin/${BUF_DEV_IMAGE}$(NO_COLOR)"
+	@${EXT_BIN_DIR}/buf generate "../${PROTO_REPO}/bin/${BUF_DEV_IMAGE}"
 
 .PHONY: info
 info:
