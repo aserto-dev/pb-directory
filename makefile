@@ -49,27 +49,27 @@ buf-login:
 .PHONY: buf-lint
 buf-lint:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf lint proto
+	@${EXT_BIN_DIR}/buf lint
 
 .PHONY: buf-breaking
 buf-breaking:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf breaking proto --against "${GIT_ORG}/${PROTO_REPO}.git#branch=main"
+	@${EXT_BIN_DIR}/buf breaking --against "${GIT_ORG}/${PROTO_REPO}.git#branch=main"
 
 .PHONY: buf-build
 buf-build: ${BIN_DIR}
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf build proto --output ${BIN_DIR}/${BUF_DEV_IMAGE}
+	@${EXT_BIN_DIR}/buf build --output ${BIN_DIR}/${BUF_DEV_IMAGE}
 
 .PHONY: buf-push
 buf-push:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf push proto --tag ${RELEASE_TAG}
+	@${EXT_BIN_DIR}/buf push --tag ${RELEASE_TAG}
 
-.PHONY: buf-mod-update
-buf-mod-update:
+.PHONY: buf-dep-update
+buf-dep-update:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf mod update proto
+	@${EXT_BIN_DIR}/buf dep update
 
 .PHONY: buf-generate
 buf-generate:

@@ -3,7 +3,6 @@ modules:
   - path: proto
     name: buf.build/aserto-dev/directory
 deps:
-  - buf.build/aserto-dev/aserto
   - buf.build/bufbuild/protovalidate
   - buf.build/googleapis/googleapis
   - buf.build/grpc-ecosystem/grpc-gateway
