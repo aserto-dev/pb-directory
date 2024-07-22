@@ -64,7 +64,7 @@ buf-build: ${BIN_DIR}
 .PHONY: buf-push
 buf-push:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf push --tag ${RELEASE_TAG}
+	@${EXT_BIN_DIR}/buf push --label ${RELEASE_TAG}
 
 .PHONY: buf-dep-update
 buf-dep-update:
