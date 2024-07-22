@@ -1,6 +1,6 @@
 SHELL           := $(shell which bash)
     
-NO_COLOR       := \033[0m
+NO_COLOR        := \033[0m
 OK_COLOR        := \033[32;01m
 ERR_COLOR       := \033[31;01m
 WARN_COLOR      := \033[36;01m
