@@ -6,6 +6,7 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/
 
 // Properties of "user" objects.
 message UserProperties {
+    option deprecated = true;
     // main email address of user
     string email                            = 1;
     // URL to user's picture
@@ -19,6 +20,7 @@ message UserProperties {
 }
 
 enum UserStatus {
+    option deprecated = true;
     // User status undefined
     USER_STATUS_UNKNOWN                     = 0;
     // Staged status, is when the user object is first created, before the activation flow is initiated, or if there is a pending admin action.

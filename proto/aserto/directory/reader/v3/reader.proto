@@ -148,7 +148,9 @@ service Reader {
     };
 
     // check permission method
+    // deprecated: use directory.v3.Check()
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
+        option deprecated = true;
         option (google.api.http) = {
             post: "/api/v3/directory/check/permission"
             body: "*"
@@ -173,7 +175,9 @@ service Reader {
     };
 
     // check relation method
+    // deprecated: use directory.v3.Check()
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
+        option deprecated = true;
         option (google.api.http) = {
             post: "/api/v3/directory/check/relation"
             body: "*"
