@@ -30,7 +30,7 @@ PROTO_REPO      := "pb-${PROJECT}"
 
 GIT_ORG         := "https://github.com/aserto-dev"
 
-RELEASE_TAG	    := $$(svu)
+RELEASE_TAG     := $$(svu)
 
 .PHONY: deps
 deps: info install-vault install-buf install-svu
