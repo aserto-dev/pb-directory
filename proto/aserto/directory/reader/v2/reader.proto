@@ -7,53 +7,99 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/
 import "aserto/directory/common/v2/common.proto";
 
 service Reader {
-    // object type metadata methods
-    rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {};
-    rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {};
+    // get object type metadata
+    rpc GetObjectType(GetObjectTypeRequest) returns (GetObjectTypeResponse) {
+        option deprecated = true; 
+    };
+    // list object type metadata
+    rpc GetObjectTypes(GetObjectTypesRequest) returns (GetObjectTypesResponse) {
+        option deprecated = true; 
+    };
 
-    // relation type metadata methods
-    rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {};
-    rpc GetRelationTypes(GetRelationTypesRequest) returns (GetRelationTypesResponse) {};
+    // get relation type metadata
+    rpc GetRelationType(GetRelationTypeRequest) returns (GetRelationTypeResponse) {
+        option deprecated = true; 
+    };
+    // list relation type metadata
+    rpc GetRelationTypes(GetRelationTypesRequest) returns (GetRelationTypesResponse) {
+        option deprecated = true; 
+    };
 
-    // permission metadata methods
-    rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {};
-    rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse) {};
+    // get permission metadata
+    rpc GetPermission(GetPermissionRequest) returns (GetPermissionResponse) {
+        option deprecated = true; 
+    };
+    // list permission metadata
+    rpc GetPermissions(GetPermissionsRequest) returns (GetPermissionsResponse) {
+        option deprecated = true; 
+    };
 
-    // object methods
-    rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {};
-    rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {};
-    rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {};
+    // get object 
+    // Deprecated: directory.v2.GetObject is deprecated, use directory.v3.GetObject.
+    rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
+        option deprecated = true; 
+    };
+    // get multiple objects
+    // Deprecated: directory.v2.GetObjectMany is deprecated, update to use directory.v3.GetObjectMany.
+    rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {
+        option deprecated = true; 
+    };
+    // list objects
+    // Deprecated: directory.v2.GetObjects is deprecated, update to use directory.v3.GetObjects.
+    rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {
+        option deprecated = true; 
+    };
 
-    // relation methods
-    rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {};
-    rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {};
+    // get relation
+    // Deprecated: directory.v2.GetRelation is deprecated, update to use directory.v3.GetRelation.
+    rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {
+        option deprecated = true; 
+    };
+    // list relations
+    // Deprecated: directory.v2.GetRelations is deprecated, update to use directory.v3.GetRelations.
+    rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
+        option deprecated = true; 
+    };
 
-    // check permission method
-    rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {};
+    // check permission
+    // Deprecated: directory.v2.CheckPermission is deprecated, update to use directory.v3.Check.
+    rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
+        option deprecated = true; 
+    };
 
-    // check relation method
-    rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {};
+    // check relation
+    // Deprecated: directory.v2.CheckRelation is deprecated, update to use directory.v3.Check.
+    rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
+        option deprecated = true; 
+    };
 
-    // graph methods
-    rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {};
+    // get object relationship graph
+    // Deprecated: directory.v2.GetGraph is deprecated, update to use directory.v3.GetGraph.
+    rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {
+        option deprecated = true; 
+    };
 }
 
 message GetObjectTypeRequest {
+    option deprecated = true;
     // object type selector
     aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
 }
 
 message GetObjectTypeResponse {
+    option deprecated = true;
     // object type instance
     aserto.directory.common.v2.ObjectType result                = 1;
 }
 
 message GetObjectTypesRequest {
+    option deprecated = true;
     // pagination request
     aserto.directory.common.v2.PaginationRequest page           = 9;
 }
 
 message GetObjectTypesResponse {
+    option deprecated = true;
     // array of object types
     repeated aserto.directory.common.v2.ObjectType results      = 1;
     // pagination response
@@ -61,16 +107,19 @@ message GetObjectTypesResponse {
 }
 
 message GetRelationTypeRequest {
+    option deprecated = true;
     // relation type selector
     aserto.directory.common.v2.RelationTypeIdentifier param     = 1;
 }
 
 message GetRelationTypeResponse {
+    option deprecated = true;
     // relation type instance
     aserto.directory.common.v2.RelationType result              = 1;
 }
 
 message GetRelationTypesRequest {
+    option deprecated = true;
     // object type selector
     aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
     // pagination request
@@ -78,6 +127,7 @@ message GetRelationTypesRequest {
 }
 
 message GetRelationTypesResponse {
+    option deprecated = true;
     // array of relation types
     repeated aserto.directory.common.v2.RelationType results    = 1;
     // pagination response
@@ -85,6 +135,7 @@ message GetRelationTypesResponse {
 }
 
 message GetObjectRequest {
+    option deprecated = true;
     // object selector
     aserto.directory.common.v2.ObjectIdentifier param           = 1;
     // materialize the object relations objects
@@ -94,6 +145,7 @@ message GetObjectRequest {
 }
 
 message GetObjectResponse {
+    option deprecated = true;
     reserved 2, 3;
     reserved "incoming", "outgoing";
     // object instance
@@ -105,16 +157,19 @@ message GetObjectResponse {
 }
 
 message GetObjectManyRequest {
+    option deprecated = true;
     // object identifier list
     repeated aserto.directory.common.v2.ObjectIdentifier param  = 1;
 }
 
 message GetObjectManyResponse {
+    option deprecated = true;
     // array of object instances
     repeated aserto.directory.common.v2.Object results          = 1;
 }
 
 message GetObjectsRequest {
+    option deprecated = true;
     // object type selector
     aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
     // pagination request
@@ -122,6 +177,7 @@ message GetObjectsRequest {
 }
 
 message GetObjectsResponse {
+    option deprecated = true;
     // array of object instances
     repeated aserto.directory.common.v2.Object results          = 1;
     // pagination response
@@ -129,6 +185,7 @@ message GetObjectsResponse {
 }
 
 message GetRelationRequest {
+    option deprecated = true;
     // relation selector
     aserto.directory.common.v2.RelationIdentifier param         = 1;
     // materialize relation objects
@@ -136,6 +193,7 @@ message GetRelationRequest {
 }
 
 message GetRelationResponse {
+    option deprecated = true;
     // array of relation instances
     repeated aserto.directory.common.v2.Relation results        = 1;
     // map of materialized relation objects
@@ -143,6 +201,7 @@ message GetRelationResponse {
 }
 
 message GetRelationsRequest {
+    option deprecated = true;
     // relation selector
     aserto.directory.common.v2.RelationIdentifier param         = 1;
     // pagination request
@@ -150,6 +209,7 @@ message GetRelationsRequest {
 }
 
 message GetRelationsResponse {
+    option deprecated = true;
     // array of relation instances
     repeated aserto.directory.common.v2.Relation results        = 1;
     // pagination response
@@ -157,21 +217,25 @@ message GetRelationsResponse {
 }
 
 message GetPermissionRequest {
+    option deprecated = true;
     // permission selector
     aserto.directory.common.v2.PermissionIdentifier param       = 1;
 }
 
 message GetPermissionResponse {
+    option deprecated = true;
     // permission instance
     aserto.directory.common.v2.Permission result                = 1;
 }
 
 message GetPermissionsRequest {
+    option deprecated = true;
     // pagination request
     aserto.directory.common.v2.PaginationRequest page           = 9;
 }
 
 message GetPermissionsResponse {
+    option deprecated = true;
     // array of permissions
     repeated aserto.directory.common.v2.Permission results      = 1;
     // pagination response
@@ -179,6 +243,7 @@ message GetPermissionsResponse {
 }
 
 message CheckPermissionRequest {
+    option deprecated = true;
     // subject selector
     aserto.directory.common.v2.ObjectIdentifier subject         = 1;
     // permission selector
@@ -190,6 +255,7 @@ message CheckPermissionRequest {
 }
 
 message CheckPermissionResponse {
+    option deprecated = true;
     // check result
     bool check                                                  = 1;
     // trace information
@@ -197,6 +263,7 @@ message CheckPermissionResponse {
 }
 
 message CheckRelationRequest {
+    option deprecated = true;
     // subject selector
     aserto.directory.common.v2.ObjectIdentifier subject         = 1;
     // relation selector
@@ -208,6 +275,7 @@ message CheckRelationRequest {
 }
 
 message CheckRelationResponse {
+    option deprecated = true;
     // check result
     bool check                                                  = 1;
     // trace information
@@ -215,6 +283,7 @@ message CheckRelationResponse {
 }
 
 message CheckResponse {
+    option deprecated = true;
     // check result
     bool check                                                  = 1;
     // trace information
@@ -222,6 +291,7 @@ message CheckResponse {
 }
 
 message GetGraphRequest {
+    option deprecated = true;
     // anchor selector
     aserto.directory.common.v2.ObjectIdentifier anchor          = 1;
     // subject selector
@@ -233,6 +303,7 @@ message GetGraphRequest {
 }
 
 message GetGraphResponse {
+    option deprecated = true;
     // dependency graph
     repeated aserto.directory.common.v2.ObjectDependency results= 1;
 }

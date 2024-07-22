@@ -7,10 +7,14 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/importe
 import "aserto/directory/common/v2/common.proto";
 
 service Importer {
-    rpc Import(stream ImportRequest) returns (stream ImportResponse) {};
+    // import stream of objects and relations
+    rpc Import(stream ImportRequest) returns (stream ImportResponse) {
+        option deprecated = true; 
+    };
 }
 
 message ImportRequest {
+    option deprecated = true;
     // operation Opcode enum value
     Opcode op_code                                              = 1;
     oneof msg {
@@ -28,6 +32,7 @@ message ImportRequest {
 }
 
 message ImportResponse {
+    option deprecated = true;
     // object_type import counter
     ImportCounter object_type                                   = 1;
     // object_type import counter
@@ -41,6 +46,7 @@ message ImportResponse {
 }
 
 message ImportCounter {
+    option deprecated = true;
     // number of messages received
     uint64 recv                                                 = 1;
     // number of messages with OPCODE_SET
@@ -52,6 +58,7 @@ message ImportCounter {
 }
 
 enum Opcode {
+    option deprecated = true;
     OPCODE_UNKNOWN                                              = 0;
     OPCODE_SET                                                  = 1;
     OPCODE_DELETE                                               = 2;

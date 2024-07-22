@@ -15,6 +15,7 @@ import "buf/validate/validate.proto";
 // import "aserto/directory/common/v3/common.proto";
 
 service Model {
+    // get manifest instance
     rpc GetManifest(GetManifestRequest) returns (stream GetManifestResponse) {
         // Disable grpc-gateway for this rpc.
         option (google.api.http) = {};
@@ -46,6 +47,7 @@ service Model {
         // };
     };
 
+    // set manifest instance
     rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {
         // Disable grpc-gateway for this rpc.
         option (google.api.http) = {};
@@ -77,6 +79,7 @@ service Model {
         // };
     };
 
+    // delete manifest instance
     rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
         option (google.api.http) = {
                 delete: "/api/v3/directory/manifest"

@@ -9,98 +9,137 @@ import "google/protobuf/empty.proto";
 import "aserto/directory/common/v2/common.proto";
 
 service Writer {
-    // object type metadata methods
-    rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {};
-    rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {};
+    rpc SetObjectType(SetObjectTypeRequest) returns (SetObjectTypeResponse) {
+        option deprecated = true; 
+    };
+    rpc DeleteObjectType(DeleteObjectTypeRequest) returns (DeleteObjectTypeResponse) {
+        option deprecated = true; 
+    };
 
-    // relation type metadata methods
-    rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {};
-    rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {};
+    rpc SetRelationType(SetRelationTypeRequest) returns (SetRelationTypeResponse) {
+        option deprecated = true; 
+    };
+    rpc DeleteRelationType(DeleteRelationTypeRequest) returns (DeleteRelationTypeResponse) {
+        option deprecated = true; 
+    };
 
-    // permission metadata methods
-    rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {};
-    rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {};
+    rpc SetPermission(SetPermissionRequest) returns (SetPermissionResponse) {
+        option deprecated = true; 
+    };
+    rpc DeletePermission(DeletePermissionRequest) returns (DeletePermissionResponse) {
+        option deprecated = true; 
+    };
 
-    // object methods
-    rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {};
-    rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {};
+    // set object instance
+    // Deprecated: directory.v2.SetObject is deprecated, use directory.v3.SetObject.
+    rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
+        option deprecated = true; 
+    };
 
-    // relation methods
-    rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {};
-    rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {};
+    // delete object instance
+    // Deprecated: directory.v2.DeleteObject is deprecated, use directory.v3.DeleteObject.
+    rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
+        option deprecated = true; 
+    };
+
+    // set relation instance
+    // Deprecated: directory.v2.SetRelation is deprecated, use directory.v3.SetRelation.
+    rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
+        option deprecated = true; 
+    };
+    // delete relation instance
+    // Deprecated: directory.v2.DeleteRelation is deprecated, use directory.v3.DeleteRelation.
+    rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
+        option deprecated = true; 
+    };
 }
 
 message SetObjectTypeRequest {
+    option deprecated = true;
     // object type instance
     aserto.directory.common.v2.ObjectType object_type           = 1;
 }
 
 message SetObjectTypeResponse {
+    option deprecated = true;
     // object type instance
     aserto.directory.common.v2.ObjectType result                = 1;
 }
 
 message DeleteObjectTypeRequest {
+    option deprecated = true;
     // object type identifier
     aserto.directory.common.v2.ObjectTypeIdentifier param       = 1;
 }
 
 message DeleteObjectTypeResponse {
+    option deprecated = true;
     // empty result
     google.protobuf.Empty result                                = 1;
 }
 
 message SetRelationTypeRequest {
+    option deprecated = true;
     // relation type instance
     aserto.directory.common.v2.RelationType relation_type       = 1;
 }
 
 message SetRelationTypeResponse {
+    option deprecated = true;
     // relation types instance
     aserto.directory.common.v2.RelationType result              = 1;
 }
 
 message DeleteRelationTypeRequest {
+    option deprecated = true;
     // relation type identifier
     aserto.directory.common.v2.RelationTypeIdentifier param     = 1;
 }
 
 message DeleteRelationTypeResponse {
+    option deprecated = true;
     // empty result
     google.protobuf.Empty result                                = 1;
 }
 
 message SetPermissionRequest {
+    option deprecated = true;
     // permission instance
     aserto.directory.common.v2.Permission permission            = 1;
 }
 
 message SetPermissionResponse {
+    option deprecated = true;
     // permission instance
     aserto.directory.common.v2.Permission result                = 1;
 }
 
 message DeletePermissionRequest {
+    option deprecated = true;
     // permission identifier
     aserto.directory.common.v2.PermissionIdentifier param       = 1;
 }
 
 message DeletePermissionResponse {
+    option deprecated = true;
     // empty result
     google.protobuf.Empty result                                = 1;
 }
 
 message SetObjectRequest {
+    option deprecated = true;
     // object instance
     aserto.directory.common.v2.Object object                    = 1;
 }
 
 message SetObjectResponse {
+    option deprecated = true;
     // object instance
     aserto.directory.common.v2.Object result                    = 1;
 }
 
 message DeleteObjectRequest {
+    option deprecated = true;
     // object identifier
     aserto.directory.common.v2.ObjectIdentifier param           = 1;
     // delete object relations, both object and subject relations.
@@ -108,26 +147,31 @@ message DeleteObjectRequest {
 }
 
 message DeleteObjectResponse {
+    option deprecated = true;
     // empty result
     google.protobuf.Empty result                                = 1;
 }
 
 message SetRelationRequest {
+    option deprecated = true;
     // relation instance
     aserto.directory.common.v2.Relation relation                = 1;
 }
 
 message SetRelationResponse {
+    option deprecated = true;
     // relation instance
     aserto.directory.common.v2.Relation result                  = 1;
 }
 
 message DeleteRelationRequest {
+    option deprecated = true;
     // relation identifier
     aserto.directory.common.v2.RelationIdentifier param         = 1;
 }
 
 message DeleteRelationResponse {
+    option deprecated = true;
     // empty result
     google.protobuf.Empty result                                = 1;
 }
