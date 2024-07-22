@@ -1,10 +1,10 @@
 SHELL           := $(shell which bash)
     
-NO_COLOR   .    := \033[0m
-OK_COLOR   .    := \033[32;01m
-ERR_COLOR  .    := \033[31;01m
-WARN_COLOR .    := \033[36;01m
-ATTN_COLOR .    := \033[33;01m
+NO_COLOR       := \033[0m
+OK_COLOR        := \033[32;01m
+ERR_COLOR       := \033[31;01m
+WARN_COLOR      := \033[36;01m
+ATTN_COLOR      := \033[33;01m
 
 GOOS            := $(shell go env GOOS)
 GOARCH          := $(shell go env GOARCH)
