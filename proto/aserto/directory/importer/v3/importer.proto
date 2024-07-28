@@ -27,6 +27,8 @@ message ImportResponse {
     ImportCounter object                                        = 1;
     // relation import counter
     ImportCounter relation                                      = 2;
+    // import error
+    ImportError error                                           = 3;
 }
 
 message ImportCounter {
@@ -45,4 +47,18 @@ enum Opcode {
     OPCODE_SET                                                  = 1;
     OPCODE_DELETE                                               = 2;
     OPCODE_DELETE_WITH_RELATIONS                                = 3;
+}
+
+message ImportError {
+    // gRPC status code (google.golang.org/grpc/codes)
+    uint32 code                                                 = 1;
+    // gRPC status message (google.golang.org/grpc/status)
+    string msg                                                  = 2;
+    // req contains the original import request message
+    oneof req {
+        // failed object import message
+        aserto.directory.common.v3.Object object                = 5;
+        // failed relation import message
+        aserto.directory.common.v3.Relation relation            = 6;
+    }
 }
