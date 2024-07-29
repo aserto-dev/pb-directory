@@ -4,6 +4,7 @@ package aserto.directory.importer.v3;
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/importer/v3;importer";
 
+import "google/rpc/status.proto";
 import "aserto/directory/common/v3/common.proto";
 
 service Importer {
@@ -27,8 +28,8 @@ message ImportResponse {
     ImportCounter object                                        = 1;
     // relation import counter
     ImportCounter relation                                      = 2;
-    // import error
-    ImportError error                                           = 3;
+    // import status
+    ImportStatus status                                         = 3;
 }
 
 message ImportCounter {
@@ -49,7 +50,7 @@ enum Opcode {
     OPCODE_DELETE_WITH_RELATIONS                                = 3;
 }
 
-message ImportError {
+message ImportStatus {
     // gRPC status code (google.golang.org/grpc/codes)
     uint32 code                                                 = 1;
     // gRPC status message (google.golang.org/grpc/status)
