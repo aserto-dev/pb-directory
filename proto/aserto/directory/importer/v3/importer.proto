@@ -4,7 +4,6 @@ package aserto.directory.importer.v3;
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/importer/v3;importer";
 
-import "google/rpc/status.proto";
 import "aserto/directory/common/v3/common.proto";
 
 service Importer {
