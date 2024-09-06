@@ -227,6 +227,54 @@ service Reader {
             }
         };
     };
+
+    // evaluation
+    rpc Evaluation(EvaluationRequest) returns (EvaluationResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/evaluation"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Access evaluation"
+            description: "Access evaluation."
+            operation_id: "directory.v3.evaluation"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    }
+
+    // evaluations
+    rpc Evaluations(EvaluationsRequest) returns (EvaluationsResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/evaluations"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Access evaluations"
+            description: "Access evaluations request."
+            operation_id: "directory.v3.evaluations"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    }
 }
 
 message GetObjectRequest {
@@ -995,3 +1043,45 @@ message GetGraphResponse {
     // trace information
     repeated string trace                                        = 4;
 }
+
+message EvaluationRequest {
+    Subject subject                                 = 1;
+    Action action                                   = 2;
+    Resource resource                               = 3;
+    optional google.protobuf.Struct context         = 4;
+}
+
+message EvaluationResponse {
+    bool decision                                   = 1;
+    optional google.protobuf.Struct context         = 2;
+}
+
+message EvaluationsRequest {
+    optional Subject subject                        = 1;
+    optional Action action                          = 2;
+    optional Resource resource                      = 3;
+    optional google.protobuf.Struct context         = 4;
+    repeated EvaluationRequest evaluations          = 5;
+}
+
+message EvaluationsResponse {
+    repeated EvaluationResponse decisions           = 1;
+}
+
+message Subject {
+    string type                                     = 1;
+    string id                                       = 2;
+    optional google.protobuf.Struct properties      = 3;
+}
+
+message Action {
+    string name                                     = 1;
+    optional google.protobuf.Struct properties      = 2;
+}
+
+message Resource {
+    string type                                     = 1;
+    string id                                       = 2;
+    optional google.protobuf.Struct properties      = 3;
+}
+
