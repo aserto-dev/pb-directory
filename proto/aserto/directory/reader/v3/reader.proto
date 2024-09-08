@@ -681,6 +681,8 @@ message CheckResponse {
     bool check                                                  = 1;
     // trace information
     repeated string trace                                       = 2;
+    // context
+    google.protobuf.Struct context                              = 3;
 }
 
 message CheckPermissionRequest {
