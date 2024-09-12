@@ -174,4 +174,7 @@ message Assert {
         aserto.directory.reader.v3.CheckRelationRequest check_relation = 4;
         aserto.directory.reader.v3.CheckPermissionRequest check_permission = 5;
     }
+
+    // description
+    string description                                          = 6;
 }
