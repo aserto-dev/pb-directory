@@ -361,3 +361,16 @@ message PaginationResponse {
         (google.api.field_behavior) = OUTPUT_ONLY
     ];
 }
+
+// ID message
+message Id {
+    // ULID value (16 bytes)
+    bytes value                                         = 1
+    [
+        (buf.validate.field) = {
+            bytes: {
+                max_len: 16
+            }
+        }
+    ];
+}
