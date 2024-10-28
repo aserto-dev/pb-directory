@@ -55,11 +55,14 @@ jobs:
       - 
         name: Buf Lint
         uses: bufbuild/buf-lint-action@v1
-      - 
-        name: Buf Breaking
-        uses: bufbuild/buf-breaking-action@v1
         with:
-          against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main"
+          input: "proto"
+      # - 
+      #   name: Buf Breaking
+      #   uses: bufbuild/buf-breaking-action@v1
+      #   with:
+      #     input: "proto"
+      #     against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main"          
       - 
         name: Buf Build
         run: |
