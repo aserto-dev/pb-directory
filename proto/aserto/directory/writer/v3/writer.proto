@@ -14,7 +14,7 @@ import "buf/validate/validate.proto";
 import "aserto/directory/common/v3/common.proto";
 
 service Writer {
-    // object methods
+    // set object instance
     rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
         option (google.api.http) = {
             post: "/api/v3/directory/object"
@@ -39,6 +39,7 @@ service Writer {
         };
     };
 
+    // delete object instance
     rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
         option (google.api.http) = {
             delete: "/api/v3/directory/object/{object_type}/{object_id}"
@@ -62,7 +63,7 @@ service Writer {
         };
     };
 
-    // relation methods
+    // set relation instance
     rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
         option (google.api.http) = {
             post: "/api/v3/directory/relation"
@@ -87,6 +88,7 @@ service Writer {
         };
     };
 
+    // delete relation instance
     rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
         option (google.api.http) = {
             delete: "/api/v3/directory/relation"

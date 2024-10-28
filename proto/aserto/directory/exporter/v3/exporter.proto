@@ -10,6 +10,7 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
 service Exporter {
+    // export objects and relations as a stream
     rpc Export(ExportRequest) returns (stream ExportResponse) {};
 }
 

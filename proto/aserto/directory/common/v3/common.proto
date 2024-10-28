@@ -46,6 +46,11 @@ message Object {
     // display name object
     string display_name                                 = 3
     [
+        (buf.validate.field) = {
+            string: {
+                max_len: 100
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // property bag
@@ -66,6 +71,11 @@ message Object {
     // object instance etag
     string etag                                         = 23
     [
+        (buf.validate.field) = {
+            string: {
+                max_len: 20
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
 }
@@ -180,6 +190,11 @@ message Relation {
     // object instance etag
     string etag                                         = 23
     [
+        (buf.validate.field) = {
+            string: {
+                max_len: 20
+            }
+        },
         (google.api.field_behavior) = OPTIONAL
     ];
 }

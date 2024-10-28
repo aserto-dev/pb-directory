@@ -14,7 +14,7 @@ import "buf/validate/validate.proto";
 import "aserto/directory/common/v3/common.proto";
 
 service Reader {
-    // object methods
+    // get object
     rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/object/{object_type}/{object_id}"
@@ -44,8 +44,10 @@ service Reader {
         };
     };
 
+    // get multiple objects
     rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {};
 
+    // list objects
     rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/objects"
@@ -69,7 +71,7 @@ service Reader {
         };
     };
 
-    // relation methods
+    // get relation
     rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/relation"
@@ -99,6 +101,7 @@ service Reader {
         };
     };
 
+    // list relations
     rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/relations"
@@ -122,7 +125,7 @@ service Reader {
         };
     };
 
-    // check method
+    // check if subject has relation or permission with object
     rpc Check(CheckRequest) returns (CheckResponse) {
         option (google.api.http) = {
             post: "/api/v3/directory/check"
@@ -147,8 +150,10 @@ service Reader {
         };
     };
 
-    // check permission method
+    // check permission (deprecated, use the check method)
+    // Deprecated: use directory.v3.Check()
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
+        option deprecated = true;
         option (google.api.http) = {
             post: "/api/v3/directory/check/permission"
             body: "*"
@@ -172,8 +177,10 @@ service Reader {
         };
     };
 
-    // check relation method
+    // check relation (deprecated, use the check method)
+    // Deprecated: use directory.v3.Check()
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
+        option deprecated = true;
         option (google.api.http) = {
             post: "/api/v3/directory/check/relation"
             body: "*"
@@ -197,7 +204,7 @@ service Reader {
         };
     };
 
-    // graph methods
+    // get object relationship graph
     rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {
         option (google.api.http) = {
             get: "/api/v3/directory/graph/{object_type}/{relation}/{subject_type}"
@@ -674,6 +681,8 @@ message CheckResponse {
     bool check                                                  = 1;
     // trace information
     repeated string trace                                       = 2;
+    // context
+    google.protobuf.Struct context                              = 3;
 }
 
 message CheckPermissionRequest {
