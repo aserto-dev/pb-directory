@@ -150,6 +150,32 @@ service Reader {
         };
     };
 
+    // EXPERIMENTAL: checks validates a set of check requests in a single roundtrip
+    rpc Checks(ChecksRequest) returns (ChecksResponse) {
+        option (google.api.http) = {
+            post: "/api/v3/directory/checks"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            tags: "directory"
+            summary: "Checks"
+            description: "Returns multiple check outcomes."
+            operation_id: "directory.v3.checks"
+            deprecated: false
+            security: {
+                security_requirement: {
+                    key: "TenantID";
+                    value: {}
+                }
+                security_requirement: {
+                    key: "DirectoryAPIKey";
+                    value: {}
+                }
+            }
+        };
+    };
+    
+    
     // check permission (deprecated, use the check method)
     // Deprecated: use directory.v3.Check()
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
@@ -683,6 +709,17 @@ message CheckResponse {
     repeated string trace                                       = 2;
     // context
     google.protobuf.Struct context                              = 3;
+}
+
+// EXPERIMENTAL
+message ChecksRequest {
+    CheckRequest default                                        = 1;
+    repeated CheckRequest checks                                = 2; 
+}
+
+// EXPERIMENTAL
+message ChecksResponse {
+    repeated CheckResponse checks                               = 1;
 }
 
 message CheckPermissionRequest {
