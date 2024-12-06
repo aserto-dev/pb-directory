@@ -361,3 +361,29 @@ message PaginationResponse {
         (google.api.field_behavior) = OUTPUT_ONLY
     ];
 }
+
+// INTERNAL serialization message.
+message ObjKey {
+    string object_type                                  = 1;
+    string object_id                                    = 2;
+}
+
+// INTERNAL serialization message.
+message RelObjKey {
+    string object_type                                  = 1;
+    string object_id                                    = 2;
+    string relation                                     = 3;
+    string subject_type                                 = 4;
+    string subject_id                                   = 5;
+    string subject_relation                             = 6;
+}
+
+// INTERNAL serialization message.
+message RelSubKey{
+    string subject_type                                 = 1;
+    string subject_id                                   = 2;
+    string relation                                     = 3;
+    string object_type                                  = 4;
+    string object_id                                    = 5;
+    string subject_relation                             = 6;
+}
