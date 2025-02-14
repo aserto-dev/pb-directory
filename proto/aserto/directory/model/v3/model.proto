@@ -32,7 +32,7 @@ service Model {
         //     tags: "directory"
         //     summary: "Get manifest"
         //     description: "Get manifest."
-        //     operation_id: "directory.v3.manifest.get"
+        //     operation_id: "directory.model.v3.manifest.get"
         //     deprecated: false
         //     security: {
         //         security_requirement: {
@@ -64,7 +64,7 @@ service Model {
         //     tags: "directory"
         //     summary: "Set manifest"
         //     description: "Set manifest."
-        //     operation_id: "directory.v3.manifest.set"
+        //     operation_id: "directory.model.v3.manifest.set"
         //     deprecated: false
         //     security: {
         //         security_requirement: {
@@ -88,7 +88,7 @@ service Model {
             tags: "directory"
             summary: "Delete manifest"
             description: "Delete manifest."
-            operation_id: "directory.v3.manifest.delete"
+            operation_id: "directory.model.v3.manifest.delete"
             deprecated: false
             security: {
                 security_requirement: {
