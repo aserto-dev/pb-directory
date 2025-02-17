@@ -22,7 +22,7 @@ service Assertion {
             tags: "directory"
             summary: "Get assertion instance"
             description: "Returns single assertion instance."
-            operation_id: "directory.v3.assertion.get"
+            operation_id: "directory.assertion.v3.assertion.get"
             deprecated: false
             security: {
                 security_requirement: {
@@ -45,7 +45,7 @@ service Assertion {
             tags: "directory"
             summary: "List assertions"
             description: "Returns list of assertion instances."
-            operation_id: "directory.v3.assertions.list"
+            operation_id: "directory.assertion.v3.assertions.list"
             deprecated: false
             security: {
                 security_requirement: {
@@ -69,7 +69,7 @@ service Assertion {
             tags: "directory"
             summary: "Set assertion"
             description: "Set assertion."
-            operation_id: "directory.v3.assertion.set"
+            operation_id: "directory.assertion.v3.assertion.set"
             deprecated: false
             security: {
                 security_requirement: {
@@ -92,7 +92,7 @@ service Assertion {
             tags: "directory"
             summary: "Delete assertion"
             description: "Delete assertion."
-            operation_id: "directory.v3.assertion.delete"
+            operation_id: "directory.assertion.v3.assertion.delete"
             deprecated: false
             security: {
                 security_requirement: {

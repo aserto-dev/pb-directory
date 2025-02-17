@@ -23,7 +23,7 @@ service Reader {
             tags: "directory"
             summary: "Get object instance"
             description: "Returns single object instance, optionally with relations."
-            operation_id: "directory.v3.object.get"
+            operation_id: "directory.reader.v3.object.get"
             deprecated: false
             security: {
                 security_requirement: {
@@ -56,7 +56,7 @@ service Reader {
             tags: "directory"
             summary: "List object instances"
             description: "Returns list of object instances."
-            operation_id: "directory.v3.objects.list"
+            operation_id: "directory.reader.v3.objects.list"
             deprecated: false
             security: {
                 security_requirement: {
@@ -80,7 +80,7 @@ service Reader {
             tags: "directory"
             summary: "Get relation instance"
             description: "Returns single relation instance, optionally with objects."
-            operation_id: "directory.v3.relation.get"
+            operation_id: "directory.reader.v3.relation.get"
             deprecated: false
             security: {
                 security_requirement: {
@@ -110,7 +110,7 @@ service Reader {
             tags: "directory"
             summary: "List relations instances"
             description: "Returns list of relation instances."
-            operation_id: "directory.v3.relations.list"
+            operation_id: "directory.reader.v3.relations.list"
             deprecated: false
             security: {
                 security_requirement: {
@@ -135,7 +135,7 @@ service Reader {
             tags: "directory"
             summary: "Check"
             description: "Returns check outcome."
-            operation_id: "directory.v3.check"
+            operation_id: "directory.reader.v3.check"
             deprecated: false
             security: {
                 security_requirement: {
@@ -160,7 +160,7 @@ service Reader {
             tags: "directory"
             summary: "Checks"
             description: "Returns multiple check outcomes."
-            operation_id: "directory.v3.checks"
+            operation_id: "directory.reader.v3.checks"
             deprecated: false
             security: {
                 security_requirement: {
@@ -174,10 +174,10 @@ service Reader {
             }
         };
     };
-    
-    
+
+
     // check permission (deprecated, use the check method)
-    // Deprecated: use directory.v3.Check()
+    // Deprecated: use directory.reader.v3.Check()
     rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
         option deprecated = true;
         option (google.api.http) = {
@@ -188,7 +188,7 @@ service Reader {
             tags: "directory"
             summary: "Check permission"
             description: "Returns check permission outcome."
-            operation_id: "directory.v3.check.permission"
+            operation_id: "directory.reader.v3.check.permission"
             deprecated: false
             security: {
                 security_requirement: {
@@ -204,7 +204,7 @@ service Reader {
     };
 
     // check relation (deprecated, use the check method)
-    // Deprecated: use directory.v3.Check()
+    // Deprecated: use directory.reader.v3.Check()
     rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
         option deprecated = true;
         option (google.api.http) = {
@@ -215,7 +215,7 @@ service Reader {
             tags: "directory"
             summary: "Check relation"
             description: "Returns check relation outcome."
-            operation_id: "directory.v3.check.relation"
+            operation_id: "directory.reader.v3.check.relation"
             deprecated: false
             security: {
                 security_requirement: {
@@ -239,7 +239,7 @@ service Reader {
             tags: "directory"
             summary: "Get graph"
             description: "Returns object graph from anchor to subject or object."
-            operation_id: "directory.v3.graph"
+            operation_id: "directory.reader.v3.graph"
             deprecated: false
             security: {
                 security_requirement: {
@@ -714,7 +714,7 @@ message CheckResponse {
 // EXPERIMENTAL
 message ChecksRequest {
     CheckRequest default                                        = 1;
-    repeated CheckRequest checks                                = 2; 
+    repeated CheckRequest checks                                = 2;
 }
 
 // EXPERIMENTAL

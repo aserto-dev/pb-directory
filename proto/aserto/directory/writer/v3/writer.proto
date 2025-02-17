@@ -24,7 +24,7 @@ service Writer {
             tags: "directory"
             summary: "Set object"
             description: "Set object."
-            operation_id: "directory.v3.object.set"
+            operation_id: "directory.writer.v3.object.set"
             deprecated: false
             security: {
                 security_requirement: {
@@ -48,7 +48,7 @@ service Writer {
             tags: "directory"
             summary: "Delete object"
             description: "Delete object."
-            operation_id: "directory.v3.object.delete"
+            operation_id: "directory.writer.v3.object.delete"
             deprecated: false
             security: {
                 security_requirement: {
@@ -73,7 +73,7 @@ service Writer {
             tags: "directory"
             summary: "Set relation"
             description: "Set relation."
-            operation_id: "directory.v3.relation.set"
+            operation_id: "directory.writer.v3.relation.set"
             deprecated: false
             security: {
                 security_requirement: {
@@ -97,7 +97,7 @@ service Writer {
             tags: "directory"
             summary: "Delete relation"
             description: "Delete relation."
-            operation_id: "directory.v3.relation.delete"
+            operation_id: "directory.writer.v3.relation.delete"
             deprecated: false
             security: {
                 security_requirement: {
