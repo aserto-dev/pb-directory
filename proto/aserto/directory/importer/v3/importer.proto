@@ -23,16 +23,21 @@ message ImportRequest {
 }
 
 message ImportResponse {
-    // object import counter
-    ImportCounter object                                        = 1 [deprecated = true];
-    // relation import counter
-    ImportCounter relation                                      = 2 [deprecated = true];
+    reserved 1, 2;
+    // // object import counter
+    // ImportCounter object                                        = 1 [deprecated = true];
+    // // relation import counter
+    // ImportCounter relation                                      = 2 [deprecated = true];
     
     oneof msg {
         // import status message
         ImportStatus status                                     = 4;
         // import counter per type
         ImportCounter counter                                   = 5;
+        // object
+        aserto.directory.common.v3.Object object                = 6;
+        // relation 
+        aserto.directory.common.v3.Relation relation            = 7;
     }
 }
 
@@ -54,6 +59,8 @@ enum Opcode {
     OPCODE_SET                                                  = 1;
     OPCODE_DELETE                                               = 2;
     OPCODE_DELETE_WITH_RELATIONS                                = 3;
+    OPCODE_GET                                                  = 4;
+    OPCODE_LIST                                                 = 5;
 }
 
 message ImportStatus {
