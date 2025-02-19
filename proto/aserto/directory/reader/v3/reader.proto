@@ -264,7 +264,7 @@ message GetObjectRequest {
             cel: {
                 id: "get_object.object_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -330,7 +330,7 @@ message GetObjectsRequest {
             cel: {
                 id: "get_objects.object_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -361,7 +361,7 @@ message GetRelationRequest {
             cel: {
                 id: "get_relation.object_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -393,7 +393,7 @@ message GetRelationRequest {
             cel: {
                 id: "get_relation.relation"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -409,7 +409,7 @@ message GetRelationRequest {
             cel: {
                 id: "get_relation.subject_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -441,7 +441,7 @@ message GetRelationRequest {
             cel: {
                 id: "get_relation.subject_relation"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -486,7 +486,7 @@ message GetRelationsRequest {
             cel: {
                 id: "get_relations.object_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -518,7 +518,7 @@ message GetRelationsRequest {
             cel: {
                 id: "get_relations.relation"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -534,7 +534,7 @@ message GetRelationsRequest {
             cel: {
                 id: "get_relations.subject_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -566,7 +566,7 @@ message GetRelationsRequest {
             cel: {
                 id: "get_relations.subject_relation"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -623,7 +623,7 @@ message CheckRequest {
             cel: {
                 id: "check.object_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -671,7 +671,7 @@ message CheckRequest {
             cel: {
                 id: "check.subject_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -731,7 +731,7 @@ message CheckPermissionRequest {
             cel: {
                 id: "check_permission.object_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -779,7 +779,7 @@ message CheckPermissionRequest {
             cel: {
                 id: "check_permission.subject_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -826,7 +826,7 @@ message CheckRelationRequest {
             cel: {
                 id: "check_relation.object_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -858,7 +858,7 @@ message CheckRelationRequest {
             cel: {
                 id: "check_relation.relation"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -874,7 +874,7 @@ message CheckRelationRequest {
             cel: {
                 id: "check_relation.subject_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -924,7 +924,7 @@ message GetGraphRequest {
             cel: {
                 id: "get_graph.object_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -956,7 +956,7 @@ message GetGraphRequest {
             cel: {
                 id: "get_graph.relation"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -972,7 +972,7 @@ message GetGraphRequest {
             cel: {
                 id: "get_graph.subject_type"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
@@ -1004,7 +1004,7 @@ message GetGraphRequest {
             cel: {
                 id: "get_graph.subject_relation"
                 message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: ""this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')""
+                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
             }
             string: {
                 max_len: 64
