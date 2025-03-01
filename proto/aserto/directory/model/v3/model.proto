@@ -10,9 +10,6 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
-import "buf/validate/validate.proto";
-
-// import "aserto/directory/common/v3/common.proto";
 
 service Model {
     // get manifest instance
@@ -158,12 +155,5 @@ message Metadata {
 
 message Body {
     // manifest content
-    bytes data                                                  = 2
-    [
-        (buf.validate.field) = {
-            bytes: {
-                max_len: 65536
-            }
-        }
-    ];
+    bytes data                                                  = 2;
 }

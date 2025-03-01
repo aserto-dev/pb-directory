@@ -9,8 +9,6 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/struct.proto";
 
-import "buf/validate/validate.proto";
-
 import "aserto/directory/common/v3/common.proto";
 
 service Reader {
@@ -259,33 +257,12 @@ message GetObjectRequest {
     // object type name (lc-string)
     string object_type                                          = 1
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "get_object.object_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier (cs-string)
     string object_id                                            = 2
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "get_object.object_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        }
+        (google.api.field_behavior) = REQUIRED
     ];
     // materialize the object relations objects
     bool with_relations                                         = 3
@@ -325,17 +302,6 @@ message GetObjectsRequest {
     // object type name (lc-string)
     string object_type                                          = 1
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_objects.object_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // pagination request
@@ -356,97 +322,31 @@ message GetRelationRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relation.object_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relation.object_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // relation name
     string relation                                             = 3
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relation.relation"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relation.subject_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relation.subject_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // optional subject relation name
     string subject_relation                                     = 6
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relation.subject_relation"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // materialize relation objects
@@ -454,20 +354,6 @@ message GetRelationRequest {
     [
         (google.api.field_behavior) = OPTIONAL
     ];
-
-    // if object_id is set an object_type must be specified
-    option (buf.validate.message).cel = {
-        id: "get_relation.object_id_with_type",
-        message: "when an object_id is specified, the accompanying object_type must be provided",
-        expression: "(this.object_type == '' && this.object_id == '') || (this.object_type != '' && this.object_id == '') || (this.object_type != '' && this.object_id != '')"
-    };
-
-    // if subject_id is set a subject_type must be specified
-    option (buf.validate.message).cel = {
-        id: "get_relation.subject_id_with_type",
-        message: "when an subject_id is specified, the accompanying subject_type must be provided",
-        expression: "(this.subject_type == '' && this.subject_id == '') || (this.subject_type != '' && this.subject_id == '') || (this.subject_type != '' && this.subject_id != '')"
-    };
 }
 
 message GetRelationResponse {
@@ -481,97 +367,31 @@ message GetRelationsRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relations.object_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relations.object_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // relation name
     string relation                                             = 3
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relations.relation"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relations.subject_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relations.subject_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // optional subject relation name
     string subject_relation                                     = 6
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_relations.subject_relation"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // materialize relation objects
@@ -589,20 +409,6 @@ message GetRelationsRequest {
     [
         (google.api.field_behavior) = OPTIONAL
     ];
-
-    // if object_id is set an object_type must be specified
-    option (buf.validate.message).cel = {
-        id: "get_relations.object_id_with_type",
-        message: "when an object_id is specified, the accompanying object_type must be provided",
-        expression: "(this.object_type == '' && this.object_id == '') || (this.object_type != '' && this.object_id == '') || (this.object_type != '' && this.object_id != '')"
-    };
-
-    // if subject_id is set a subject_type must be specified
-    option (buf.validate.message).cel = {
-        id: "get_relations.subject_id_with_type",
-        message: "when an subject_id is specified, the accompanying subject_type must be provided",
-        expression: "(this.subject_type == '' && this.subject_id == '') || (this.subject_type != '' && this.subject_id == '') || (this.subject_type != '' && this.subject_id != '')"
-    };
 }
 
 message GetRelationsResponse {
@@ -618,81 +424,26 @@ message CheckRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check.object_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check.object_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // relation name
     string relation                                           = 3
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check.relation"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check.subject_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check.subject_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // collect trace information
@@ -726,81 +477,26 @@ message CheckPermissionRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_permission.object_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_permission.object_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // permission name
     string permission                                           = 3
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_permission.permission"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_permission.subject_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_permission.subject_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // collect trace information
@@ -821,81 +517,26 @@ message CheckRelationRequest {
     // object type
     string object_type                                          = 1
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_relation.object_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier
     string object_id                                            = 2
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_relation.object_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // relation name
     string relation                                             = 3
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_relation.relation"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject type
     string subject_type                                         = 4
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_relation.subject_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject identifier
     string subject_id                                           = 5
     [
-        (buf.validate.field) = {
-            required: true
-            cel: {
-                id: "check_relation.subject_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // collect trace information
@@ -919,97 +560,31 @@ message GetGraphRequest {
     // object type
     string object_type                                          = 3
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_graph.object_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // object identifier
     string object_id                                            = 4
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_graph.object_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // relation name
     string relation                                             = 5
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_graph.relation"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject type
     string subject_type                                         = 6
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_graph.subject_type"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = REQUIRED
     ];
     // subject identifier
     string subject_id                                           = 7
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_graph.subject_id"
-                message: "cannot contain any spaces or other whitespace characters"
-                expression: "this.matches('^[\\\\S]+$')"
-            }
-            string: {
-                max_len: 256
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // subject relation
     string subject_relation                                     = 8
     [
-        (buf.validate.field) = {
-            ignore_empty: true,
-            cel: {
-                id: "get_graph.subject_relation"
-                message: "must start with a letter, can contain mixed case letters, digits, dots, underscores, and dashes, and must end with a letter or digit"
-                expression: "this.matches('^[a-zA-Z][a-zA-Z0-9\\\\._-]{1,62}[a-zA-Z0-9]$')"
-            }
-            string: {
-                max_len: 64
-            }
-        },
         (google.api.field_behavior) = OPTIONAL
     ];
     // return graph paths for each result
