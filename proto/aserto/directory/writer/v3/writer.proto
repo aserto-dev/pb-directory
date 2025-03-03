@@ -2,198 +2,160 @@ syntax = "proto3";
 
 package aserto.directory.writer.v3;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v3;writer";
-
-import "protoc-gen-openapiv2/options/annotations.proto";
-import "google/protobuf/empty.proto";
+import "aserto/directory/common/v3/common.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
-import "aserto/directory/common/v3/common.proto";
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v3;writer";
 
 service Writer {
-    // set object instance
-    rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
-        option (google.api.http) = {
-            post: "/api/v3/directory/object"
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            tags: "directory"
-            summary: "Set object"
-            description: "Set object."
-            operation_id: "directory.writer.v3.object.set"
-            deprecated: false
-            security: {
-                security_requirement: {
-                    key: "TenantID";
-                    value: {}
-                }
-                security_requirement: {
-                    key: "DirectoryAPIKey";
-                    value: {}
-                }
-            }
-        };
+  // set object instance
+  rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
+    option (google.api.http) = {
+      post: "/api/v3/directory/object"
+      body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Set object"
+      description: "Set object."
+      operation_id: "directory.writer.v3.object.set"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
+    };
+  }
 
-    // delete object instance
-    rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
-        option (google.api.http) = {
-            delete: "/api/v3/directory/object/{object_type}/{object_id}"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            tags: "directory"
-            summary: "Delete object"
-            description: "Delete object."
-            operation_id: "directory.writer.v3.object.delete"
-            deprecated: false
-            security: {
-                security_requirement: {
-                    key: "TenantID";
-                    value: {}
-                }
-                security_requirement: {
-                    key: "DirectoryAPIKey";
-                    value: {}
-                }
-            }
-        };
+  // delete object instance
+  rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
+    option (google.api.http) = {delete: "/api/v3/directory/object/{object_type}/{object_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Delete object"
+      description: "Delete object."
+      operation_id: "directory.writer.v3.object.delete"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
     };
+  }
 
-    // set relation instance
-    rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
-        option (google.api.http) = {
-            post: "/api/v3/directory/relation"
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            tags: "directory"
-            summary: "Set relation"
-            description: "Set relation."
-            operation_id: "directory.writer.v3.relation.set"
-            deprecated: false
-            security: {
-                security_requirement: {
-                    key: "TenantID";
-                    value: {}
-                }
-                security_requirement: {
-                    key: "DirectoryAPIKey";
-                    value: {}
-                }
-            }
-        };
+  // set relation instance
+  rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
+    option (google.api.http) = {
+      post: "/api/v3/directory/relation"
+      body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Set relation"
+      description: "Set relation."
+      operation_id: "directory.writer.v3.relation.set"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
+    };
+  }
 
-    // delete relation instance
-    rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
-        option (google.api.http) = {
-            delete: "/api/v3/directory/relation"
-       };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            tags: "directory"
-            summary: "Delete relation"
-            description: "Delete relation."
-            operation_id: "directory.writer.v3.relation.delete"
-            deprecated: false
-            security: {
-                security_requirement: {
-                    key: "TenantID";
-                    value: {}
-                }
-                security_requirement: {
-                    key: "DirectoryAPIKey";
-                    value: {}
-                }
-            }
-        };
+  // delete relation instance
+  rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
+    option (google.api.http) = {delete: "/api/v3/directory/relation"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Delete relation"
+      description: "Delete relation."
+      operation_id: "directory.writer.v3.relation.delete"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
     };
+  }
 }
 
 message SetObjectRequest {
-    // object instance
-    aserto.directory.common.v3.Object object                    = 1
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
+  // object instance
+  aserto.directory.common.v3.Object object = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message SetObjectResponse {
-    // object instance
-    aserto.directory.common.v3.Object result                    = 1;
+  // object instance
+  aserto.directory.common.v3.Object result = 1;
 }
 
 message DeleteObjectRequest {
-    // object type
-    string object_type                                          = 1
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // object identifier
-    string object_id                                            = 2
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // delete object relations, both object and subject relations.
-    bool with_relations                                         = 3
-    [
-        (google.api.field_behavior) = OPTIONAL
-    ];
+  // object type
+  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
+  // object identifier
+  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // delete object relations, both object and subject relations.
+  bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message DeleteObjectResponse {
-    // empty result
-    google.protobuf.Empty result                                = 1;
+  // empty result
+  google.protobuf.Empty result = 1;
 }
 
 message SetRelationRequest {
-    // relation instance
-    aserto.directory.common.v3.Relation relation                = 1
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
+  // relation instance
+  aserto.directory.common.v3.Relation relation = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message SetRelationResponse {
-    // relation instance
-    aserto.directory.common.v3.Relation result                  = 1;
+  // relation instance
+  aserto.directory.common.v3.Relation result = 1;
 }
 
 message DeleteRelationRequest {
-    // object type
-    string object_type                                          = 1
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // object identifier
-    string object_id                                            = 2
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // object relation name
-    string relation                                             = 3
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // subject type
-    string subject_type                                         = 4
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // subject identifier
-    string subject_id                                           = 5
-    [
-        (google.api.field_behavior) = REQUIRED
-    ];
-    // optional subject relation name
-    string subject_relation                                     = 6
-    [
-        (google.api.field_behavior) = OPTIONAL
-    ];
+  // object type
+  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
+  // object identifier
+  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // object relation name
+  string relation = 3 [(google.api.field_behavior) = REQUIRED];
+  // subject type
+  string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
+  // subject identifier
+  string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
+  // optional subject relation name
+  string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message DeleteRelationResponse {
-    // empty result
-    google.protobuf.Empty result                                = 1;
+  // empty result
+  google.protobuf.Empty result = 1;
 }

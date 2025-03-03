@@ -6,6 +6,6 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/
 
 // Properties of "group" objects.
 message GroupProperties {
-    // ID of the IDP connection the group instance is associated with.
-    string connection_id = 1;
+  // ID of the IDP connection the group instance is associated with.
+  string connection_id = 1;
 }
