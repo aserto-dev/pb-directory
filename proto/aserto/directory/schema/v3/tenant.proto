@@ -2,14 +2,14 @@ syntax = "proto3";
 
 package aserto.directory.schema.v3;
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/v3;schema";
-
 import "google/protobuf/struct.proto";
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/v3;schema";
 
 enum TenantKind {
   TENANT_KIND_UNKNOWN = 0;
   TENANT_KIND_ORGANIZATION = 1;
-  TENANT_KIND_ACCOUNT = 2;  // personal tenant
+  TENANT_KIND_ACCOUNT = 2; // personal tenant
 }
 
 // Properties of a tenant object
@@ -25,7 +25,6 @@ message TenantProperties {
 
   // Additional properties that are only set accounts (personal tenant).
   optional AccountProperties account = 4;
-
 }
 
 message AccountProperties {

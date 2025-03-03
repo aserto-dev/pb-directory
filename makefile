@@ -17,7 +17,7 @@ EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
 VAULT_VER	         := 1.8.12
 SVU_VER 	         := 2.2.0
-BUF_VER            := 1.34.0
+BUF_VER            := 1.50.0
 
 PROJECT            := directory
 BUF_USER           := $(shell ${EXT_BIN_DIR}/vault kv get -field ASERTO_BUF_USER kv/buf.build)
@@ -45,6 +45,11 @@ vault-login:
 buf-login:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
 	@echo ${BUF_TOKEN} | ${EXT_BIN_DIR}/buf registry login --username ${BUF_USER} --token-stdin
+
+.PHONY: buf-format
+buf-format:
+	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
+	@${EXT_BIN_DIR}/buf format -w proto
 
 .PHONY: buf-lint
 buf-lint:
