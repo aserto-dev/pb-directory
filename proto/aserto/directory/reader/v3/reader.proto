@@ -5,7 +5,9 @@ package aserto.directory.reader.v3;
 import "aserto/directory/common/v3/common.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v3;reader";
@@ -135,7 +137,7 @@ service Reader {
     };
   }
 
-  // EXPERIMENTAL: checks validates a set of check requests in a single roundtrip
+  // checks validates a set of check requests in a single roundtrip
   rpc Checks(ChecksRequest) returns (ChecksResponse) {
     option (google.api.http) = {
       post: "/api/v3/directory/checks"
@@ -146,60 +148,6 @@ service Reader {
       summary: "Checks"
       description: "Returns multiple check outcomes."
       operation_id: "directory.reader.v3.checks"
-      deprecated: false
-      security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
-          value: {}
-        }
-      }
-    };
-  }
-
-  // check permission (deprecated, use the check method)
-  // Deprecated: use directory.reader.v3.Check()
-  rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
-    option deprecated = true;
-    option (google.api.http) = {
-      post: "/api/v3/directory/check/permission"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      tags: "directory"
-      summary: "Check permission"
-      description: "Returns check permission outcome."
-      operation_id: "directory.reader.v3.check.permission"
-      deprecated: false
-      security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
-          value: {}
-        }
-      }
-    };
-  }
-
-  // check relation (deprecated, use the check method)
-  // Deprecated: use directory.reader.v3.Check()
-  rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
-    option deprecated = true;
-    option (google.api.http) = {
-      post: "/api/v3/directory/check/relation"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      tags: "directory"
-      summary: "Check relation"
-      description: "Returns check relation outcome."
-      operation_id: "directory.reader.v3.check.relation"
       deprecated: false
       security: {
         security_requirement: {
@@ -235,6 +183,31 @@ service Reader {
       }
     };
   }
+
+  // get manifest
+  rpc GetManifest(GetManifestRequest) returns (GetManifestResponse) {
+    option (google.api.http) = {get: "/api/v3/directory/manifest"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Get manifest"
+      description: "Returns manifest or manifest model representation."
+      operation_id: "directory.model.v3.manifest.get"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // export manifests, objects and relations as a stream
+  rpc Export(ExportRequest) returns (stream ExportResponse) {}
 }
 
 message GetObjectRequest {
@@ -359,59 +332,16 @@ message CheckResponse {
   google.protobuf.Struct context = 3;
 }
 
-// EXPERIMENTAL
 message ChecksRequest {
+  // default values for checks when not provided
   CheckRequest default = 1;
+  // list on check requests
   repeated CheckRequest checks = 2;
 }
 
-// EXPERIMENTAL
 message ChecksResponse {
+  // list of check responses
   repeated CheckResponse checks = 1;
-}
-
-message CheckPermissionRequest {
-  // object type
-  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
-  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
-  // permission name
-  string permission = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
-  string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
-  string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
-  bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
-}
-
-message CheckPermissionResponse {
-  // check result
-  bool check = 1;
-  // trace information
-  repeated string trace = 2;
-}
-
-message CheckRelationRequest {
-  // object type
-  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
-  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
-  // relation name
-  string relation = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
-  string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
-  string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
-  bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
-}
-
-message CheckRelationResponse {
-  // check result
-  bool check = 1;
-  // trace information
-  repeated string trace = 2;
 }
 
 message GetGraphRequest {
@@ -445,4 +375,47 @@ message GetGraphResponse {
   google.protobuf.Struct explanation = 3;
   // trace information
   repeated string trace = 4;
+}
+
+message GetManifestRequest {
+  google.protobuf.Empty empty = 1;
+}
+
+message GetManifestResponse {
+  aserto.directory.common.v3.Manifest manifest = 1;
+}
+
+message ExportRequest {
+  // data export options mask
+  uint32 options = 1;
+  // start export from timestamp (UTC)
+  google.protobuf.Timestamp start_from = 20;
+}
+
+message ExportResponse {
+  oneof msg {
+    // object instance (data)
+    aserto.directory.common.v3.Object object = 2;
+    // relation instance (data)
+    aserto.directory.common.v3.Relation relation = 4;
+    // object and/or relation stats (no data)
+    google.protobuf.Struct stats = 8;
+  }
+}
+
+enum Option {
+  // nothing selected (default initialization value)
+  OPTION_UNKNOWN = 0x0;
+  // manifest instance(s)
+  OPTION_MANIFEST = 0x4;
+  // object instances
+  OPTION_DATA_OBJECTS = 0x8;
+  // relation instances
+  OPTION_DATA_RELATIONS = 0x10;
+  // all data = OPTION_DATA_OBJECTS | OPTION_DATA_RELATIONS
+  OPTION_DATA = 0x18;
+  // all = OPTION_MANIFEST | OPTION_DATA_OBJECTS | OPTION_DATA_RELATIONS
+  OPTION_ALL = 0x22;
+  // stats
+  OPTION_STATS = 0x40;
 }

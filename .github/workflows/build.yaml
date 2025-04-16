@@ -20,7 +20,7 @@ permissions:
 
 env:
   VAULT_ADDR: https://vault.eng.aserto.com/
-  BUF_VERSION: "1.50.0"
+  BUF_VERSION: "1.52.1"
 
 jobs:
   build:

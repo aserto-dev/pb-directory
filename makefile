@@ -11,24 +11,24 @@ GOARCH             := $(shell go env GOARCH)
 GOPRIVATE          := "github.com/aserto-dev"
 
 BIN_DIR            := ./bin
-EXT_DIR            := ./.ext
+EXT_DIR            := ${PWD}/.ext
 EXT_BIN_DIR        := ${EXT_DIR}/bin
 EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
 VAULT_VER	         := 1.8.12
-SVU_VER 	         := 2.2.0
-BUF_VER            := 1.50.0
+SVU_VER 	         := 3.1.0
+BUF_VER            := 1.52.1
 
 PROJECT            := directory
 BUF_USER           := $(shell ${EXT_BIN_DIR}/vault kv get -field ASERTO_BUF_USER kv/buf.build)
 BUF_TOKEN          := $(shell ${EXT_BIN_DIR}/vault kv get -field ASERTO_BUF_TOKEN kv/buf.build)
 BUF_REPO           := "buf.build/aserto-dev/${PROJECT}"
-BUF_LATEST         := $(shell BUF_BETA_SUPPRESS_WARNINGS=1 ${EXT_BIN_DIR}/buf beta registry label list ${BUF_REPO} --format json --reverse | jq -r '.results[0].name')
+BUF_LATEST         := $(shell ${EXT_BIN_DIR}/buf registry module label list ${BUF_REPO} --format json | jq -r '.labels[0].name')
 BUF_DEV_IMAGE      := "${PROJECT}.bin"
 PROTO_REPO         := "pb-${PROJECT}"
 GIT_ORG            := "https://github.com/aserto-dev"
 
-RELEASE_TAG        := $$(${EXT_BIN_DIR}/svu)
+RELEASE_TAG        := $$(${EXT_BIN_DIR}/svu current)
 
 .DEFAULT_GOAL      := buf-build
 
@@ -44,7 +44,7 @@ vault-login:
 .PHONY: buf-login
 buf-login:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@echo ${BUF_TOKEN} | ${EXT_BIN_DIR}/buf registry login --username ${BUF_USER} --token-stdin
+	@echo ${BUF_TOKEN} | ${EXT_BIN_DIR}/buf registry login  --token-stdin
 
 .PHONY: buf-format
 buf-format:
@@ -118,22 +118,10 @@ install-buf: ${EXT_BIN_DIR}
 	@${EXT_BIN_DIR}/buf --version
 
 .PHONY: install-svu
-install-svu: install-svu-${GOOS}
+install-svu: ${EXT_BIN_DIR} ${EXT_TMP_DIR}
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@chmod +x ${EXT_BIN_DIR}/svu
+	@GOBIN=${EXT_BIN_DIR} go install github.com/caarlos0/svu/v3@v${SVU_VER}
 	@${EXT_BIN_DIR}/svu --version
-
-.PHONY: install-svu-darwin
-install-svu-darwin: ${EXT_TMP_DIR} ${EXT_BIN_DIR}
-	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@gh release download v${SVU_VER} --repo https://github.com/caarlos0/svu --pattern "svu_${SVU_VER}_darwin_all.tar.gz" --output "${EXT_TMP_DIR}/svu.tar.gz" --clobber
-	@tar -xvf ${EXT_TMP_DIR}/svu.tar.gz --directory ${EXT_BIN_DIR} svu &> /dev/null
-
-.PHONY: install-svu-linux
-install-svu-linux: ${EXT_TMP_DIR} ${EXT_BIN_DIR}
-	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@gh release download  v${SVU_VER} --repo https://github.com/caarlos0/svu --pattern "svu_${SVU_VER}_linux_${GOARCH}.tar.gz" --output "${EXT_TMP_DIR}/svu.tar.gz" --clobber
-	@tar -xvf ${EXT_TMP_DIR}/svu.tar.gz --directory ${EXT_BIN_DIR} svu &> /dev/null
 
 .PHONY: clean
 clean:

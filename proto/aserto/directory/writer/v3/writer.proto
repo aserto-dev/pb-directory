@@ -104,6 +104,53 @@ service Writer {
       }
     };
   }
+
+  // set manifest instance
+  rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {
+    option (google.api.http) = {post: "/api/v3/directory/manifest"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Set manifest"
+      description: "Set manifest."
+      operation_id: "directory.model.v3.manifest.set"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // delete manifest instance
+  rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
+    option (google.api.http) = {delete: "/api/v3/directory/manifest"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Delete manifest"
+      description: "Delete manifest."
+      operation_id: "directory.model.v3.manifest.delete"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // import stream of objects and relations
+  rpc Import(stream ImportRequest) returns (stream ImportResponse) {}
 }
 
 message SetObjectRequest {
@@ -158,4 +205,74 @@ message DeleteRelationRequest {
 message DeleteRelationResponse {
   // empty result
   google.protobuf.Empty result = 1;
+}
+
+message SetManifestRequest {
+  aserto.directory.common.v3.Manifest manifest = 1;
+}
+
+message SetManifestResponse {
+  // empty result
+  google.protobuf.Empty result = 1;
+}
+
+message DeleteManifestRequest {
+  // empty request
+  google.protobuf.Empty empty = 1;
+}
+
+message DeleteManifestResponse {
+  // empty result
+  google.protobuf.Empty result = 1;
+}
+
+message ImportRequest {
+  // operation Opcode enum value
+  Opcode op_code = 1;
+  oneof msg {
+    // object import message
+    aserto.directory.common.v3.Object object = 5;
+    // relation import message
+    aserto.directory.common.v3.Relation relation = 6;
+    // manifest import message
+    aserto.directory.common.v3.Manifest manifest = 7;
+  }
+}
+
+message ImportResponse {
+  oneof msg {
+    // import status message
+    ImportStatus status = 4;
+    // import counter per type
+    ImportCounter counter = 5;
+  }
+}
+
+message ImportCounter {
+  // number of messages received
+  uint64 recv = 1;
+  // number of messages with OPCODE_SET
+  uint64 set = 2;
+  // number of messages with OPCODE_DELETE
+  uint64 delete = 3;
+  // number of messages resulting in error
+  uint64 error = 4;
+  // counter of type (object|relation)
+  string type = 5;
+}
+
+enum Opcode {
+  OPCODE_UNKNOWN = 0;
+  OPCODE_SET = 1;
+  OPCODE_DELETE = 2;
+  OPCODE_DELETE_WITH_RELATIONS = 3;
+}
+
+message ImportStatus {
+  // gRPC status code (google.golang.org/grpc/codes)
+  uint32 code = 1;
+  // gRPC status message (google.golang.org/grpc/status)
+  string msg = 2;
+  // req contains the original import request message
+  ImportRequest req = 3;
 }
