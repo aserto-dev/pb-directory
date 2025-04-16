@@ -191,7 +191,7 @@ service Reader {
       tags: "directory"
       summary: "Get manifest"
       description: "Returns manifest or manifest model representation."
-      operation_id: "directory.model.v3.manifest.get"
+      operation_id: "directory.reader.v3.manifest.get"
       deprecated: false
       security: {
         security_requirement: {

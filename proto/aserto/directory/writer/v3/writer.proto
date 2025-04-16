@@ -106,13 +106,13 @@ service Writer {
   }
 
   // set manifest instance
-  rpc SetManifest(stream SetManifestRequest) returns (SetManifestResponse) {
+  rpc SetManifest(SetManifestRequest) returns (SetManifestResponse) {
     option (google.api.http) = {post: "/api/v3/directory/manifest"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "Set manifest"
       description: "Set manifest."
-      operation_id: "directory.model.v3.manifest.set"
+      operation_id: "directory.writer.v3.manifest.set"
       deprecated: false
       security: {
         security_requirement: {
@@ -134,7 +134,7 @@ service Writer {
       tags: "directory"
       summary: "Delete manifest"
       description: "Delete manifest."
-      operation_id: "directory.model.v3.manifest.delete"
+      operation_id: "directory.writer.v3.manifest.delete"
       deprecated: false
       security: {
         security_requirement: {
