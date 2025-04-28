@@ -151,10 +151,6 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
           key: "DirectoryAPIKey"
           value: {}
         }
@@ -172,10 +168,6 @@ service Reader {
       operation_id: "directory.reader.v3.graph"
       deprecated: false
       security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
         security_requirement: {
           key: "DirectoryAPIKey"
           value: {}
@@ -195,10 +187,6 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
           key: "DirectoryAPIKey"
           value: {}
         }
@@ -206,6 +194,23 @@ service Reader {
     };
   }
 
+    // get model
+    rpc GetModel(GetModelRequest) returns (GetModelResponse) {
+      option (google.api.http) = {get: "/api/v3/directory/model"};
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        tags: "directory"
+        summary: "Get model"
+        description: "Returns model representation of current manifest."
+        operation_id: "directory.reader.v3.model.get"
+        deprecated: false
+        security: {
+          security_requirement: {
+            key: "DirectoryAPIKey"
+            value: {}
+          }
+        }
+      };
+    }
   // export manifests, objects and relations as a stream
   rpc Export(ExportRequest) returns (stream ExportResponse) {}
 }
@@ -383,6 +388,14 @@ message GetManifestRequest {
 
 message GetManifestResponse {
   aserto.directory.common.v3.Manifest manifest = 1;
+}
+
+message GetModelRequest {
+  google.protobuf.Empty empty = 1;
+}
+
+message GetModelResponse {
+  aserto.directory.common.v3.Model model = 1;
 }
 
 message ExportRequest {

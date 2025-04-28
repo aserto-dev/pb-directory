@@ -12,12 +12,19 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/common/
 message Manifest {
   // Manifest payload
   bytes body = 1;
-  // Model representation of manifest
-  google.protobuf.Struct model = 3 [(google.api.field_behavior) = OUTPUT_ONLY];
   // last updated timestamp (UTC)
   google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
   // manifest instance etag
   string etag = 23 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message Model {
+  // Model representation of manifest
+  google.protobuf.Struct model = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // last updated timestamp (UTC)
+  google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // manifest instance etag
+  string etag = 23 [(google.api.field_behavior) = OUTPUT_ONLY];
 }
 
 message Object {
