@@ -16,17 +16,16 @@ EXT_BIN_DIR        := ${EXT_DIR}/bin
 EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
 VAULT_VER	         := 1.8.12
-SVU_VER 	         := 3.1.0
+SVU_VER 	         := 3.2.3
 BUF_VER            := 1.52.1
 
 PROJECT            := directory
-BUF_USER           := $(shell ${EXT_BIN_DIR}/vault kv get -field ASERTO_BUF_USER kv/buf.build)
 BUF_TOKEN          := $(shell ${EXT_BIN_DIR}/vault kv get -field ASERTO_BUF_TOKEN kv/buf.build)
 BUF_REPO           := "buf.build/aserto-dev/${PROJECT}"
 BUF_LATEST         := $(shell ${EXT_BIN_DIR}/buf registry module label list ${BUF_REPO} --format json | jq -r '.labels[0].name')
-BUF_DEV_IMAGE      := "${PROJECT}.bin"
-PROTO_REPO         := "pb-${PROJECT}"
+BUF_DEV_IMAGE      := ${BIN_DIR}/${PROJECT}.bin
 GIT_ORG            := "https://github.com/aserto-dev"
+PROTO_REPO         := "pb-${PROJECT}"
 
 RELEASE_TAG        := $$(${EXT_BIN_DIR}/svu current)
 
@@ -44,7 +43,7 @@ vault-login:
 .PHONY: buf-login
 buf-login:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@echo ${BUF_TOKEN} | ${EXT_BIN_DIR}/buf registry login  --token-stdin
+	@echo ${BUF_TOKEN} | ${EXT_BIN_DIR}/buf registry login --token-stdin
 
 .PHONY: buf-format
 buf-format:
@@ -64,7 +63,7 @@ buf-breaking:
 .PHONY: buf-build
 buf-build: ${BIN_DIR}
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf build --output ${BIN_DIR}/${BUF_DEV_IMAGE}
+	@${EXT_BIN_DIR}/buf build --output ${BUF_DEV_IMAGE}
 
 .PHONY: buf-push
 buf-push:
@@ -75,16 +74,6 @@ buf-push:
 buf-dep-update:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
 	@${EXT_BIN_DIR}/buf dep update
-
-.PHONY: buf-generate
-buf-generate:
-	@echo -e "$(ATTN_COLOR)==> $@ ${BUF_REPO}:${BUF_LATEST}$(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf generate ${BUF_REPO}:${BUF_LATEST}
-
-.PHONY: buf-generate-dev
-buf-generate-dev:
-	@echo -e "$(ATTN_COLOR)==> $@ ../${PROTO_REPO}/bin/${BUF_DEV_IMAGE}$(NO_COLOR)"
-	@${EXT_BIN_DIR}/buf generate "../${PROTO_REPO}/bin/${BUF_DEV_IMAGE}"
 
 .PHONY: info
 info:
