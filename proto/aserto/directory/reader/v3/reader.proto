@@ -194,23 +194,23 @@ service Reader {
     };
   }
 
-    // get model
-    rpc GetModel(GetModelRequest) returns (GetModelResponse) {
-      option (google.api.http) = {get: "/api/v3/directory/model"};
-      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-        tags: "directory"
-        summary: "Get model"
-        description: "Returns model representation of current manifest."
-        operation_id: "directory.reader.v3.model.get"
-        deprecated: false
-        security: {
-          security_requirement: {
-            key: "DirectoryAPIKey"
-            value: {}
-          }
+  // get model
+  rpc GetModel(GetModelRequest) returns (GetModelResponse) {
+    option (google.api.http) = {get: "/api/v3/directory/model"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Get model"
+      description: "Returns model representation of current manifest."
+      operation_id: "directory.reader.v3.model.get"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
         }
-      };
-    }
+      }
+    };
+  }
   // export manifests, objects and relations as a stream
   rpc Export(ExportRequest) returns (stream ExportResponse) {}
 }
