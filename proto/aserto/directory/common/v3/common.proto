@@ -67,10 +67,10 @@ message Relation {
 
 // object identifier
 message ObjectIdentifier {
-  // object type (lc-string)
-  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier (cs-string)
-  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // object type name
+  string type = 1 [(google.api.field_behavior) = REQUIRED];
+  // external object identifier (cs-string, no spaces or tabs)
+  string id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // relation identifier
