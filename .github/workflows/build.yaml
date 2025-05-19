@@ -19,7 +19,7 @@ permissions:
   pull-requests: write
 
 env:
-  VAULT_ADDR: https://vault.eng.aserto.com/
+  VAULT_ADDR: https://vault.aserto.com/
   BUF_VERSION: "1.52.1"
 
 jobs:
