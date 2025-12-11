@@ -19,7 +19,6 @@ permissions:
   pull-requests: write
 
 env:
-  VAULT_ADDR: https://vault.eng.aserto.com/
   BUF_VERSION: "1.50.0"
 
 jobs:
@@ -32,23 +31,12 @@ jobs:
         with:
           fetch-depth: 0
       -
-        name: Read Configuration
-        uses: hashicorp/vault-action@v3
-        id: vault
-        with:
-          url: ${{ env.VAULT_ADDR }}
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-            kv/data/github    "USERNAME"          | GH_USERNAME;
-            kv/data/github    "READ_WRITE_TOKEN"  | GH_TOKEN;
-            kv/data/buf.build "ASERTO_BUF_TOKEN"  | ASERTO_BUF_TOKEN;
-      -
         name: Buf Build
         uses: bufbuild/buf-action@v1
         with:
           version:  ${{ env.BUF_VERSION }}
-          token: ${{ steps.vault.outputs.ASERTO_BUF_TOKEN}}
-          github_token: ${{ steps.vault.outputs.GH_TOKEN}}
+          token: ${{ secrets.ASERTO_BUF_TOKEN}}
+          github_token: ${{ secrets.GITHUB_TOKEN}}
           push_disable_create: true
 
   trigger-dispatches:
@@ -69,18 +57,11 @@ jobs:
     name: Generate on ${{ matrix.cfg.project }}
     steps:
       -
-        name: Read Configuration
-        uses: hashicorp/vault-action@v3
-        id: vault
-        with:
-          url: ${{ env.VAULT_ADDR }}
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-            kv/data/github    "USERNAME"          | GH_USERNAME;
-            kv/data/github    "READ_WRITE_TOKEN"  | GH_TOKEN;
-      -
         name: Trigger dispatch
         run: |
           curl -XPOST -u "${GH_USERNAME}:${GH_TOKEN}" \
           -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" \
           https://api.github.com/repos/aserto-dev/${{ matrix.cfg.project }}/actions/workflows/ci.yaml/dispatches --data '{"ref": "main", "inputs": {"proto_ref": "${{ github.ref }}", "proto_sha": "${{ github.sha }}" }}'
+        env:
+          GH_USERNAME: ${{ secrets.USERNAME }}
+          GH_TOKEN: $${{ secrets.READ_WRITE_TOKEN }}
