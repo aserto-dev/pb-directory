@@ -20,7 +20,7 @@ permissions:
 
 env:
   VAULT_ADDR: https://vault.aserto.com/
-  BUF_VERSION: "1.52.1"
+  BUF_VERSION: "1.59.0"
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       -

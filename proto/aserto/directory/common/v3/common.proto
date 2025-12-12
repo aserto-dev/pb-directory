@@ -28,16 +28,14 @@ message Model {
 }
 
 message Object {
+  reserved 3, 20;
+  reserved "type", "id", "display_name", "created_at";
   // object type name
-  string type = 1 [(google.api.field_behavior) = REQUIRED];
+  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // external object identifier (cs-string, no spaces or tabs)
-  string id = 2 [(google.api.field_behavior) = REQUIRED];
-  // display name object
-  string display_name = 3 [(google.api.field_behavior) = OPTIONAL];
+  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // property bag
   google.protobuf.Struct properties = 4 [(google.api.field_behavior) = OPTIONAL];
-  // created at timestamp (UTC)
-  google.protobuf.Timestamp created_at = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
   // last updated timestamp (UTC)
   google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
   // object instance etag
@@ -45,6 +43,8 @@ message Object {
 }
 
 message Relation {
+  reserved 20;
+  reserved "created_at";
   // object type
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // object identifier
@@ -57,8 +57,6 @@ message Relation {
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
   // optional subject relation name
   string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
-  // created at timestamp (UTC)
-  google.protobuf.Timestamp created_at = 20 [(google.api.field_behavior) = OUTPUT_ONLY];
   // last updated timestamp (UTC)
   google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
   // object instance etag
@@ -67,10 +65,11 @@ message Relation {
 
 // object identifier
 message ObjectIdentifier {
+  reserved "type", "id";
   // object type name
-  string type = 1 [(google.api.field_behavior) = REQUIRED];
+  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // external object identifier (cs-string, no spaces or tabs)
-  string id = 2 [(google.api.field_behavior) = REQUIRED];
+  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // relation identifier

@@ -11,6 +11,50 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v3;writer";
 
 service Writer {
+    // set manifest instance
+  rpc SetManifest(SetManifestRequest) returns (SetManifestResponse) {
+    option (google.api.http) = {post: "/api/v3/directory/manifest"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Set manifest"
+      description: "Set manifest."
+      operation_id: "directory.writer.v3.manifest.set"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // delete manifest instance
+  rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
+    option (google.api.http) = {delete: "/api/v3/directory/manifest"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Delete manifest"
+      description: "Delete manifest."
+      operation_id: "directory.writer.v3.manifest.delete"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "TenantID"
+          value: {}
+        }
+        security_requirement: {
+          key: "DirectoryAPIKey"
+          value: {}
+        }
+      }
+    };
+  }
+
   // set object instance
   rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
     option (google.api.http) = {
@@ -105,52 +149,27 @@ service Writer {
     };
   }
 
-  // set manifest instance
-  rpc SetManifest(SetManifestRequest) returns (SetManifestResponse) {
-    option (google.api.http) = {post: "/api/v3/directory/manifest"};
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      tags: "directory"
-      summary: "Set manifest"
-      description: "Set manifest."
-      operation_id: "directory.writer.v3.manifest.set"
-      deprecated: false
-      security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
-          value: {}
-        }
-      }
-    };
-  }
-
-  // delete manifest instance
-  rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
-    option (google.api.http) = {delete: "/api/v3/directory/manifest"};
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      tags: "directory"
-      summary: "Delete manifest"
-      description: "Delete manifest."
-      operation_id: "directory.writer.v3.manifest.delete"
-      deprecated: false
-      security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
-          value: {}
-        }
-      }
-    };
-  }
-
   // import stream of objects and relations
   rpc Import(stream ImportRequest) returns (stream ImportResponse) {}
+}
+
+message SetManifestRequest {
+  aserto.directory.common.v3.Manifest manifest = 1;
+}
+
+message SetManifestResponse {
+  // empty result
+  google.protobuf.Empty result = 1;
+}
+
+message DeleteManifestRequest {
+  // empty request
+  google.protobuf.Empty empty = 1;
+}
+
+message DeleteManifestResponse {
+  // empty result
+  google.protobuf.Empty result = 1;
 }
 
 message SetObjectRequest {
@@ -159,7 +178,7 @@ message SetObjectRequest {
 }
 
 message SetObjectResponse {
-  // object instance
+  // resulting object instance with updated_at and etag fields set
   aserto.directory.common.v3.Object result = 1;
 }
 
@@ -183,7 +202,7 @@ message SetRelationRequest {
 }
 
 message SetRelationResponse {
-  // relation instance
+  // resulting relation instance with updated_at and etag fields set
   aserto.directory.common.v3.Relation result = 1;
 }
 
@@ -203,25 +222,6 @@ message DeleteRelationRequest {
 }
 
 message DeleteRelationResponse {
-  // empty result
-  google.protobuf.Empty result = 1;
-}
-
-message SetManifestRequest {
-  aserto.directory.common.v3.Manifest manifest = 1;
-}
-
-message SetManifestResponse {
-  // empty result
-  google.protobuf.Empty result = 1;
-}
-
-message DeleteManifestRequest {
-  // empty request
-  google.protobuf.Empty empty = 1;
-}
-
-message DeleteManifestResponse {
   // empty result
   google.protobuf.Empty result = 1;
 }

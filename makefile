@@ -15,9 +15,8 @@ EXT_DIR            := ${PWD}/.ext
 EXT_BIN_DIR        := ${EXT_DIR}/bin
 EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
-VAULT_VER	         := 1.8.12
-SVU_VER 	         := 3.2.3
-BUF_VER            := 1.52.1
+SVU_VER	           := 3.3.0
+BUF_VER            := 1.59.0
 
 PROJECT            := directory
 BUF_TOKEN          := $(shell ${EXT_BIN_DIR}/vault kv get -field ASERTO_BUF_TOKEN kv/buf.build)
@@ -32,13 +31,8 @@ RELEASE_TAG        := $$(${EXT_BIN_DIR}/svu current)
 .DEFAULT_GOAL      := buf-build
 
 .PHONY: deps
-deps: info install-vault install-buf install-svu
+deps: info install-buf install-svu
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-
-.PHONY: vault-login
-vault-login:
-	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@vault login -method=github token=$$(gh auth token)
 
 .PHONY: buf-login
 buf-login:
