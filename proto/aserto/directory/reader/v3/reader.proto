@@ -185,6 +185,7 @@ service Reader {
 }
 
 message GetObjectRequest {
+  reserved 4 to 8;
   // object type name (lc-string)
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // object identifier (cs-string)
@@ -192,16 +193,17 @@ message GetObjectRequest {
   // materialize the object relations objects
   bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
   // pagination request
-  aserto.directory.common.v3.PaginationRequest page = 4 [(google.api.field_behavior) = OPTIONAL];
+  aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
+  reserved 2, 3, 5 to 8;
   // object instance
   aserto.directory.common.v3.Object result = 1;
   // object relations
-  repeated aserto.directory.common.v3.Relation relations = 2;
+  repeated aserto.directory.common.v3.Relation relations = 4;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 3;
+  aserto.directory.common.v3.PaginationResponse page = 9;
 }
 
 message GetObjectManyRequest {
@@ -215,17 +217,19 @@ message GetObjectManyResponse {
 }
 
 message GetObjectsRequest {
+  reserved 2 to 8;
   // object type name (lc-string)
   string object_type = 1 [(google.api.field_behavior) = OPTIONAL];
   // pagination request
-  aserto.directory.common.v3.PaginationRequest page = 2 [(google.api.field_behavior) = OPTIONAL];
+  aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectsResponse {
+  reserved 2 to 8;
   // array of object instances
   repeated aserto.directory.common.v3.Object results = 1;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 2;
+  aserto.directory.common.v3.PaginationResponse page = 9;
 }
 
 message GetRelationRequest {
@@ -274,15 +278,17 @@ message GetRelationsRequest {
 }
 
 message GetRelationsResponse {
+  reserved 3 to 8;
   // array of relation instances
   repeated aserto.directory.common.v3.Relation results = 1;
   // map of materialized relation objects
   map<string, aserto.directory.common.v3.Object> objects = 2;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 3;
+  aserto.directory.common.v3.PaginationResponse page = 9;
 }
 
 message CheckRequest {
+  reserved 6;
   // object type
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // object identifier
@@ -294,7 +300,7 @@ message CheckRequest {
   // subject identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
   // collect trace information
-  bool trace = 6 [(google.api.field_behavior) = OPTIONAL];
+  bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message CheckResponse {
@@ -307,11 +313,14 @@ message CheckResponse {
 }
 
 message ChecksRequest {
+  // default values for checks when not provided
   CheckRequest default = 1;
+  // list on check requests
   repeated CheckRequest checks = 2;
 }
 
 message ChecksResponse {
+  // list of check responses
   repeated CheckResponse checks = 1;
 }
 
