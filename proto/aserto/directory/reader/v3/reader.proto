@@ -135,7 +135,7 @@ service Reader {
     };
   }
 
-  // EXPERIMENTAL: checks validates a set of check requests in a single roundtrip
+  // checks validates a set of check requests in a single roundtrip
   rpc Checks(ChecksRequest) returns (ChecksResponse) {
     option (google.api.http) = {
       post: "/api/v3/directory/checks"
@@ -305,13 +305,11 @@ message CheckResponse {
   google.protobuf.Struct context = 3;
 }
 
-// EXPERIMENTAL
 message ChecksRequest {
   CheckRequest default = 1;
   repeated CheckRequest checks = 2;
 }
 
-// EXPERIMENTAL
 message ChecksResponse {
   repeated CheckResponse checks = 1;
 }
