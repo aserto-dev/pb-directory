@@ -139,6 +139,8 @@ message DeleteAssertionResponse {
 }
 
 message Assert {
+  reserved 4, 5;
+  reserved "check_relation", "check_permission";
   // assertion identifier
   uint32 id = 1;
 
@@ -148,8 +150,6 @@ message Assert {
   // assertion request
   oneof msg {
     aserto.directory.reader.v3.CheckRequest check = 3;
-    aserto.directory.reader.v3.CheckRelationRequest check_relation = 4;
-    aserto.directory.reader.v3.CheckPermissionRequest check_permission = 5;
   }
 
   // description

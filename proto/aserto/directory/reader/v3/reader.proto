@@ -160,60 +160,6 @@ service Reader {
     };
   }
 
-  // check permission (deprecated, use the check method)
-  // Deprecated: use directory.reader.v3.Check()
-  rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
-    option deprecated = true;
-    option (google.api.http) = {
-      post: "/api/v3/directory/check/permission"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      tags: "directory"
-      summary: "Check permission"
-      description: "Returns check permission outcome."
-      operation_id: "directory.reader.v3.check.permission"
-      deprecated: false
-      security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
-          value: {}
-        }
-      }
-    };
-  }
-
-  // check relation (deprecated, use the check method)
-  // Deprecated: use directory.reader.v3.Check()
-  rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
-    option deprecated = true;
-    option (google.api.http) = {
-      post: "/api/v3/directory/check/relation"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      tags: "directory"
-      summary: "Check relation"
-      description: "Returns check relation outcome."
-      operation_id: "directory.reader.v3.check.relation"
-      deprecated: false
-      security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
-          value: {}
-        }
-      }
-    };
-  }
-
   // get object relationship graph
   rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {
     option (google.api.http) = {get: "/api/v3/directory/graph/{object_type}/{relation}/{subject_type}"};
@@ -245,16 +191,16 @@ message GetObjectRequest {
   // materialize the object relations objects
   bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
   // pagination request
-  aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
+  aserto.directory.common.v3.PaginationRequest page = 4 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
   // object instance
   aserto.directory.common.v3.Object result = 1;
   // object relations
-  repeated aserto.directory.common.v3.Relation relations = 4;
+  repeated aserto.directory.common.v3.Relation relations = 2;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 9;
+  aserto.directory.common.v3.PaginationResponse page = 3;
 }
 
 message GetObjectManyRequest {
@@ -271,14 +217,14 @@ message GetObjectsRequest {
   // object type name (lc-string)
   string object_type = 1 [(google.api.field_behavior) = OPTIONAL];
   // pagination request
-  aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
+  aserto.directory.common.v3.PaginationRequest page = 2 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectsResponse {
   // array of object instances
   repeated aserto.directory.common.v3.Object results = 1;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 9;
+  aserto.directory.common.v3.PaginationResponse page = 2;
 }
 
 message GetRelationRequest {
@@ -332,7 +278,7 @@ message GetRelationsResponse {
   // map of materialized relation objects
   map<string, aserto.directory.common.v3.Object> objects = 2;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 9;
+  aserto.directory.common.v3.PaginationResponse page = 3;
 }
 
 message CheckRequest {
@@ -347,7 +293,7 @@ message CheckRequest {
   // subject identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
   // collect trace information
-  bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
+  bool trace = 6 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message CheckResponse {
@@ -368,50 +314,6 @@ message ChecksRequest {
 // EXPERIMENTAL
 message ChecksResponse {
   repeated CheckResponse checks = 1;
-}
-
-message CheckPermissionRequest {
-  // object type
-  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
-  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
-  // permission name
-  string permission = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
-  string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
-  string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
-  bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
-}
-
-message CheckPermissionResponse {
-  // check result
-  bool check = 1;
-  // trace information
-  repeated string trace = 2;
-}
-
-message CheckRelationRequest {
-  // object type
-  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
-  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
-  // relation name
-  string relation = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
-  string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
-  string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
-  bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
-}
-
-message CheckRelationResponse {
-  // check result
-  bool check = 1;
-  // trace information
-  repeated string trace = 2;
 }
 
 message GetGraphRequest {
