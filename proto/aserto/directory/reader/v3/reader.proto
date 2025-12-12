@@ -10,6 +10,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v3;reader";
 
+// Directory Reader service
 service Reader {
   // get object
   rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
