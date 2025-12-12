@@ -11,7 +11,7 @@ GOARCH             := $(shell go env GOARCH)
 GOPRIVATE          := "github.com/aserto-dev"
 
 BIN_DIR            := ./bin
-EXT_DIR            := ${PWD}./.ext
+EXT_DIR            := ${PWD}/.ext
 EXT_BIN_DIR        := ${EXT_DIR}/bin
 EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
@@ -28,6 +28,9 @@ GIT_ORG            := "https://github.com/aserto-dev"
 RELEASE_TAG        := $$(${EXT_BIN_DIR}/svu current)
 
 .DEFAULT_GOAL      := buf-build
+
+.PHONY: all
+all: buf-format buf-build	buf-lint buf-breaking
 
 .PHONY: deps
 deps: info install-buf install-svu
