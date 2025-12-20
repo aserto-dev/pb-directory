@@ -189,6 +189,7 @@ service Reader {
 
 message GetObjectRequest {
   reserved 4 to 8;
+  
   // object type name (lc-string)
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // object identifier (cs-string)
@@ -201,6 +202,7 @@ message GetObjectRequest {
 
 message GetObjectResponse {
   reserved 2, 3, 5 to 8;
+
   // object instance
   aserto.directory.common.v3.Object result = 1;
   // object relations
@@ -221,6 +223,7 @@ message GetObjectsResponse {
 
 message ListObjectsRequest {
   reserved 2 to 8;
+
   // object type name (lc-string)
   string object_type = 1 [(google.api.field_behavior) = OPTIONAL];
   // pagination request
@@ -292,6 +295,7 @@ message ListRelationsRequest {
 
 message ListRelationsResponse {
   reserved 3 to 8;
+
   // array of relation instances
   repeated aserto.directory.common.v3.Relation results = 1;
   // map of materialized relation objects
@@ -302,6 +306,7 @@ message ListRelationsResponse {
 
 message CheckRequest {
   reserved 6;
+
   // object type
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // object identifier
