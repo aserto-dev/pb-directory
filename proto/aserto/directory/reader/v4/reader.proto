@@ -1,32 +1,75 @@
 syntax = "proto3";
 
-package aserto.directory.reader.v3;
+package aserto.directory.reader.v4;
 
-import "aserto/directory/common/v3/common.proto";
+import "aserto/directory/common/v4/common.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
-option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v3;reader";
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/reader/v4;reader";
 
+// Directory Reader service
 service Reader {
+  // get manifest
+  rpc GetManifest(GetManifestRequest) returns (GetManifestResponse) {
+    option (google.api.http) = {get: "/api/v4/directory/manifest"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Get manifest instance"
+      description: "Returns manifest instance."
+      operation_id: "directory.reader.v4.manifest.get"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "Authorization"
+          value: {}
+        }
+      }
+      responses: {
+        key: "304"
+        value: {description: "Object not modified."}
+      }
+    };
+  }
+
+    // get model
+  rpc GetModel(GetModelRequest) returns (GetModelResponse) {
+    option (google.api.http) = {get: "/api/v4/directory/model"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Get model instance"
+      description: "Returns model instance."
+      operation_id: "directory.reader.v4.model.get"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "Authorization"
+          value: {}
+        }
+      }
+      responses: {
+        key: "304"
+        value: {description: "Object not modified."}
+      }
+    };
+  }
+
   // get object
   rpc GetObject(GetObjectRequest) returns (GetObjectResponse) {
-    option (google.api.http) = {get: "/api/v3/directory/object/{object_type}/{object_id}"};
+    option (google.api.http) = {get: "/api/v4/directory/object/{object_type}/{object_id}"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "Get object instance"
       description: "Returns single object instance, optionally with relations."
-      operation_id: "directory.reader.v3.object.get"
+      operation_id: "directory.reader.v4.object.get"
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "Authorization"
           value: {}
         }
       }
@@ -38,24 +81,20 @@ service Reader {
   }
 
   // get multiple objects
-  rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {}
+  rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {}
 
   // list objects
-  rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {
-    option (google.api.http) = {get: "/api/v3/directory/objects"};
+  rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {
+    option (google.api.http) = {get: "/api/v4/directory/objects"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "List object instances"
       description: "Returns list of object instances."
-      operation_id: "directory.reader.v3.objects.list"
+      operation_id: "directory.reader.v4.objects.list"
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "Authorization"
           value: {}
         }
       }
@@ -64,20 +103,16 @@ service Reader {
 
   // get relation
   rpc GetRelation(GetRelationRequest) returns (GetRelationResponse) {
-    option (google.api.http) = {get: "/api/v3/directory/relation"};
+    option (google.api.http) = {get: "/api/v4/directory/relation"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "Get relation instance"
       description: "Returns single relation instance, optionally with objects."
-      operation_id: "directory.reader.v3.relation.get"
+      operation_id: "directory.reader.v4.relation.get"
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "Authorization"
           value: {}
         }
       }
@@ -88,22 +123,21 @@ service Reader {
     };
   }
 
+  // get multiple relations in a single round trip
+  rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {}
+
   // list relations
-  rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
-    option (google.api.http) = {get: "/api/v3/directory/relations"};
+  rpc ListRelations(ListRelationsRequest) returns (ListRelationsResponse) {
+    option (google.api.http) = {get: "/api/v4/directory/relations"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "List relations instances"
       description: "Returns list of relation instances."
-      operation_id: "directory.reader.v3.relations.list"
+      operation_id: "directory.reader.v4.relations.list"
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "Authorization"
           value: {}
         }
       }
@@ -113,101 +147,39 @@ service Reader {
   // check if subject has relation or permission with object
   rpc Check(CheckRequest) returns (CheckResponse) {
     option (google.api.http) = {
-      post: "/api/v3/directory/check"
+      post: "/api/v4/directory/check"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "Check"
       description: "Returns check outcome."
-      operation_id: "directory.reader.v3.check"
+      operation_id: "directory.reader.v4.check"
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "Authorization"
           value: {}
         }
       }
     };
   }
 
-  // EXPERIMENTAL: checks validates a set of check requests in a single roundtrip
+  // Checks validates a set of check requests in a single roundtrip
   rpc Checks(ChecksRequest) returns (ChecksResponse) {
     option (google.api.http) = {
-      post: "/api/v3/directory/checks"
+      post: "/api/v4/directory/checks"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "Checks"
       description: "Returns multiple check outcomes."
-      operation_id: "directory.reader.v3.checks"
+      operation_id: "directory.reader.v4.checks"
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
-          value: {}
-        }
-      }
-    };
-  }
-
-  // check permission (deprecated, use the check method)
-  // Deprecated: use directory.reader.v3.Check()
-  rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {
-    option deprecated = true;
-    option (google.api.http) = {
-      post: "/api/v3/directory/check/permission"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      tags: "directory"
-      summary: "Check permission"
-      description: "Returns check permission outcome."
-      operation_id: "directory.reader.v3.check.permission"
-      deprecated: false
-      security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
-          value: {}
-        }
-      }
-    };
-  }
-
-  // check relation (deprecated, use the check method)
-  // Deprecated: use directory.reader.v3.Check()
-  rpc CheckRelation(CheckRelationRequest) returns (CheckRelationResponse) {
-    option deprecated = true;
-    option (google.api.http) = {
-      post: "/api/v3/directory/check/relation"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      tags: "directory"
-      summary: "Check relation"
-      description: "Returns check relation outcome."
-      operation_id: "directory.reader.v3.check.relation"
-      deprecated: false
-      security: {
-        security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "Authorization"
           value: {}
         }
       }
@@ -216,25 +188,44 @@ service Reader {
 
   // get object relationship graph
   rpc GetGraph(GetGraphRequest) returns (GetGraphResponse) {
-    option (google.api.http) = {get: "/api/v3/directory/graph/{object_type}/{relation}/{subject_type}"};
+    option (google.api.http) = {get: "/api/v4/directory/graph/{object_type}/{relation}/{subject_type}"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "Get graph"
       description: "Returns object graph from anchor to subject or object."
-      operation_id: "directory.reader.v3.graph"
+      operation_id: "directory.reader.v4.graph"
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "Authorization"
           value: {}
         }
       }
     };
   }
+
+  // stream exporter, exports manifests, models, objects and relations
+  rpc Export(ExportRequest) returns (stream ExportResponse) {}
+}
+
+message GetManifestRequest {
+  // empty request
+  google.protobuf.Empty empty = 1;
+}
+
+message GetManifestResponse {
+  // manifest instance
+  aserto.directory.common.v4.Manifest result = 1;
+}
+
+message GetModelRequest {
+  // empty request
+  google.protobuf.Empty empty = 1;
+}
+
+message GetModelResponse {
+  // model instance
+  aserto.directory.common.v4.Model result = 1;
 }
 
 message GetObjectRequest {
@@ -245,40 +236,40 @@ message GetObjectRequest {
   // materialize the object relations objects
   bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
   // pagination request
-  aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
+  aserto.directory.common.v4.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
   // object instance
-  aserto.directory.common.v3.Object result = 1;
+  aserto.directory.common.v4.Object result = 1;
   // object relations
-  repeated aserto.directory.common.v3.Relation relations = 4;
+  repeated aserto.directory.common.v4.Relation relations = 4;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 9;
-}
-
-message GetObjectManyRequest {
-  // object identifier list
-  repeated aserto.directory.common.v3.ObjectIdentifier param = 1 [(google.api.field_behavior) = REQUIRED];
-}
-
-message GetObjectManyResponse {
-  // array of object instances
-  repeated aserto.directory.common.v3.Object results = 1;
+  aserto.directory.common.v4.PaginationResponse page = 9;
 }
 
 message GetObjectsRequest {
-  // object type name (lc-string)
-  string object_type = 1 [(google.api.field_behavior) = OPTIONAL];
-  // pagination request
-  aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
+  // object identifier list
+  repeated aserto.directory.common.v4.ObjectIdentifier param = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetObjectsResponse {
   // array of object instances
-  repeated aserto.directory.common.v3.Object results = 1;
+  repeated aserto.directory.common.v4.Object results = 1;
+}
+
+message ListObjectsRequest {
+  // object type name (lc-string)
+  string object_type = 1 [(google.api.field_behavior) = OPTIONAL];
+  // pagination request
+  aserto.directory.common.v4.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message ListObjectsResponse {
+  // array of object instances
+  repeated aserto.directory.common.v4.Object results = 1;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 9;
+  aserto.directory.common.v4.PaginationResponse page = 9;
 }
 
 message GetRelationRequest {
@@ -300,12 +291,22 @@ message GetRelationRequest {
 
 message GetRelationResponse {
   // relation instance
-  aserto.directory.common.v3.Relation result = 1;
+  aserto.directory.common.v4.Relation result = 1;
   // map of materialized relation objects
-  map<string, aserto.directory.common.v3.Object> objects = 2;
+  map<string, aserto.directory.common.v4.Object> objects = 2;
 }
 
 message GetRelationsRequest {
+    // relation identifier list
+  repeated aserto.directory.common.v4.RelationIdentifier param = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetRelationsResponse {
+    // array of relation instances
+  repeated aserto.directory.common.v4.Relation results = 1;
+}
+
+message ListRelationsRequest {
   // object type
   string object_type = 1 [(google.api.field_behavior) = OPTIONAL];
   // object identifier
@@ -323,16 +324,16 @@ message GetRelationsRequest {
   // only return relations that do not have a subject relation.
   bool with_empty_subject_relation = 8 [(google.api.field_behavior) = OPTIONAL];
   // pagination request
-  aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
+  aserto.directory.common.v4.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
-message GetRelationsResponse {
+message ListRelationsResponse {
   // array of relation instances
-  repeated aserto.directory.common.v3.Relation results = 1;
+  repeated aserto.directory.common.v4.Relation results = 1;
   // map of materialized relation objects
-  map<string, aserto.directory.common.v3.Object> objects = 2;
+  map<string, aserto.directory.common.v4.Object> objects = 2;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 9;
+  aserto.directory.common.v4.PaginationResponse page = 9;
 }
 
 message CheckRequest {
@@ -359,90 +360,78 @@ message CheckResponse {
   google.protobuf.Struct context = 3;
 }
 
-// EXPERIMENTAL
 message ChecksRequest {
   CheckRequest default = 1;
   repeated CheckRequest checks = 2;
 }
 
-// EXPERIMENTAL
 message ChecksResponse {
   repeated CheckResponse checks = 1;
 }
 
-message CheckPermissionRequest {
+message GetGraphRequest {
   // object type
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // object identifier
-  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
-  // permission name
-  string permission = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
-  string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
-  string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
-  bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
-}
-
-message CheckPermissionResponse {
-  // check result
-  bool check = 1;
-  // trace information
-  repeated string trace = 2;
-}
-
-message CheckRelationRequest {
-  // object type
-  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
-  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
+  string object_id = 2 [(google.api.field_behavior) = OPTIONAL];
   // relation name
   string relation = 3 [(google.api.field_behavior) = REQUIRED];
   // subject type
   string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
   // subject identifier
-  string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
-  bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
-}
-
-message CheckRelationResponse {
-  // check result
-  bool check = 1;
-  // trace information
-  repeated string trace = 2;
-}
-
-message GetGraphRequest {
-  reserved 1, 2;
-  reserved "anchor_type", "anchor_id";
-
-  // object type
-  string object_type = 3 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
-  string object_id = 4 [(google.api.field_behavior) = OPTIONAL];
-  // relation name
-  string relation = 5 [(google.api.field_behavior) = REQUIRED];
-  // subject type
-  string subject_type = 6 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
-  string subject_id = 7 [(google.api.field_behavior) = OPTIONAL];
+  string subject_id = 5 [(google.api.field_behavior) = OPTIONAL];
   // subject relation
-  string subject_relation = 8 [(google.api.field_behavior) = OPTIONAL];
+  string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
   // return graph paths for each result
-  bool explain = 9 [(google.api.field_behavior) = OPTIONAL];
+  bool explain = 7 [(google.api.field_behavior) = OPTIONAL];
   // collect trace information
-  bool trace = 10 [(google.api.field_behavior) = OPTIONAL];
+  bool trace = 8 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetGraphResponse {
-  reserved 1;
-
   // matching object identifiers
-  repeated aserto.directory.common.v3.ObjectIdentifier results = 2;
+  repeated aserto.directory.common.v4.ObjectIdentifier results = 1;
   // explanation of results
-  google.protobuf.Struct explanation = 3;
+  google.protobuf.Struct explanation = 2;
   // trace information
-  repeated string trace = 4;
+  repeated string trace = 3;
+}
+
+message ExportRequest {
+  // data export options mask
+  uint32 options = 1;
+  // start export from timestamp (UTC)
+  google.protobuf.Timestamp start_from = 20;
+}
+
+message ExportResponse {
+  oneof msg {
+    // manifest
+    aserto.directory.common.v4.Manifest manifest = 1;
+    // model
+    aserto.directory.common.v4.Model model = 2;
+    // object
+    aserto.directory.common.v4.Object object = 3;
+    // relation
+    aserto.directory.common.v4.Relation relation = 4;
+    // stats
+    google.protobuf.Struct stats = 8;
+  }
+}
+
+enum Option {
+  // nothing selected (default initialization value)
+  OPTION_UNKNOWN = 0x0;
+  // manifest instances
+  OPTION_DATA_MANIFEST = 0x1;
+  // model instances
+  OPTION_DATA_MODEL = 0x2;
+  // object instances
+  OPTION_DATA_OBJECTS = 0x8;
+  // relation instances
+  OPTION_DATA_RELATIONS = 0x10;
+  // all data = OPTION_DATA_OBJECTS | OPTION_DATA_RELATIONS
+  OPTION_DATA = 0x18;
+  // stats
+  OPTION_STATS = 0x40;
 }
