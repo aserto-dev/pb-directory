@@ -10,12 +10,12 @@ GOOS               := $(shell go env GOOS)
 GOARCH             := $(shell go env GOARCH)
 GOPRIVATE          := "github.com/aserto-dev"
 
-BIN_DIR            := ./bin
-EXT_DIR            := ${PWD}./.ext
+BIN_DIR            := ${PWD}/bin
+EXT_DIR            := ${PWD}/.ext
 EXT_BIN_DIR        := ${EXT_DIR}/bin
 EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
-SVU_VER 	         := 3.3.0
+SVU_VER            := 3.3.0
 BUF_VER            := 1.61.0
 
 PROJECT            := directory
