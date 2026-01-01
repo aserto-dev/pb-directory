@@ -133,13 +133,25 @@ service Writer {
   rpc Import(stream ImportRequest) returns (stream ImportResponse) {}
 }
 
-message SetManifestRequest {}
+message SetManifestRequest {
+  // manifest body
+  bytes body = 1;
+}
 
-message SetManifestResponse {}
+message SetManifestResponse {
+  // manifest instance
+  aserto.directory.common.v4.Manifest result = 1;
+}
 
-message DeleteManifestRequest {}
+message DeleteManifestRequest {
+  // empty request
+  google.protobuf.Empty empty = 1;
+}
 
-message DeleteManifestResponse {}
+message DeleteManifestResponse {
+  // empty result
+  google.protobuf.Empty result = 1;
+}
 
 message SetObjectRequest {
   // object instance
