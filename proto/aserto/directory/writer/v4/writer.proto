@@ -1,0 +1,272 @@
+syntax = "proto3";
+
+package aserto.directory.writer.v4;
+
+import "aserto/directory/common/v4/common.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/aserto-dev/go-directory/aserto/directory/writer/v4;writer";
+
+// Directory Writer service
+service Writer {
+  // set manifest instance
+  rpc SetManifest(SetManifestRequest) returns (SetManifestResponse) {
+    option (google.api.http) = {
+      post: "/api/v4/directory/manifest"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Set manifest"
+      description: "Set manifest."
+      operation_id: "directory.writer.v4.manifest.set"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "AuthorizationHeader"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // delete manifest  instance
+  rpc DeleteManifest(DeleteManifestRequest) returns (DeleteManifestResponse) {
+    option (google.api.http) = {delete: "/api/v4/directory/manifest/{object_type}/{object_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Delete manifest"
+      description: "Delete manifest."
+      operation_id: "directory.writer.v4.manifest.delete"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "AuthorizationHeader"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // set object instance
+  rpc SetObject(SetObjectRequest) returns (SetObjectResponse) {
+    option (google.api.http) = {
+      post: "/api/v4/directory/object"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Set object"
+      description: "Set object."
+      operation_id: "directory.writer.v4.object.set"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "AuthorizationHeader"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // delete object instance
+  rpc DeleteObject(DeleteObjectRequest) returns (DeleteObjectResponse) {
+    option (google.api.http) = {delete: "/api/v4/directory/object/{object_type}/{object_id}"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Delete object"
+      description: "Delete object."
+      operation_id: "directory.writer.v4.object.delete"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "AuthorizationHeader"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // set relation instance
+  rpc SetRelation(SetRelationRequest) returns (SetRelationResponse) {
+    option (google.api.http) = {
+      post: "/api/v4/directory/relation"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Set relation"
+      description: "Set relation."
+      operation_id: "directory.writer.v4.relation.set"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "AuthorizationHeader"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // delete relation instance
+  rpc DeleteRelation(DeleteRelationRequest) returns (DeleteRelationResponse) {
+    option (google.api.http) = {delete: "/api/v4/directory/relation"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Delete relation"
+      description: "Delete relation."
+      operation_id: "directory.writer.v4.relation.delete"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "AuthorizationHeader"
+          value: {}
+        }
+      }
+    };
+  }
+
+  // import stream of objects and relations
+  rpc Import(stream ImportRequest) returns (stream ImportResponse) {}
+}
+
+message SetManifestRequest {
+  // manifest body
+  bytes body = 1;
+}
+
+message SetManifestResponse {
+  // manifest instance
+  aserto.directory.common.v4.Manifest result = 1;
+}
+
+message DeleteManifestRequest {
+  // empty request
+  google.protobuf.Empty empty = 1;
+}
+
+message DeleteManifestResponse {
+  // empty result
+  google.protobuf.Empty result = 1;
+}
+
+message SetObjectRequest {
+  // object instance
+  aserto.directory.common.v4.Object object = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message SetObjectResponse {
+  // object instance
+  aserto.directory.common.v4.Object result = 1;
+}
+
+message DeleteObjectRequest {
+  // object type
+  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
+  // object identifier
+  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // delete object relations, both object and subject relations.
+  bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message DeleteObjectResponse {
+  // empty result
+  google.protobuf.Empty result = 1;
+}
+
+message SetRelationRequest {
+  // relation instance
+  aserto.directory.common.v4.Relation relation = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message SetRelationResponse {
+  // relation instance
+  aserto.directory.common.v4.Relation result = 1;
+}
+
+message DeleteRelationRequest {
+  // object type
+  string object_type = 1 [(google.api.field_behavior) = REQUIRED];
+  // object identifier
+  string object_id = 2 [(google.api.field_behavior) = REQUIRED];
+  // object relation name
+  string relation = 3 [(google.api.field_behavior) = REQUIRED];
+  // subject type
+  string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
+  // subject identifier
+  string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
+  // optional subject relation name
+  string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message DeleteRelationResponse {
+  // empty result
+  google.protobuf.Empty result = 1;
+}
+
+message ImportRequest {
+  // operation Opcode enum value
+  Opcode op_code = 1;
+  oneof msg {
+    // manifest
+    aserto.directory.common.v4.Manifest manifest = 2;
+    // model
+    aserto.directory.common.v4.Manifest model = 3;
+    // object
+    aserto.directory.common.v4.Object object = 4;
+    // relation
+    aserto.directory.common.v4.Relation relation = 5;
+  }
+}
+
+message ImportResponse {
+  oneof msg {
+    // manifest
+    aserto.directory.common.v4.Manifest manifest = 1;
+    // model (GET only)
+    aserto.directory.common.v4.Manifest model = 2;
+    // object
+    aserto.directory.common.v4.Object object = 3;
+    // relation
+    aserto.directory.common.v4.Relation relation = 4;
+    // import status message
+    ImportStatus status = 5;
+    // import counter per type
+    ImportCounter counter = 6;
+  }
+}
+
+message ImportCounter {
+  // counter of type (manifest|model|object|relation)
+  string type = 1;
+  // number of messages received
+  uint64 recv = 2;
+  // number of messages with OPCODE_GET
+  uint64 get = 3;
+  // number of messages with OPCODE_SET
+  uint64 set = 4;
+  // number of messages with OPCODE_DELETE
+  uint64 delete = 5;
+  // number of messages resulting in error
+  uint64 error = 6;
+}
+
+enum Opcode {
+  OPCODE_UNKNOWN = 0;
+  OPCODE_GET = 1;
+  OPCODE_SET = 2;
+  OPCODE_DELETE = 3;
+  OPCODE_DELETE_WITH_RELATIONS = 4;
+}
+
+message ImportStatus {
+  // gRPC status code (google.golang.org/grpc/codes)
+  uint32 code = 1;
+  // gRPC status message (google.golang.org/grpc/status)
+  string msg = 2;
+  // req contains the original import request message
+  ImportRequest req = 3;
+}
