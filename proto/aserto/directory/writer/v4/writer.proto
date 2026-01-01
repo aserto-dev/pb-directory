@@ -26,7 +26,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -44,7 +44,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -65,7 +65,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -83,7 +83,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -104,7 +104,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -122,7 +122,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -131,7 +131,6 @@ service Writer {
 
   // import stream of objects and relations
   rpc Import(stream ImportRequest) returns (stream ImportResponse) {}
-
 }
 
 message SetManifestRequest {}
@@ -200,9 +199,9 @@ message ImportRequest {
   // operation Opcode enum value
   Opcode op_code = 1;
   oneof msg {
-    // manifest 
+    // manifest
     aserto.directory.common.v4.Manifest manifest = 2;
-    // model 
+    // model
     aserto.directory.common.v4.Manifest model = 3;
     // object
     aserto.directory.common.v4.Object object = 4;
@@ -213,7 +212,7 @@ message ImportRequest {
 
 message ImportResponse {
   oneof msg {
-    // manifest 
+    // manifest
     aserto.directory.common.v4.Manifest manifest = 1;
     // model (GET only)
     aserto.directory.common.v4.Manifest model = 2;

@@ -10,7 +10,7 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/common/
 
 // Manifest
 message Manifest {
-  // Manifest payload
+  // manifest payload
   bytes body = 1;
   // last updated timestamp (UTC)
   google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -20,7 +20,7 @@ message Manifest {
 
 // Model
 message Model {
-  // Model representation of manifest
+  // model representation of manifest
   google.protobuf.Struct model = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   // last updated timestamp (UTC)
   google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];

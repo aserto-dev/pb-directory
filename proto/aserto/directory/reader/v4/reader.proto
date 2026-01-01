@@ -25,7 +25,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -36,7 +36,7 @@ service Reader {
     };
   }
 
-    // get model
+  // get model
   rpc GetModel(GetModelRequest) returns (GetModelResponse) {
     option (google.api.http) = {get: "/api/v4/directory/model"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -47,7 +47,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -69,7 +69,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -94,7 +94,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -112,7 +112,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -137,7 +137,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -158,7 +158,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -179,7 +179,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -197,7 +197,7 @@ service Reader {
       deprecated: false
       security: {
         security_requirement: {
-          key: "Authorization"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -297,12 +297,12 @@ message GetRelationResponse {
 }
 
 message GetRelationsRequest {
-    // relation identifier list
+  // relation identifier list
   repeated aserto.directory.common.v4.RelationIdentifier param = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetRelationsResponse {
-    // array of relation instances
+  // array of relation instances
   repeated aserto.directory.common.v4.Relation results = 1;
 }
 

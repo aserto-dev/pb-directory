@@ -32,15 +32,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 
   security_definitions: {
     security: {
-      key: "TenantID"
-      value: {
-        type: TYPE_API_KEY
-        in: IN_HEADER
-        name: "aserto-tenant-id"
-      }
-    }
-    security: {
-      key: "DirectoryAPIKey"
+      key: "AuthorizationHeader"
       value: {
         type: TYPE_API_KEY
         in: IN_HEADER
@@ -50,11 +42,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   }
   security: {
     security_requirement: {
-      key: "DirectoryAPIKey"
-      value: {}
-    }
-    security_requirement: {
-      key: "TenantID"
+      key: "AuthorizationHeader"
       value: {}
     }
   }
