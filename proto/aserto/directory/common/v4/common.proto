@@ -14,7 +14,7 @@ message Manifest {
   bytes body = 1;
   // last updated timestamp (UTC)
   google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // manifest instance etag
+  // manifest instance etag  (optional)
   string etag = 23 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -30,67 +30,67 @@ message Model {
 
 // Object
 message Object {
-  // object type name
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // external object identifier (cs-string, no spaces or tabs)
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
-  // property bag
+  // property bag (optional)
   google.protobuf.Struct properties = 4 [(google.api.field_behavior) = OPTIONAL];
   // last updated timestamp (UTC)
   google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // object instance etag
+  // object instance etag (optional)
   string etag = 23 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Relation
 message Relation {
-  // object type
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // object relation name
   string relation = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
+  // subject type identifier
   string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
+  // subject instance identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // optional subject relation name
+  // subject relation name (optional)
   string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
   // last updated timestamp (UTC)
   google.protobuf.Timestamp updated_at = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
-  // object instance etag
+  // object instance etag (optional)
   string etag = 23 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Object identifier
 message ObjectIdentifier {
-  // object type (lc-string)
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier (cs-string)
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // Relation identifier
 message RelationIdentifier {
-  // object type
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // object relation name
   string relation = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
+  // subject type identifier
   string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
+  // subject instance identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // optional subject relation name
+  // subject relation name (optional)
   string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // Pagination request
 message PaginationRequest {
-  // requested page size, valid value between 1-100 rows (default 100)
+  // requested page size, valid value between 1-1000 rows (optional, default 100)
   int32 size = 1 [(google.api.field_behavior) = OPTIONAL];
-  // pagination start token, default ""
+  // pagination start token (optional default "")
   string token = 2 [(google.api.field_behavior) = OPTIONAL];
 }
 

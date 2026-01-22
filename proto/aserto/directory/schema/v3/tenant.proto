@@ -14,6 +14,7 @@ enum TenantKind {
 
 // Properties of a tenant object
 message TenantProperties {
+  option deprecated = true;
   // The kind of tenant.
   TenantKind kind = 1;
 
@@ -28,6 +29,7 @@ message TenantProperties {
 }
 
 message AccountProperties {
+  option deprecated = true;
   // Maximum number of organizations that can be created in this account.
   // If -1, there is no limit.
   int32 max_orgs = 1;
@@ -41,6 +43,7 @@ message AccountProperties {
 
 // The state of a user's progress through the console's getting started guide.
 message GuideState {
+  option deprecated = true;
   // Whether or not to display the getting started guide.
   bool show = 1;
 

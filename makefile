@@ -16,7 +16,7 @@ EXT_BIN_DIR        := ${EXT_DIR}/bin
 EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
 SVU_VER            := 3.3.0
-BUF_VER            := 1.62.1
+BUF_VER            := 1.63.0
 
 PROJECT            := directory
 BUF_REPO           := "buf.build/aserto-dev/${PROJECT}"
