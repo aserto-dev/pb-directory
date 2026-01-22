@@ -72,7 +72,7 @@ message RelationIdentifier {
 
 // Pagination request
 message PaginationRequest {
-  // requested page size, valid value between 1-100 rows (optional, default 100l
+  // requested page size, valid value between 1-100 rows (optional, default 100)
   int32 size = 1 [(google.api.field_behavior) = OPTIONAL];
   // pagination start token (optional, default "")
   string token = 2 [(google.api.field_behavior) = OPTIONAL];
