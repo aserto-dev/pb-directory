@@ -135,8 +135,8 @@ Pagination request
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| size | [int32](#int32) |  | requested page size, valid value between 1-100 rows (default 100, optional |
-| token | [string](#string) |  | pagination start token, default &#34;&#34; |
+| size | [int32](#int32) |  | requested page size, valid value between 1-100 rows (optional, default 100) |
+| token | [string](#string) |  | pagination start token (optional, default &#34;&#34;) |
 
 
 

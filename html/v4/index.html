@@ -603,14 +603,14 @@
                   <td>size</td>
                   <td><a href="#int32">int32</a></td>
                   <td></td>
-                  <td><p>requested page size, valid value between 1-100 rows (default 100, optional) </p></td>
+                  <td><p>requested page size, valid value between 1-1000 rows (optional, default 100) </p></td>
                 </tr>
               
                 <tr>
                   <td>token</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
-                  <td><p>pagination start token (default &#34;&#34;, optional) </p></td>
+                  <td><p>pagination start token (optional default &#34;&#34;) </p></td>
                 </tr>
               
             </tbody>
@@ -901,14 +901,14 @@
                   <td>default</td>
                   <td><a href="#aserto.directory.reader.v4.CheckRequest">CheckRequest</a></td>
                   <td></td>
-                  <td><p> </p></td>
+                  <td><p>default values </p></td>
                 </tr>
               
                 <tr>
                   <td>checks</td>
                   <td><a href="#aserto.directory.reader.v4.CheckRequest">CheckRequest</a></td>
                   <td>repeated</td>
-                  <td><p> </p></td>
+                  <td><p>array of check requests </p></td>
                 </tr>
               
             </tbody>
@@ -932,7 +932,7 @@
                   <td>checks</td>
                   <td><a href="#aserto.directory.reader.v4.CheckResponse">CheckResponse</a></td>
                   <td>repeated</td>
-                  <td><p> </p></td>
+                  <td><p>array of check responses </p></td>
                 </tr>
               
             </tbody>
@@ -1261,13 +1261,6 @@
                   <td><a href="#bool">bool</a></td>
                   <td></td>
                   <td><p>materialize the object relations objects (optional) </p></td>
-                </tr>
-              
-                <tr>
-                  <td>page</td>
-                  <td><a href="#aserto.directory.common.v4.PaginationRequest">aserto.directory.common.v4.PaginationRequest</a></td>
-                  <td></td>
-                  <td><p>pagination request (optional) </p></td>
                 </tr>
               
             </tbody>

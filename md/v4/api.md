@@ -154,8 +154,8 @@ Pagination request
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| size | [int32](#int32) |  | requested page size, valid value between 1-100 rows (default 100, optional) |
-| token | [string](#string) |  | pagination start token (default &#34;&#34;, optional) |
+| size | [int32](#int32) |  | requested page size, valid value between 1-1000 rows (optional, default 100) |
+| token | [string](#string) |  | pagination start token (optional default &#34;&#34;) |
 
 
 
@@ -280,8 +280,8 @@ Relation identifier
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| default | [CheckRequest](#aserto-directory-reader-v4-CheckRequest) |  |  |
-| checks | [CheckRequest](#aserto-directory-reader-v4-CheckRequest) | repeated |  |
+| default | [CheckRequest](#aserto-directory-reader-v4-CheckRequest) |  | default values |
+| checks | [CheckRequest](#aserto-directory-reader-v4-CheckRequest) | repeated | array of check requests |
 
 
 
@@ -296,7 +296,7 @@ Relation identifier
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| checks | [CheckResponse](#aserto-directory-reader-v4-CheckResponse) | repeated |  |
+| checks | [CheckResponse](#aserto-directory-reader-v4-CheckResponse) | repeated | array of check responses |
 
 
 
@@ -448,7 +448,6 @@ Relation identifier
 | object_type | [string](#string) |  | object type identifier |
 | object_id | [string](#string) |  | object instance identifier |
 | with_relations | [bool](#bool) |  | materialize the object relations objects (optional) |
-| page | [aserto.directory.common.v4.PaginationRequest](#aserto-directory-common-v4-PaginationRequest) |  | pagination request (optional) |
 
 
 
