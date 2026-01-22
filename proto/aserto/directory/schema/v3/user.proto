@@ -6,6 +6,7 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/
 
 // Properties of "user" objects.
 message UserProperties {
+  option deprecated = true;
   // main email address of user
   string email = 1;
   // URL to user's picture

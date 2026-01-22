@@ -135,7 +135,7 @@ service Reader {
     };
   }
 
-  // EXPERIMENTAL: checks validates a set of check requests in a single roundtrip
+  // checks validates a set of check requests in a single roundtrip
   rpc Checks(ChecksRequest) returns (ChecksResponse) {
     option (google.api.http) = {
       post: "/api/v3/directory/checks"
@@ -238,13 +238,13 @@ service Reader {
 }
 
 message GetObjectRequest {
-  // object type name (lc-string)
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier (cs-string)
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
-  // materialize the object relations objects
+  // materialize the object relations objects (optional)
   bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
-  // pagination request
+  // pagination request (optional)
   aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -268,9 +268,9 @@ message GetObjectManyResponse {
 }
 
 message GetObjectsRequest {
-  // object type name (lc-string)
+  // object type identifier (optional)
   string object_type = 1 [(google.api.field_behavior) = OPTIONAL];
-  // pagination request
+  // pagination request (optional)
   aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -282,19 +282,19 @@ message GetObjectsResponse {
 }
 
 message GetRelationRequest {
-  // object type
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // relation name
   string relation = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
+  // subject type identifier
   string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
+  // subject instance identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // optional subject relation name
+  // subject relation name (optional)
   string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
-  // materialize relation objects
+  // materialize relation objects (optional)
   bool with_objects = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -306,23 +306,23 @@ message GetRelationResponse {
 }
 
 message GetRelationsRequest {
-  // object type
+  // object type identifier (optional)
   string object_type = 1 [(google.api.field_behavior) = OPTIONAL];
-  // object identifier
+  // object instance identifier (optional)
   string object_id = 2 [(google.api.field_behavior) = OPTIONAL];
-  // relation name
+  // relation name (optional)
   string relation = 3 [(google.api.field_behavior) = OPTIONAL];
-  // subject type
+  // subject type identifier (optional)
   string subject_type = 4 [(google.api.field_behavior) = OPTIONAL];
-  // subject identifier
+  // subject instance identifier (optional)
   string subject_id = 5 [(google.api.field_behavior) = OPTIONAL];
-  // optional subject relation name
+  // subject relation name (optional)
   string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
-  // materialize relation objects
+  // materialize relation objects (optional)
   bool with_objects = 7 [(google.api.field_behavior) = OPTIONAL];
-  // only return relations that do not have a subject relation.
+  // only return relations that do not have a subject relation  (optional)
   bool with_empty_subject_relation = 8 [(google.api.field_behavior) = OPTIONAL];
-  // pagination request
+  // pagination request (optional)
   aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -336,17 +336,17 @@ message GetRelationsResponse {
 }
 
 message CheckRequest {
-  // object type
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // relation name
   string relation = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
+  // subject type identifier
   string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
+  // subject instance identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
+  // collect trace information (optional)
   bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -359,29 +359,27 @@ message CheckResponse {
   google.protobuf.Struct context = 3;
 }
 
-// EXPERIMENTAL
 message ChecksRequest {
   CheckRequest default = 1;
   repeated CheckRequest checks = 2;
 }
 
-// EXPERIMENTAL
 message ChecksResponse {
   repeated CheckResponse checks = 1;
 }
 
 message CheckPermissionRequest {
-  // object type
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // permission name
   string permission = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
+  // subject type identifier
   string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
+  // subject instance identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
+  // collect trace information (optional)
   bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -393,17 +391,17 @@ message CheckPermissionResponse {
 }
 
 message CheckRelationRequest {
-  // object type
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // relation name
   string relation = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
+  // subject type identifier
   string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
+  // subject instance identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // collect trace information
+  // collect trace information (optional)
   bool trace = 7 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -418,21 +416,21 @@ message GetGraphRequest {
   reserved 1, 2;
   reserved "anchor_type", "anchor_id";
 
-  // object type
+  // object type identifier
   string object_type = 3 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier (optional)
   string object_id = 4 [(google.api.field_behavior) = OPTIONAL];
   // relation name
   string relation = 5 [(google.api.field_behavior) = REQUIRED];
-  // subject type
+  // subject type identifier
   string subject_type = 6 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
+  // subject instance identifier (optional)
   string subject_id = 7 [(google.api.field_behavior) = OPTIONAL];
-  // subject relation
+  // subject relation name (optional)
   string subject_relation = 8 [(google.api.field_behavior) = OPTIONAL];
-  // return graph paths for each result
+  // return graph paths for each result (optional)
   bool explain = 9 [(google.api.field_behavior) = OPTIONAL];
-  // collect trace information
+  // collect trace information (optional)
   bool trace = 10 [(google.api.field_behavior) = OPTIONAL];
 }
 

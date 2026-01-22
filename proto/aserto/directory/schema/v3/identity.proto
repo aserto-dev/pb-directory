@@ -6,6 +6,7 @@ option go_package = "github.com/aserto-dev/go-directory/aserto/directory/schema/
 
 // Properties of "identity" objects.
 message IdentityProperties {
+  option deprecated = true;
   // identity kind [email|username|uid|pid|dn|phone]
   IdentityKind kind = 1;
   // identity provider name

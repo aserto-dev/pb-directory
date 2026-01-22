@@ -2,9 +2,11 @@ version: v2
 modules:
   - path: proto
     name: buf.build/aserto-dev/directory
+
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/grpc-ecosystem/grpc-gateway
+
 lint:
   use:
     - STANDARD
@@ -16,6 +18,7 @@ lint:
     - SERVICE_SUFFIX
   enum_zero_value_suffix: _UNKNOWN
   disallow_comment_ignores: true
+
 breaking:
   use:
     - FILE

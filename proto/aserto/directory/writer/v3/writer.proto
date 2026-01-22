@@ -117,11 +117,11 @@ message SetObjectResponse {
 }
 
 message DeleteObjectRequest {
-  // object type
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
-  // delete object relations, both object and subject relations.
+  // delete object relations, both object and subject relations  (optional)
   bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
 }
 
@@ -141,17 +141,17 @@ message SetRelationResponse {
 }
 
 message DeleteRelationRequest {
-  // object type
+  // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
-  // object identifier
+  // object instance identifier
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // object relation name
   string relation = 3 [(google.api.field_behavior) = REQUIRED];
-  // subject type
+  // subject type identifier
   string subject_type = 4 [(google.api.field_behavior) = REQUIRED];
-  // subject identifier
+  // subject instance identifier
   string subject_id = 5 [(google.api.field_behavior) = REQUIRED];
-  // optional subject relation name
+  // subject relation name  (optional)
   string subject_relation = 6 [(google.api.field_behavior) = OPTIONAL];
 }
 
