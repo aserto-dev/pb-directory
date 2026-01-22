@@ -235,8 +235,6 @@ message GetObjectRequest {
   string object_id = 2 [(google.api.field_behavior) = REQUIRED];
   // materialize the object relations objects (optional)
   bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
-  // pagination request (optional)
-  aserto.directory.common.v4.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
