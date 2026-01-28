@@ -238,6 +238,8 @@ service Reader {
 }
 
 message GetObjectRequest {
+  reserved 9;
+  reserved "page";
   // object type identifier
   string object_type = 1 [(google.api.field_behavior) = REQUIRED];
   // object instance identifier
@@ -245,16 +247,18 @@ message GetObjectRequest {
   // materialize the object relations objects (optional)
   bool with_relations = 3 [(google.api.field_behavior) = OPTIONAL];
   // pagination request (optional)
-  aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
+  // aserto.directory.common.v3.PaginationRequest page = 9 [(google.api.field_behavior) = OPTIONAL];
 }
 
 message GetObjectResponse {
+  reserved 9;
+  reserved "page";
   // object instance
   aserto.directory.common.v3.Object result = 1;
   // object relations
   repeated aserto.directory.common.v3.Relation relations = 4;
   // pagination response
-  aserto.directory.common.v3.PaginationResponse page = 9;
+  // aserto.directory.common.v3.PaginationResponse page = 9;
 }
 
 message GetObjectManyRequest {
