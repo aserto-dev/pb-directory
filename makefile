@@ -16,7 +16,7 @@ EXT_BIN_DIR        := ${EXT_DIR}/bin
 EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
 SVU_VER            := 3.3.0
-BUF_VER            := 1.63.0
+BUF_VER            := 1.64.0
 
 PROJECT            := directory
 BUF_REPO           := "buf.build/aserto-dev/${PROJECT}"
@@ -67,6 +67,16 @@ buf-breaking:
 buf-push:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
 	@${EXT_BIN_DIR}/buf push --label ${RELEASE_TAG}
+
+.PHONY: buf-generate
+buf-generate:
+	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
+	@find . -name 'buf.gen*.yaml' -exec ${EXT_BIN_DIR}/buf generate --template {} \;    
+
+.PHONY: buf-generate-dev
+buf-generate-dev:
+	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
+	@find . -name 'buf.gen*.yaml' -exec ${EXT_BIN_DIR}/buf generate --template {} ../${PROTO_REPO}/bin/${BUF_DEV_IMAGE} \;    
 
 .PHONY: info
 info:
