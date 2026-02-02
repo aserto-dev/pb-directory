@@ -25,11 +25,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -47,11 +43,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -72,11 +64,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "AuthorizationHeader"
           value: {}
         }
       }
@@ -94,11 +82,7 @@ service Writer {
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "AuthorizationHeader"
           value: {}
         }
       }

@@ -33,11 +33,7 @@ service Model {
     //     deprecated: false
     //     security: {
     //         security_requirement: {
-    //             key: "TenantID";
-    //             value: {}
-    //         }
-    //         security_requirement: {
-    //             key: "DirectoryAPIKey";
+    //             key: "AuthorizationHeader";
     //             value: {}
     //         }
     //     }
@@ -65,11 +61,7 @@ service Model {
     //     deprecated: false
     //     security: {
     //         security_requirement: {
-    //             key: "TenantID";
-    //             value: {}
-    //         }
-    //         security_requirement: {
-    //             key: "DirectoryAPIKey";
+    //             key: "AuthorizationHeader";
     //             value: {}
     //         }
     //     }
@@ -87,11 +79,7 @@ service Model {
       deprecated: false
       security: {
         security_requirement: {
-          key: "TenantID"
-          value: {}
-        }
-        security_requirement: {
-          key: "DirectoryAPIKey"
+          key: "AuthorizationHeader"
           value: {}
         }
       }

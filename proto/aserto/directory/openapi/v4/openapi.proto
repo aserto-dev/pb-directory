@@ -19,9 +19,10 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
       url: "https://github.com/aserto-dev/pb-directory/blob/main/LICENSE"
     }
   }
+
   external_docs: {
-    url: "https://docs.aserto.com"
-    description: "Aserto API Reference."
+    url: "https://github.com/aserto-dev/pb-directory/blob/main/html/index.html"
+    description: "Directory API Reference."
   }
 
   schemes: HTTP

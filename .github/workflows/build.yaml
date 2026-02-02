@@ -51,7 +51,6 @@ jobs:
           - { project: dotnet-directory }
           - { project: ruby-directory }
           - { project: python-directory }
-          - { project: openapi-directory }
           - { project: java-directory }
 
     name: Generate on ${{ matrix.cfg.project }}

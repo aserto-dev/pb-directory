@@ -17,6 +17,7 @@ EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
 SVU_VER            := 3.3.0
 BUF_VER            := 1.64.0
+MERGE-JSON_VER     := 0.1.6
 
 PROJECT            := directory
 BUF_REPO           := "buf.build/aserto-dev/${PROJECT}"
@@ -30,7 +31,7 @@ RELEASE_TAG        := $$(${EXT_BIN_DIR}/svu current)
 .DEFAULT_GOAL      := buf-build
 
 .PHONY: deps
-deps: info install-buf install-svu
+deps: info install-buf install-svu install-openapi-spec-converter install-merge-json
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
 
 .PHONY: buf-login
@@ -71,12 +72,14 @@ buf-push:
 .PHONY: buf-generate
 buf-generate:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@find . -name 'buf.gen*.yaml' -exec ${EXT_BIN_DIR}/buf generate --template {} \;    
+	@find . -name 'buf.gen*.yaml' -exec ${EXT_BIN_DIR}/buf generate --template {} \;
+	@${PWD}/scripts/upd-openapi.sh
 
 .PHONY: buf-generate-dev
 buf-generate-dev:
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
-	@find . -name 'buf.gen*.yaml' -exec ${EXT_BIN_DIR}/buf generate --template {} ../${PROTO_REPO}/bin/${BUF_DEV_IMAGE} \;    
+	@find . -name 'buf.gen*.yaml' -exec ${EXT_BIN_DIR}/buf generate --template {} ../${PROTO_REPO}/bin/${BUF_DEV_IMAGE} \;
+	@${PWD}/scripts/upd-openapi.sh
 
 .PHONY: info
 info:
@@ -105,6 +108,16 @@ install-svu: ${EXT_BIN_DIR}
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
 	@GOBIN=${EXT_BIN_DIR} go install github.com/caarlos0/svu/v3@v${SVU_VER}
 	@${EXT_BIN_DIR}/svu --version
+
+.PHONY: install-openapi-spec-converter
+install-openapi-spec-converter: ${EXT_BIN_DIR}
+	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
+	@GOBIN=${EXT_BIN_DIR} go install github.com/dense-analysis/openapi-spec-converter/cmd/openapi-spec-converter@latest
+
+.PHONY: install-merge-json
+install-merge-json: ${EXT_BIN_DIR}
+	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
+	@GOBIN=${EXT_BIN_DIR} go install github.com/topaz-authz/merge-json@v${MERGE-JSON_VER}
 
 .PHONY: clean
 clean:

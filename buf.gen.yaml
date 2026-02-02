@@ -13,3 +13,11 @@ plugins:
     out: ./html
     opt:
       - html,index.html
+
+  - remote: buf.build/grpc-ecosystem/openapiv2:v2.27.4
+    out: ./tmp
+    opt:
+      - json_names_for_fields=false  # use proto names.
+      - allow_delete_body=true       # DELETE requests may have a body.
+      - simple_operation_ids=true    # Remove service prefix from operation IDs.
+      - enable_rpc_deprecation=true  # process grpc method's deprecated options.
