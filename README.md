@@ -6,9 +6,7 @@ Directory Service protobuf & gRPC definitions
 
 * [Type Constraints](./docs/constraints.md)
 
-* [Directory v3 API](./md/v3/api.md) 
-
-* [Directory v4 API](./md/v4/api.md)
+* [Directory API](./docs/api.md) 
 
 * [API Change List v3 <=> v4](./docs/changelist.md)
 
@@ -27,5 +25,3 @@ Buf image is published to [https://buf.build/aserto-dev/directory](https://buf.b
 |Ruby      | X  | -  |[https://github.com/aserto-dev/ruby-directory](https://github.com/aserto-dev/ruby-directory)|
 |NodeJS    | X  | -  |[https://github.com/aserto-dev/node-directory](https://github.com/aserto-dev/node-directory)|
 |TypeScript| X  | -  |[https://github.com/aserto-dev/ts-directory](https://github.com/aserto-dev/ts-directory)|
-|Rust      | X  | -  |[https://github.com/aserto-dev/rs-directory](https://github.com/aserto-dev/rs-directory)|
-

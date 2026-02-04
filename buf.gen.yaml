@@ -1,0 +1,26 @@
+---
+version: v2
+
+clean: false
+
+plugins:
+  - remote: buf.build/community/pseudomuto-doc:v1.5.1
+    out: ./docs
+    opt: 
+      - markdown,api.md
+
+  - remote: buf.build/community/pseudomuto-doc:v1.5.1
+    out: ./html
+    opt:
+      - html,index.html
+
+  # use v2.27.4 to avoid breaking error incl v2.27.5 <-> v2.27.7, resulting in:
+  # Error converting document: Error converting Swagger to 3.0 failed to resolve "readerV4CheckRequest" 
+  # in fragment in URI: "#/components/schemas/readerV4CheckRequest": map key "readerV4CheckRequest" not found
+  - remote: buf.build/grpc-ecosystem/openapiv2:v2.27.4
+    out: ./tmp
+    opt:
+      - json_names_for_fields=false  # use proto names.
+      - allow_delete_body=true       # DELETE requests may have a body.
+      - simple_operation_ids=true    # Remove service prefix from operation IDs.
+      - enable_rpc_deprecation=true  # process grpc method's deprecated options.
