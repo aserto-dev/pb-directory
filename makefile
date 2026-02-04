@@ -50,7 +50,7 @@ buf-format:
 	@${EXT_BIN_DIR}/buf format -w proto
 
 .PHONY: buf-build
-buf-build: ${BIN_DIR}
+buf-build: ${BIN_DIR} buf-format 
 	@echo -e "$(ATTN_COLOR)==> $@ $(NO_COLOR)"
 	@${EXT_BIN_DIR}/buf build --output ${BIN_DIR}/${BUF_DEV_IMAGE}
 
