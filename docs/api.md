@@ -123,6 +123,10 @@
     - [Writer](#aserto-directory-writer-v3-Writer)
   
 - [aserto/directory/writer/v4/writer.proto](#aserto_directory_writer_v4_writer-proto)
+    - [BatchRequest](#aserto-directory-writer-v4-BatchRequest)
+    - [BatchRequests](#aserto-directory-writer-v4-BatchRequests)
+    - [BatchResponse](#aserto-directory-writer-v4-BatchResponse)
+    - [BatchResponses](#aserto-directory-writer-v4-BatchResponses)
     - [DeleteManifestRequest](#aserto-directory-writer-v4-DeleteManifestRequest)
     - [DeleteManifestResponse](#aserto-directory-writer-v4-DeleteManifestResponse)
     - [DeleteObjectRequest](#aserto-directory-writer-v4-DeleteObjectRequest)
@@ -1861,6 +1865,72 @@ Directory Reader service
 
 
 
+<a name="aserto-directory-writer-v4-BatchRequest"></a>
+
+### BatchRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| requests | [BatchRequests](#aserto-directory-writer-v4-BatchRequests) | repeated | requests collection |
+
+
+
+
+
+
+<a name="aserto-directory-writer-v4-BatchRequests"></a>
+
+### BatchRequests
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| set_object | [SetObjectRequest](#aserto-directory-writer-v4-SetObjectRequest) |  | set object request |
+| delete_object | [DeleteObjectRequest](#aserto-directory-writer-v4-DeleteObjectRequest) |  | delete object request |
+| set_relation | [SetRelationRequest](#aserto-directory-writer-v4-SetRelationRequest) |  | set relation request |
+| delete_relation | [DeleteRelationRequest](#aserto-directory-writer-v4-DeleteRelationRequest) |  | delete relation request |
+
+
+
+
+
+
+<a name="aserto-directory-writer-v4-BatchResponse"></a>
+
+### BatchResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| responses | [BatchResponses](#aserto-directory-writer-v4-BatchResponses) | repeated | responses collection |
+
+
+
+
+
+
+<a name="aserto-directory-writer-v4-BatchResponses"></a>
+
+### BatchResponses
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| set_object | [SetObjectResponse](#aserto-directory-writer-v4-SetObjectResponse) |  | set object request |
+| delete_object | [DeleteObjectResponse](#aserto-directory-writer-v4-DeleteObjectResponse) |  | delete object request |
+| set_relation | [SetRelationResponse](#aserto-directory-writer-v4-SetRelationResponse) |  | set relation request |
+| delete_relation | [DeleteRelationResponse](#aserto-directory-writer-v4-DeleteRelationResponse) |  | delete relation request |
+
+
+
+
+
+
 <a name="aserto-directory-writer-v4-DeleteManifestRequest"></a>
 
 ### DeleteManifestRequest
@@ -2158,6 +2228,7 @@ Directory Writer service
 | DeleteObject | [DeleteObjectRequest](#aserto-directory-writer-v4-DeleteObjectRequest) | [DeleteObjectResponse](#aserto-directory-writer-v4-DeleteObjectResponse) | delete object instance |
 | SetRelation | [SetRelationRequest](#aserto-directory-writer-v4-SetRelationRequest) | [SetRelationResponse](#aserto-directory-writer-v4-SetRelationResponse) | set relation instance |
 | DeleteRelation | [DeleteRelationRequest](#aserto-directory-writer-v4-DeleteRelationRequest) | [DeleteRelationResponse](#aserto-directory-writer-v4-DeleteRelationResponse) | delete relation instance |
+| Batch | [BatchRequest](#aserto-directory-writer-v4-BatchRequest) | [BatchResponse](#aserto-directory-writer-v4-BatchResponse) | batch a set of object and or relation based operations ((Set|Delete)|(Object|Relation)) in a single transaction |
 | Import | [ImportRequest](#aserto-directory-writer-v4-ImportRequest) stream | [ImportResponse](#aserto-directory-writer-v4-ImportResponse) stream | import stream of objects and relations |
 
  

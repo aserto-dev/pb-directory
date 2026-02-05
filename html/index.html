@@ -657,6 +657,22 @@
             <ul>
               
                 <li>
+                  <a href="#aserto.directory.writer.v4.BatchRequest"><span class="badge">M</span>BatchRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#aserto.directory.writer.v4.BatchRequests"><span class="badge">M</span>BatchRequests</a>
+                </li>
+              
+                <li>
+                  <a href="#aserto.directory.writer.v4.BatchResponse"><span class="badge">M</span>BatchResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#aserto.directory.writer.v4.BatchResponses"><span class="badge">M</span>BatchResponses</a>
+                </li>
+              
+                <li>
                   <a href="#aserto.directory.writer.v4.DeleteManifestRequest"><span class="badge">M</span>DeleteManifestRequest</a>
                 </li>
               
@@ -4840,6 +4856,144 @@ Deprecated: use directory.reader.v3.Check()</p></td>
       <p></p>
 
       
+        <h3 id="aserto.directory.writer.v4.BatchRequest">BatchRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>requests</td>
+                  <td><a href="#aserto.directory.writer.v4.BatchRequests">BatchRequests</a></td>
+                  <td>repeated</td>
+                  <td><p>requests collection </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="aserto.directory.writer.v4.BatchRequests">BatchRequests</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>set_object</td>
+                  <td><a href="#aserto.directory.writer.v4.SetObjectRequest">SetObjectRequest</a></td>
+                  <td></td>
+                  <td><p>set object request </p></td>
+                </tr>
+              
+                <tr>
+                  <td>delete_object</td>
+                  <td><a href="#aserto.directory.writer.v4.DeleteObjectRequest">DeleteObjectRequest</a></td>
+                  <td></td>
+                  <td><p>delete object request </p></td>
+                </tr>
+              
+                <tr>
+                  <td>set_relation</td>
+                  <td><a href="#aserto.directory.writer.v4.SetRelationRequest">SetRelationRequest</a></td>
+                  <td></td>
+                  <td><p>set relation request </p></td>
+                </tr>
+              
+                <tr>
+                  <td>delete_relation</td>
+                  <td><a href="#aserto.directory.writer.v4.DeleteRelationRequest">DeleteRelationRequest</a></td>
+                  <td></td>
+                  <td><p>delete relation request </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="aserto.directory.writer.v4.BatchResponse">BatchResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>responses</td>
+                  <td><a href="#aserto.directory.writer.v4.BatchResponses">BatchResponses</a></td>
+                  <td>repeated</td>
+                  <td><p>responses collection </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="aserto.directory.writer.v4.BatchResponses">BatchResponses</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>set_object</td>
+                  <td><a href="#aserto.directory.writer.v4.SetObjectResponse">SetObjectResponse</a></td>
+                  <td></td>
+                  <td><p>set object request </p></td>
+                </tr>
+              
+                <tr>
+                  <td>delete_object</td>
+                  <td><a href="#aserto.directory.writer.v4.DeleteObjectResponse">DeleteObjectResponse</a></td>
+                  <td></td>
+                  <td><p>delete object request </p></td>
+                </tr>
+              
+                <tr>
+                  <td>set_relation</td>
+                  <td><a href="#aserto.directory.writer.v4.SetRelationResponse">SetRelationResponse</a></td>
+                  <td></td>
+                  <td><p>set relation request </p></td>
+                </tr>
+              
+                <tr>
+                  <td>delete_relation</td>
+                  <td><a href="#aserto.directory.writer.v4.DeleteRelationResponse">DeleteRelationResponse</a></td>
+                  <td></td>
+                  <td><p>delete relation request </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="aserto.directory.writer.v4.DeleteManifestRequest">DeleteManifestRequest</h3>
         <p></p>
 
@@ -5483,6 +5637,13 @@ Deprecated: use directory.reader.v3.Check()</p></td>
               </tr>
             
               <tr>
+                <td>Batch</td>
+                <td><a href="#aserto.directory.writer.v4.BatchRequest">BatchRequest</a></td>
+                <td><a href="#aserto.directory.writer.v4.BatchResponse">BatchResponse</a></td>
+                <td><p>batch a set of object and or relation based operations ((Set|Delete)|(Object|Relation)) in a single transaction</p></td>
+              </tr>
+            
+              <tr>
                 <td>Import</td>
                 <td><a href="#aserto.directory.writer.v4.ImportRequest">ImportRequest</a> stream</td>
                 <td><a href="#aserto.directory.writer.v4.ImportResponse">ImportResponse</a> stream</td>
@@ -5563,6 +5724,16 @@ Deprecated: use directory.reader.v3.Check()</p></td>
                 <td>DeleteRelation</td>
                 <td>DELETE</td>
                 <td>/api/v4/directory/relation</td>
+                <td></td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>Batch</td>
+                <td>DELETE</td>
+                <td>/api/v4/directory/batch</td>
                 <td></td>
               </tr>
               

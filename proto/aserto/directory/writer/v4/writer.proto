@@ -129,6 +129,24 @@ service Writer {
     };
   }
 
+  // batch a set of object and or relation based operations ((Set|Delete)|(Object|Relation)) in a single transaction
+  rpc Batch(BatchRequest) returns (BatchResponse) {
+    option (google.api.http) = {delete: "/api/v4/directory/batch"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "directory"
+      summary: "Batch requests"
+      description: "Batch (set|delete)(object|relation) requests."
+      operation_id: "directory.writer.v4.batch"
+      deprecated: false
+      security: {
+        security_requirement: {
+          key: "AuthorizationHeader"
+          value: {}
+        }
+      }
+    };
+  }
+
   // import stream of objects and relations
   rpc Import(stream ImportRequest) returns (stream ImportResponse) {}
 }
@@ -205,6 +223,42 @@ message DeleteRelationRequest {
 message DeleteRelationResponse {
   // empty result
   google.protobuf.Empty result = 1;
+}
+
+message BatchRequest {
+  // requests collection
+  repeated BatchRequests requests = 1;
+}
+
+message BatchResponse {
+  // responses collection
+  repeated BatchResponses responses = 1;
+}
+
+message BatchRequests {
+  oneof msg {
+    // set object request
+    aserto.directory.writer.v4.SetObjectRequest set_object = 1;
+    // delete object request
+    aserto.directory.writer.v4.DeleteObjectRequest delete_object = 2;
+    // set relation request
+    aserto.directory.writer.v4.SetRelationRequest set_relation = 3;
+    // delete relation request
+    aserto.directory.writer.v4.DeleteRelationRequest delete_relation = 4;
+  }
+}
+
+message BatchResponses {
+  oneof msg {
+    // set object request
+    aserto.directory.writer.v4.SetObjectResponse set_object = 1;
+    // delete object request
+    aserto.directory.writer.v4.DeleteObjectResponse delete_object = 2;
+    // set relation request
+    aserto.directory.writer.v4.SetRelationResponse set_relation = 3;
+    // delete relation request
+    aserto.directory.writer.v4.DeleteRelationResponse delete_relation = 4;
+  }
 }
 
 message ImportRequest {

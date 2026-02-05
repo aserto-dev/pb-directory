@@ -718,6 +718,52 @@
         },
         "type": "object"
       },
+      "v4BatchRequests": {
+        "properties": {
+          "delete_object": {
+            "$ref": "#/components/schemas/writerv4DeleteObjectRequest"
+          },
+          "delete_relation": {
+            "$ref": "#/components/schemas/writerv4DeleteRelationRequest"
+          },
+          "set_object": {
+            "$ref": "#/components/schemas/writerv4SetObjectRequest"
+          },
+          "set_relation": {
+            "$ref": "#/components/schemas/writerv4SetRelationRequest"
+          }
+        },
+        "type": "object"
+      },
+      "v4BatchResponse": {
+        "properties": {
+          "responses": {
+            "items": {
+              "$ref": "#/components/schemas/v4BatchResponses"
+            },
+            "title": "responses collection",
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "v4BatchResponses": {
+        "properties": {
+          "delete_object": {
+            "$ref": "#/components/schemas/writerv4DeleteObjectResponse"
+          },
+          "delete_relation": {
+            "$ref": "#/components/schemas/writerv4DeleteRelationResponse"
+          },
+          "set_object": {
+            "$ref": "#/components/schemas/writerv4SetObjectResponse"
+          },
+          "set_relation": {
+            "$ref": "#/components/schemas/writerv4SetRelationResponse"
+          }
+        },
+        "type": "object"
+      },
       "v4GetModelResponse": {
         "properties": {
           "result": {
@@ -868,6 +914,27 @@
         },
         "type": "object"
       },
+      "writerv4DeleteObjectRequest": {
+        "properties": {
+          "object_id": {
+            "title": "object instance identifier",
+            "type": "string"
+          },
+          "object_type": {
+            "title": "object type identifier",
+            "type": "string"
+          },
+          "with_relations": {
+            "title": "delete object relations, both object and subject relations  (optional)",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "object_type",
+          "object_id"
+        ],
+        "type": "object"
+      },
       "writerv4DeleteObjectResponse": {
         "properties": {
           "result": {
@@ -875,6 +942,42 @@
             "type": "object"
           }
         },
+        "type": "object"
+      },
+      "writerv4DeleteRelationRequest": {
+        "properties": {
+          "object_id": {
+            "title": "object instance identifier",
+            "type": "string"
+          },
+          "object_type": {
+            "title": "object type identifier",
+            "type": "string"
+          },
+          "relation": {
+            "title": "object relation name",
+            "type": "string"
+          },
+          "subject_id": {
+            "title": "subject instance identifier",
+            "type": "string"
+          },
+          "subject_relation": {
+            "title": "subject relation name (optional)",
+            "type": "string"
+          },
+          "subject_type": {
+            "title": "subject type identifier",
+            "type": "string"
+          }
+        },
+        "required": [
+          "object_type",
+          "object_id",
+          "relation",
+          "subject_type",
+          "subject_id"
+        ],
         "type": "object"
       },
       "writerv4DeleteRelationResponse": {
@@ -1923,6 +2026,43 @@
           }
         ],
         "summary": "List relations instances",
+        "tags": [
+          "directory"
+        ]
+      }
+    },
+    "/api/v4/directory/batch": {
+      "delete": {
+        "description": "Batch (set|delete)(object|relation) requests.",
+        "operationId": "directory.writer.v4.batch",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v4BatchResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ],
+        "summary": "Batch requests",
         "tags": [
           "directory"
         ]
