@@ -101,9 +101,9 @@
 | ----- | ---- | ----- | ----------- |
 | type | [string](#string) |  | object type identifier |
 | id | [string](#string) |  | object instance identifier |
-| display_name | [string](#string) |  | display name object (optional) |
+| display_name | [string](#string) |  | **Deprecated.** display name object (optional) (DEPRECATED) |
 | properties | [google.protobuf.Struct](#google-protobuf-Struct) |  | property bag (optional) |
-| created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | created at timestamp (UTC) |
+| created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | **Deprecated.** created at timestamp (UTC) (DEPRECATED) |
 | updated_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | last updated timestamp (UTC) |
 | etag | [string](#string) |  | object instance etag (optional) |
 
@@ -173,7 +173,7 @@ Pagination response
 | subject_type | [string](#string) |  | subject type identifier |
 | subject_id | [string](#string) |  | subject instance identifier |
 | subject_relation | [string](#string) |  | subject relation name (optional) |
-| created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | created at timestamp (UTC) |
+| created_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | **Deprecated.** created at timestamp (UTC) (DEPRECATED) |
 | updated_at | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  | last updated timestamp (UTC) |
 | etag | [string](#string) |  | object instance etag (optional) |
 

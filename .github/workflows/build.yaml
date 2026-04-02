@@ -19,7 +19,7 @@ permissions:
   pull-requests: write
 
 env:
-  BUF_VERSION: "1.64.0"
+  BUF_VERSION: "1.66.1"
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       -
