@@ -342,11 +342,11 @@
         "properties": {
           "created_at": {
             "readOnly": true,
-            "title": "created at timestamp (UTC)",
+            "title": "created at timestamp (UTC) (DEPRECATED)",
             "type": "string"
           },
           "display_name": {
-            "title": "display name object (optional)",
+            "title": "display name object (optional) (DEPRECATED)",
             "type": "string"
           },
           "etag": {
@@ -425,7 +425,7 @@
         "properties": {
           "created_at": {
             "readOnly": true,
-            "title": "created at timestamp (UTC)",
+            "title": "created at timestamp (UTC) (DEPRECATED)",
             "type": "string"
           },
           "etag": {

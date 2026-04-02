@@ -8,7 +8,7 @@ Directory Service protobuf & gRPC definitions
 
 * [Directory API](./docs/api.md) 
 
-* [API Change List v3 <=> v4](./docs/changelist.md)
+* [API Change List](./docs/changelist.md)
 
 ## Publication:
 
@@ -16,12 +16,12 @@ Buf image is published to [https://buf.build/aserto-dev/directory](https://buf.b
 
 ## Implementations:
 
-|Language  | v3 | v4 |GitHub Repo|
-|----------|----|----|-----------|
-|Go        | X  | X  |[https://github.com/aserto-dev/go-directory](https://github.com/aserto-dev/go-directory)|
-|Java      | X  | -  |[https://github.com/aserto-dev/java-directory](https://github.com/aserto-dev/java-directory)|
-|Python    | X  | -  |[https://github.com/aserto-dev/python-directory](https://github.com/aserto-dev/python-directory)|
-|DotNet    | X  | -  |[https://github.com/aserto-dev/dotnet-directory](https://github.com/aserto-dev/dotnet-directory)|
-|Ruby      | X  | -  |[https://github.com/aserto-dev/ruby-directory](https://github.com/aserto-dev/ruby-directory)|
-|NodeJS    | X  | -  |[https://github.com/aserto-dev/node-directory](https://github.com/aserto-dev/node-directory)|
-|TypeScript| X  | -  |[https://github.com/aserto-dev/ts-directory](https://github.com/aserto-dev/ts-directory)|
+|Language  | v3 |GitHub Repo|
+|----------|----|-----------|
+|Go        | X  |[https://github.com/aserto-dev/go-directory](https://github.com/aserto-dev/go-directory)|
+|Java      | X  |[https://github.com/aserto-dev/java-directory](https://github.com/aserto-dev/java-directory)|
+|Python    | X  |[https://github.com/aserto-dev/python-directory](https://github.com/aserto-dev/python-directory)|
+|DotNet    | X  |[https://github.com/aserto-dev/dotnet-directory](https://github.com/aserto-dev/dotnet-directory)|
+|Ruby      | X  |[https://github.com/aserto-dev/ruby-directory](https://github.com/aserto-dev/ruby-directory)|
+|NodeJS    | X  |[https://github.com/aserto-dev/node-directory](https://github.com/aserto-dev/node-directory)|
+|TypeScript| X  |[https://github.com/aserto-dev/ts-directory](https://github.com/aserto-dev/ts-directory)|

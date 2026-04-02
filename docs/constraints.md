@@ -26,16 +26,6 @@ An ***instance identifier*** like the values of the `object_id` and `subject_id`
 	* Described in words:
 		* Cannot contain any spaces or any other whitespace characters
 
-### Etag fields (v4)
-
-The v4 `etag` fields must conform to the following constraints:
-
-* Minimum length of <TBD> characters
-* Maximum length of <TBD> characters
-* Regular Expression: `<TBD>`
-	* Described in words:
-		* <TBD>
-
 ### Etag fields (v3)
 
 The v3 `etag` fields must conform to the following constraints:
@@ -45,7 +35,7 @@ The v3 `etag` fields must conform to the following constraints:
 * All characters must be digits
 * Regular Expression `(?m)^\d{1,20}$` 
 
-### Object DisplayName field (v3 only, OBSOLETE in v4)
+### Object DisplayName field (v3 only, OBSOLETE in v3 release v0.	34.1)
 
 The v3 `Object` field `display_name` must to conform to the following constraints:
 
@@ -55,4 +45,4 @@ The v3 `Object` field `display_name` must to conform to the following constraint
 	* Described in words:
 		* Can only contain printable characters, can not contain angled brackets, ampersands, double quotes or other control characters
 
-NOTE: the `display_name` field has been removed `object` message from the `v4` schema. Existing instances will be migrated to a key-value pair in the `properties` field, using the `.display_name` key name.
+NOTE: the `display_name` field has been removed `object` message from the `v0.34.1` schema. Existing instances are migrated to a key-value pair in the `properties` field, using the `.display_name` key name, note the leader `.` (dot) added to the `display-name` field name.
