@@ -16,7 +16,7 @@ EXT_BIN_DIR        := ${EXT_DIR}/bin
 EXT_TMP_DIR        := ${EXT_DIR}/tmp
 
 SVU_VER            := 3.3.0
-BUF_VER            := 1.66.1
+BUF_VER            := 1.71.0
 MERGE-JSON_VER     := 0.1.6
 
 PROJECT            := directory

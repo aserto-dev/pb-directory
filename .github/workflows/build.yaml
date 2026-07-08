@@ -19,7 +19,7 @@ permissions:
   pull-requests: write
 
 env:
-  BUF_VERSION: "1.66.1"
+  BUF_VERSION: "1.71.0"
 
 jobs:
   build:
