@@ -78,11 +78,15 @@ service Reader {
     };
   }
 
-  // get multiple objects (deprecated, replace by batch)
-  rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {}
+  // get multiple objects (deprecated)
+  rpc GetObjectMany(GetObjectManyRequest) returns (GetObjectManyResponse) {
+    option deprecated = true;
+  }
 
   // get objects (deprecated, replaced by list objects)
-  rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {}
+  rpc GetObjects(GetObjectsRequest) returns (GetObjectsResponse) {
+    option deprecated = true;
+  }
 
   // list objects
   rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse) {
@@ -125,7 +129,9 @@ service Reader {
   }
 
   // get relations (deprecated replaced by list relations)
-  rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {}
+  rpc GetRelations(GetRelationsRequest) returns (GetRelationsResponse) {
+    option deprecated = true;
+  }
 
   // list relations
   rpc ListRelations(ListRelationsRequest) returns (ListRelationsResponse) {
