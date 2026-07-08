@@ -5,6 +5,7 @@ package aserto.directory.reader.v3;
 import "aserto/directory/common/v3/common.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
@@ -36,7 +37,7 @@ service Reader {
 
   // get model
   rpc GetModel(GetModelRequest) returns (GetModelResponse) {
-    option (google.api.http) = {get: "/api/v3/directory/model/{id}"};
+    option (google.api.http) = {get: "/api/v3/directory/model"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       tags: "directory"
       summary: "Get model"
@@ -269,7 +270,7 @@ message GetManifestResponse {
 }
 
 message GetModelRequest {
-  string id = 1;
+  google.protobuf.Empty result = 1;
 }
 
 message GetModelResponse {
