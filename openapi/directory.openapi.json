@@ -271,6 +271,22 @@
         },
         "type": "object"
       },
+      "v3GetManifestResponse": {
+        "properties": {
+          "manifest": {
+            "$ref": "#/components/schemas/v3Manifest"
+          }
+        },
+        "type": "object"
+      },
+      "v3GetModelResponse": {
+        "properties": {
+          "model": {
+            "$ref": "#/components/schemas/v3Model"
+          }
+        },
+        "type": "object"
+      },
       "v3GetObjectResponse": {
         "properties": {
           "relations": {
@@ -282,21 +298,6 @@
           },
           "result": {
             "$ref": "#/components/schemas/v3Object"
-          }
-        },
-        "type": "object"
-      },
-      "v3GetObjectsResponse": {
-        "properties": {
-          "page": {
-            "$ref": "#/components/schemas/v3PaginationResponse"
-          },
-          "results": {
-            "items": {
-              "$ref": "#/components/schemas/v3Object"
-            },
-            "title": "array of object instances",
-            "type": "array"
           }
         },
         "type": "object"
@@ -316,7 +317,22 @@
         },
         "type": "object"
       },
-      "v3GetRelationsResponse": {
+      "v3ListObjectsResponse": {
+        "properties": {
+          "page": {
+            "$ref": "#/components/schemas/v3PaginationResponse"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/v3Object"
+            },
+            "title": "array of object instances",
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "v3ListRelationsResponse": {
         "properties": {
           "objects": {
             "additionalProperties": {
@@ -336,6 +352,54 @@
             "type": "array"
           }
         },
+        "type": "object"
+      },
+      "v3Manifest": {
+        "properties": {
+          "content": {
+            "title": "manifest data stream",
+            "type": "string"
+          },
+          "etag": {
+            "readOnly": true,
+            "title": "object instance etag (optional)",
+            "type": "string"
+          },
+          "id": {
+            "title": "manifest identifier",
+            "type": "string"
+          },
+          "updated_at": {
+            "readOnly": true,
+            "title": "last updated timestamp (UTC)",
+            "type": "string"
+          }
+        },
+        "title": "Manifest",
+        "type": "object"
+      },
+      "v3Model": {
+        "properties": {
+          "content": {
+            "title": "model data stream",
+            "type": "string"
+          },
+          "etag": {
+            "readOnly": true,
+            "title": "object instance etag (optional)",
+            "type": "string"
+          },
+          "id": {
+            "title": "model identifier",
+            "type": "string"
+          },
+          "updated_at": {
+            "readOnly": true,
+            "title": "last updated timestamp (UTC)",
+            "type": "string"
+          }
+        },
+        "title": "Model",
         "type": "object"
       },
       "v3Object": {
@@ -469,6 +533,14 @@
           "subject_type",
           "subject_id"
         ],
+        "type": "object"
+      },
+      "v3SetManifestResponse": {
+        "properties": {
+          "manifest": {
+            "$ref": "#/components/schemas/v3Manifest"
+          }
+        },
         "type": "object"
       },
       "v3SetObjectRequest": {
@@ -884,6 +956,254 @@
         ]
       }
     },
+    "/api/v3/directory/manifest/{id}": {
+      "delete": {
+        "description": "Delete directory manifest.",
+        "operationId": "directory.v3.manifest.delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v3DeleteManifestResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "304": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Object not modified."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ],
+        "summary": "Delete manifest",
+        "tags": [
+          "directory"
+        ]
+      },
+      "get": {
+        "description": "Returns directory manifest.",
+        "operationId": "directory.reader.v3.manifest.get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v3GetManifestResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "304": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Object not modified."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ],
+        "summary": "Get manifest",
+        "tags": [
+          "directory"
+        ]
+      }
+    },
+    "/api/v3/directory/manifest/{manifest.id}": {
+      "post": {
+        "description": "Set directory manifest.",
+        "operationId": "directory.v3.manifest.set",
+        "parameters": [
+          {
+            "description": "manifest identifier",
+            "in": "path",
+            "name": "manifest.id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "content": {
+                    "title": "manifest data stream",
+                    "type": "string"
+                  },
+                  "etag": {
+                    "readOnly": true,
+                    "title": "object instance etag (optional)",
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "readOnly": true,
+                    "title": "last updated timestamp (UTC)",
+                    "type": "string"
+                  }
+                },
+                "title": "Manifest",
+                "type": "object"
+              }
+            }
+          },
+          "description": "Manifest",
+          "required": true,
+          "x-originalParamName": "manifest"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v3SetManifestResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "304": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Object not modified."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ],
+        "summary": "Set manifest",
+        "tags": [
+          "directory"
+        ]
+      }
+    },
+    "/api/v3/directory/model/{id}": {
+      "get": {
+        "description": "Returns directory model.",
+        "operationId": "directory.reader.v3.model.get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v3GetModelResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "304": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Object not modified."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "security": [
+          {
+            "AuthorizationHeader": []
+          }
+        ],
+        "summary": "Get model",
+        "tags": [
+          "directory"
+        ]
+      }
+    },
     "/api/v3/directory/object": {
       "post": {
         "description": "Set object.",
@@ -1071,7 +1391,7 @@
     "/api/v3/directory/objects": {
       "get": {
         "description": "Returns list of object instances.",
-        "operationId": "directory.reader.v3.objects.list",
+        "operationId": "directory.v3.objects.list",
         "parameters": [
           {
             "description": "object type identifier (optional)",
@@ -1104,7 +1424,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/v3GetObjectsResponse"
+                  "$ref": "#/components/schemas/v3ListObjectsResponse"
                 }
               }
             },
@@ -1379,7 +1699,7 @@
     "/api/v3/directory/relations": {
       "get": {
         "description": "Returns list of relation instances.",
-        "operationId": "directory.reader.v3.relations.list",
+        "operationId": "directory.v3.relations.list",
         "parameters": [
           {
             "description": "object type identifier (optional)",
@@ -1468,7 +1788,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/v3GetRelationsResponse"
+                  "$ref": "#/components/schemas/v3ListRelationsResponse"
                 }
               }
             },

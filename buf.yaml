@@ -1,7 +1,7 @@
 version: v2
 modules:
   - path: proto
-    name: buf.build/aserto-dev/directory
+    name: buf.build/topaz/directory
 
 deps:
   - buf.build/googleapis/googleapis
