@@ -887,7 +887,7 @@ Relation identifier
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
+| result | [google.protobuf.Empty](#google-protobuf-Empty) |  |  |
 
 
 

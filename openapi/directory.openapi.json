@@ -1149,17 +1149,16 @@
         ]
       }
     },
-    "/api/v3/directory/model/{id}": {
+    "/api/v3/directory/model": {
       "get": {
         "description": "Returns directory model.",
         "operationId": "directory.reader.v3.model.get",
         "parameters": [
           {
-            "in": "path",
-            "name": "id",
-            "required": true,
+            "in": "query",
+            "name": "result",
             "schema": {
-              "type": "string"
+              "type": "object"
             }
           }
         ],
