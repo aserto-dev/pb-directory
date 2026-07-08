@@ -1235,7 +1235,7 @@ Relation identifier
 | GetManifest | [GetManifestRequest](#aserto-directory-reader-v3-GetManifestRequest) | [GetManifestResponse](#aserto-directory-reader-v3-GetManifestResponse) | get manifest |
 | GetModel | [GetModelRequest](#aserto-directory-reader-v3-GetModelRequest) | [GetModelResponse](#aserto-directory-reader-v3-GetModelResponse) | get model |
 | GetObject | [GetObjectRequest](#aserto-directory-reader-v3-GetObjectRequest) | [GetObjectResponse](#aserto-directory-reader-v3-GetObjectResponse) | get object |
-| GetObjectMany | [GetObjectManyRequest](#aserto-directory-reader-v3-GetObjectManyRequest) | [GetObjectManyResponse](#aserto-directory-reader-v3-GetObjectManyResponse) | get multiple objects (deprecated, replace by batch) |
+| GetObjectMany | [GetObjectManyRequest](#aserto-directory-reader-v3-GetObjectManyRequest) | [GetObjectManyResponse](#aserto-directory-reader-v3-GetObjectManyResponse) | get multiple objects (deprecated) |
 | GetObjects | [GetObjectsRequest](#aserto-directory-reader-v3-GetObjectsRequest) | [GetObjectsResponse](#aserto-directory-reader-v3-GetObjectsResponse) | get objects (deprecated, replaced by list objects) |
 | ListObjects | [ListObjectsRequest](#aserto-directory-reader-v3-ListObjectsRequest) | [ListObjectsResponse](#aserto-directory-reader-v3-ListObjectsResponse) | list objects |
 | GetRelation | [GetRelationRequest](#aserto-directory-reader-v3-GetRelationRequest) | [GetRelationResponse](#aserto-directory-reader-v3-GetRelationResponse) | get relation |
